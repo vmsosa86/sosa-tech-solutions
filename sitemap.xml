@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- English - Homepage -->
+  <url>
+    <loc>https://sosatech.io/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sosatech.io/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://sosatech.io/es/"/>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Spanish - Homepage -->
+  <url>
+    <loc>https://sosatech.io/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sosatech.io/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://sosatech.io/es/"/>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services anchors (treated as content sections) -->
+  <url>
+    <loc>https://sosatech.io/#services</loc>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatech.io/#process</loc>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatech.io/#about</loc>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatech.io/#contact</loc>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
