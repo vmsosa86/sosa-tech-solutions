@@ -18,4 +18,4 @@ User-agent: Google-Extended
 Disallow: /
 
 # Sitemap location
-Sitemap: https://sosatech.io/sitemap.xml
+Sitemap: https://sosatechsolutions.com/sitemap.xml

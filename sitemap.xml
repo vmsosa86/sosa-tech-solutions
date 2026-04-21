@@ -4,9 +4,9 @@
 
   <!-- English - Homepage -->
   <url>
-    <loc>https://sosatech.io/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://sosatech.io/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://sosatech.io/es/"/>
+    <loc>https://sosatechsolutions.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sosatechsolutions.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://sosatechsolutions.com/es/"/>
     <lastmod>2026-04-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
@@ -14,9 +14,9 @@
 
   <!-- Spanish - Homepage -->
   <url>
-    <loc>https://sosatech.io/es/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://sosatech.io/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://sosatech.io/es/"/>
+    <loc>https://sosatechsolutions.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sosatechsolutions.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://sosatechsolutions.com/es/"/>
     <lastmod>2026-04-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -24,28 +24,28 @@
 
   <!-- Services anchors (treated as content sections) -->
   <url>
-    <loc>https://sosatech.io/#services</loc>
+    <loc>https://sosatechsolutions.com/#services</loc>
     <lastmod>2026-04-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://sosatech.io/#process</loc>
+    <loc>https://sosatechsolutions.com/#process</loc>
     <lastmod>2026-04-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://sosatech.io/#about</loc>
+    <loc>https://sosatechsolutions.com/#about</loc>
     <lastmod>2026-04-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://sosatech.io/#contact</loc>
+    <loc>https://sosatechsolutions.com/#contact</loc>
     <lastmod>2026-04-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
