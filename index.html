@@ -378,6 +378,7 @@
       body { cursor:auto; }
       #cursor,#cursor-ring { display:none; }
       /* Skip GSAP initial-hidden states on mobile — elements visible immediately */
+      nav,
       .reveal-line, .hero-eyebrow, .hero-slogan, .hero-sub, .hero-actions, .hero-visual,
       .section-tag, .service-card, .step, .process-visual, .terminal-line,
       .tag, .about-feature {
@@ -711,7 +712,13 @@ if (_isDesktop) {
     scrollTrigger: { trigger: '.about-tags', start: 'top 85%' }
   });
 
-} // end _isDesktop
+} else {
+  // Mobile: set stat values directly without animation
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const v = parseInt(el.dataset.count);
+    el.textContent = v < 10 ? v + '+' : v === 100 ? v : v + '+';
+  });
+}
 
   // ── LANGUAGE TOGGLE ──
   const translations = {
