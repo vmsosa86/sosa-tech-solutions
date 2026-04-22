@@ -377,6 +377,13 @@
       .nav-links { display:none; }
       body { cursor:auto; }
       #cursor,#cursor-ring { display:none; }
+      /* Skip GSAP initial-hidden states on mobile — elements visible immediately */
+      .reveal-line, .hero-eyebrow, .hero-slogan, .hero-sub, .hero-actions, .hero-visual,
+      .section-tag, .service-card, .step, .process-visual, .terminal-line,
+      .tag, .about-feature {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
   </style>
 </head>
@@ -590,6 +597,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
+const _isDesktop = window.innerWidth > 900;
+if (_isDesktop) {
   gsap.registerPlugin(ScrollTrigger);
 
   // ── CUSTOM CURSOR ──
@@ -701,6 +710,8 @@
     opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.6)', stagger: 0.06,
     scrollTrigger: { trigger: '.about-tags', start: 'top 85%' }
   });
+
+} // end _isDesktop
 
   // ── LANGUAGE TOGGLE ──
   const translations = {
