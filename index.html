@@ -310,6 +310,8 @@
     .submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
     .contact-alt { margin-top: 2rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--muted); }
     .contact-alt a { color: var(--cyan); text-decoration: none; }
+    .form-privacy { margin: 1rem auto 0; max-width: 760px; color: var(--muted); font-size: 0.78rem; line-height: 1.6; }
+    .form-privacy a { color: var(--cyan); }
 
     /* FOOTER */
     footer { background: var(--surface); border-top: 1px solid var(--border); padding: 2rem 5vw; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
@@ -576,6 +578,7 @@
         <div class="form-field full"><label data-i18n="f5.label">Tell Us About Your Project</label><textarea rows="4" name="message" id="f-message" data-i18n-ph="f5.ph" placeholder="What are you building? What's not working? What's your timeline?" required></textarea></div>
       </div>
       <button type="submit" class="submit-btn" data-i18n="contact.btn" id="contact-submit">Send Message →</button>
+      <p class="form-privacy" data-i18n="contact.privacy">By submitting this form, you agree to our <a href="/privacy-policy/">Privacy Policy</a> and <a href="/terms/">Terms of Service</a>.</p>
     </form>
     <div class="form-success" id="form-success">
       <div class="check">✅</div>
@@ -592,7 +595,7 @@
     <div class="footer-logo">Sosa<span>Tech</span> Solutions</div>
     <div class="footer-slogan">We build. You grow.</div>
   </div>
-  <div class="footer-copy">© 2026 Sosa Tech Solutions · Miami, FL</div>
+  <div class="footer-copy">© 2026 Sosa Tech Solutions · Miami, FL · <a href="/privacy-policy/" style="color:inherit;" data-i18n="footer.privacy">Privacy</a> · <a href="/data-deletion/" style="color:inherit;" data-i18n="footer.deletion">Data Deletion</a> · <a href="/terms/" style="color:inherit;" data-i18n="footer.terms">Terms</a></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -725,6 +728,8 @@ if (_isDesktop) {
     en: {
       'nav.services': 'Services', 'nav.process': 'Process', 'nav.about': 'About',
       'nav.contact': 'Contact', 'nav.cta': 'Get Started',
+      'contact.privacy': 'By submitting this form, you agree to our <a href="/privacy-policy/">Privacy Policy</a> and <a href="/terms/">Terms of Service</a>.',
+      'footer.privacy': 'Privacy', 'footer.deletion': 'Data Deletion', 'footer.terms': 'Terms',
       'hero.eyebrow': 'Miami-Based Tech Consulting',
       'hero.line1': 'Tech that', 'hero.line2': 'actually works', 'hero.line3': 'for your business.',
       'hero.slogan': 'We build. <span>You grow.</span>',
@@ -763,6 +768,8 @@ if (_isDesktop) {
     es: {
       'nav.services': 'Servicios', 'nav.process': 'Proceso', 'nav.about': 'Nosotros',
       'nav.contact': 'Contacto', 'nav.cta': 'Empezar',
+      'contact.privacy': 'Al enviar este formulario, aceptas nuestra <a href="/privacy-policy/?lang=es">Política de Privacidad</a> y los <a href="/terms/?lang=es">Términos de Servicio</a>.',
+      'footer.privacy': 'Privacidad', 'footer.deletion': 'Eliminar Datos', 'footer.terms': 'Términos',
       'hero.eyebrow': 'Consultoría Tech · Miami',
       'hero.line1': 'Tecnología que', 'hero.line2': 'realmente funciona', 'hero.line3': 'para tu negocio.',
       'hero.slogan': 'Nosotros construimos. <span>Tú creces.</span>',

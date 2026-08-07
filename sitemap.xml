@@ -22,6 +22,28 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- Legal pages -->
+  <url>
+    <loc>https://sosatechsolutions.com/privacy-policy/</loc>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatechsolutions.com/data-deletion/</loc>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatechsolutions.com/terms/</loc>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
   <!-- Services anchors (treated as content sections) -->
   <url>
     <loc>https://sosatechsolutions.com/#services</loc>
