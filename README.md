@@ -70,6 +70,8 @@ KIE_API_KEY='...' python3 scripts/kie_generate_brand_sources.py \
 
 Never place API keys, Meta tokens, decrypted n8n credentials, client data, or customer messages in this repository.
 
+This GitHub repository is currently public. The deploy allowlist prevents working files from entering the website document root, but it does not make committed files private on GitHub. Store confidential strategy, customer material, credentials, and private operations only in an approved private repository or secured VPS path.
+
 ## Key files
 
 ```text
@@ -99,9 +101,20 @@ When the correct data source exists, validate PageView, Contact, Lead, and booke
 - GitHub: `vmsosa86/sosa-tech-solutions`
 - Branch: `main`
 - Public URL: `https://sosatechsolutions.com/`
+- Hostinger source checkout: `/home/u876565679/site-sources/sosa-tech-solutions`
 - Hostinger document root: `/home/u876565679/domains/sosatechsolutions.com/public_html`
 
-Deploy through an intentional Git commit and fast-forward the Hostinger checkout to that exact commit. Verify the homepage, legal pages, blog, sitemap, social preview image, and contact/WhatsApp links after deployment.
+The repository is not the document root. `deploy/public-files.txt` is the explicit public allowlist, and `scripts/build_public_site.sh` creates the ignored `.deploy/public/` artifact. Brand working files, source illustrations, voiceovers, renderers, plans, and repository metadata never enter the web root.
+
+Deploy an intentional commit from the Hostinger source checkout:
+
+```bash
+git pull --ff-only origin main
+bash scripts/deploy_hostinger.sh --dry-run
+bash scripts/deploy_hostinger.sh --apply
+```
+
+The apply step creates a timestamped pre-deploy backup under `/home/u876565679/site-backups/`, then synchronizes only the allowlisted public output. Verify the homepage, legal pages, blog, sitemap, social preview image, public campaign media, and contact/WhatsApp links afterward.
 
 ## Contact
 

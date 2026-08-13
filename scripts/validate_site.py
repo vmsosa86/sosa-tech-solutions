@@ -3,13 +3,14 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 import xml.etree.ElementTree as ET
 
-ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_PATTERNS = [
     "index.html",
     "privacy-policy/index.html",
@@ -66,14 +67,14 @@ class PageParser(HTMLParser):
             self._json_buffer.append(data)
 
 
-def public_pages() -> list[Path]:
+def public_pages(root: Path) -> list[Path]:
     pages: set[Path] = set()
     for pattern in PUBLIC_PATTERNS:
-        pages.update(ROOT.glob(pattern))
+        pages.update(root.glob(pattern))
     return sorted(pages)
 
 
-def resolve_local(reference: str) -> Path | None:
+def resolve_local(reference: str, root: Path) -> Path | None:
     if reference.startswith(("#", "mailto:", "tel:", "javascript:", "data:")):
         return None
     parsed = urlparse(reference)
@@ -82,20 +83,24 @@ def resolve_local(reference: str) -> Path | None:
     path = unquote(parsed.path)
     if not path:
         return None
-    target = ROOT / path.lstrip("/")
+    target = root / path.lstrip("/")
     if path.endswith("/") or not target.suffix:
         target /= "index.html"
     return target
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--root", type=Path, default=DEFAULT_ROOT)
+    args = parser.parse_args()
+    root = args.root.resolve()
     errors: list[str] = []
-    pages = public_pages()
+    pages = public_pages(root)
     expected_canonicals: set[str] = set()
     for path in pages:
         parser = PageParser()
         parser.feed(path.read_text(encoding="utf-8"))
-        rel = path.relative_to(ROOT)
+        rel = path.relative_to(root)
         if not (10 <= len(parser.title.strip()) <= 70):
             errors.append(f"{rel}: title length {len(parser.title.strip())}")
         if not (70 <= len(parser.description.strip()) <= 165):
@@ -113,17 +118,17 @@ def main() -> int:
             except json.JSONDecodeError as exc:
                 errors.append(f"{rel}: JSON-LD {index}: {exc}")
         for reference in parser.links:
-            target = resolve_local(reference)
+            target = resolve_local(reference, root)
             if target and not target.exists():
                 errors.append(f"{rel}: missing local target {reference}")
 
-    sitemap = ET.parse(ROOT / "sitemap.xml")
+    sitemap = ET.parse(root / "sitemap.xml")
     namespace = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     sitemap_urls = {node.text.strip() for node in sitemap.findall("s:url/s:loc", namespace) if node.text}
     for url in sitemap_urls:
         if "#" in url:
             errors.append(f"sitemap.xml: fragment URL {url}")
-        local = resolve_local(url.replace("https://sosatechsolutions.com", ""))
+        local = resolve_local(url.replace("https://sosatechsolutions.com", ""), root)
         if local and not local.exists():
             errors.append(f"sitemap.xml: missing page {url}")
     for canonical in expected_canonicals:

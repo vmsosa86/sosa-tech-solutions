@@ -1,0 +1,13 @@
+# Public website allowlist. Paths are relative to the repository root.
+index.html
+favicon.ico
+og-image.png
+robots.txt
+sitemap.xml
+assets
+blog
+services
+privacy-policy
+data-deletion
+terms
+content/assets/social

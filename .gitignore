@@ -4,6 +4,7 @@ Thumbs.db
 __pycache__/
 *.pyc
 tmp/
+.deploy/
 
 # Local QA and intermediate media. Keep final PDFs versioned.
 output/*
