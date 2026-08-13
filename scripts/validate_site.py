@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """Validate public Sosa Tech pages, local links, metadata, and structured data."""
 
-from __future__ import annotations
-
 import argparse
 import json
 from html.parser import HTMLParser
 from pathlib import Path
+from typing import List, Optional, Set
 from urllib.parse import unquote, urlparse
 import xml.etree.ElementTree as ET
 
@@ -30,10 +29,10 @@ class PageParser(HTMLParser):
         self.h1 = 0
         self.description = ""
         self.canonical = ""
-        self.links: list[str] = []
-        self.json_ld: list[str] = []
+        self.links = []  # type: List[str]
+        self.json_ld = []  # type: List[str]
         self._in_json_ld = False
-        self._json_buffer: list[str] = []
+        self._json_buffer = []  # type: List[str]
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
@@ -67,14 +66,14 @@ class PageParser(HTMLParser):
             self._json_buffer.append(data)
 
 
-def public_pages(root: Path) -> list[Path]:
-    pages: set[Path] = set()
+def public_pages(root: Path) -> List[Path]:
+    pages = set()  # type: Set[Path]
     for pattern in PUBLIC_PATTERNS:
         pages.update(root.glob(pattern))
     return sorted(pages)
 
 
-def resolve_local(reference: str, root: Path) -> Path | None:
+def resolve_local(reference: str, root: Path) -> Optional[Path]:
     if reference.startswith(("#", "mailto:", "tel:", "javascript:", "data:")):
         return None
     parsed = urlparse(reference)
@@ -94,9 +93,9 @@ def main() -> int:
     parser.add_argument("--root", type=Path, default=DEFAULT_ROOT)
     args = parser.parse_args()
     root = args.root.resolve()
-    errors: list[str] = []
+    errors = []  # type: List[str]
     pages = public_pages(root)
-    expected_canonicals: set[str] = set()
+    expected_canonicals = set()  # type: Set[str]
     for path in pages:
         parser = PageParser()
         parser.feed(path.read_text(encoding="utf-8"))
