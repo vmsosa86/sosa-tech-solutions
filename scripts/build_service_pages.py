@@ -63,6 +63,32 @@ OFFERS = [
         ],
     },
     {
+        "slug": "content-engine",
+        "name": "Create & Publish",
+        "name_es": "Crear y Publicar",
+        "title": "Consistent content with <em>your approval built in.</em>",
+        "title_es": "Contenido constante con <em>tu aprobación incluida.</em>",
+        "meta": "AI-assisted social media content creation and scheduling for Miami small businesses, with bilingual posts, Reels, human approval, and verified publishing.",
+        "meta_es": "Creación y programación de contenido para redes con IA para pequeños negocios en Miami, con posts bilingües, Reels, aprobación humana y publicación verificada.",
+        "intro": "We turn your audience, offers, brand rules, and real business moments into a repeatable content cycle—without letting an AI publish on its own.",
+        "intro_es": "Convertimos tu público, ofertas, reglas de marca y momentos reales del negocio en un ciclo de contenido constante, sin dejar que una IA publique por su cuenta.",
+        "signal": "IDEA -> APPROVAL -> PUBLISH -> LEARN",
+        "outcomes": [
+            ("A usable content plan", "Organize themes, formats, offers, local moments, and calls to action into a calendar the owner can understand.", "Un plan de contenido útil", "Organizamos temas, formatos, ofertas, momentos locales y llamadas a la acción en un calendario fácil de entender."),
+            ("Faster production", "Use AI to assist with bilingual captions, visual directions, carousels, and Reel scripts while following defined brand rules.", "Producción más rápida", "Usamos IA para ayudar con textos bilingües, dirección visual, carruseles y guiones para Reels siguiendo reglas de marca."),
+            ("Controlled publishing", "Require human approval, schedule approved assets, verify Facebook and Instagram delivery, and surface failures.", "Publicación controlada", "Exigimos aprobación humana, programamos lo aprobado, verificamos la entrega en Facebook e Instagram y mostramos las fallas."),
+        ],
+        "proof": [
+            ("Approval before public action", "Creative review stays separate from publishing permissions, so a draft cannot become public by accident.", "Aprobación antes de publicar", "La revisión creativa se mantiene separada del permiso de publicación para evitar que un borrador se haga público por accidente."),
+            ("A measurable learning loop", "Track the content, destination, publication status, and useful response signals so the next cycle has evidence behind it.", "Un ciclo de aprendizaje medible", "Registramos contenido, destino, estado de publicación y señales útiles para mejorar el próximo ciclo con evidencia."),
+        ],
+        "faq": [
+            ("Does AI publish without our approval?", "No. Human approval is the default control before public scheduling or publishing. The approval owner and process are defined during setup.", "¿La IA publica sin nuestra aprobación?", "No. La aprobación humana es el control predeterminado antes de programar o publicar. El responsable y el proceso se definen durante la configuración."),
+            ("Can the content be in English and Spanish?", "Yes. We can produce English, Spanish, or bilingual variants based on the audience and channel instead of forcing one translation everywhere.", "¿El contenido puede ser en inglés y español?", "Sí. Podemos crear versiones en inglés, español o bilingües según el público y el canal, sin imponer la misma traducción en todas partes."),
+            ("Can you create Reels and ads too?", "Yes. The system can include concepts, scripts, shot lists, editing direction, static assets, Reels, and approved organic ideas prepared for paid testing. Ad spend and activation remain separately approved.", "¿También pueden crear Reels y anuncios?", "Sí. El sistema puede incluir conceptos, guiones, listas de tomas, edición, imágenes, Reels e ideas orgánicas listas para probar como anuncios. El presupuesto y la activación se aprueban por separado."),
+        ],
+    },
+    {
         "slug": "marketing",
         "name": "Reach & Grow",
         "name_es": "Alcanzar y Crecer",
@@ -192,14 +218,14 @@ def render(offer: dict) -> str:
 <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False, separators=(',', ':'))}</script>
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
-<nav aria-label="Main navigation"><a class="brand" href="/"><strong>Sosa<span>Tech</span></strong><small>We build. You grow.</small></a><div class="nav-actions"><div class="lang" role="group" aria-label="Language"><button type="button" data-set-lang="en" aria-pressed="true">EN</button><button type="button" data-set-lang="es" aria-pressed="false">ES</button></div><a class="nav-cta" href="/#contact">{both('Free Systems Review','Revisión Gratuita')}</a></div></nav>
+<nav aria-label="Main navigation"><a class="brand" href="/"><strong>Sosa<span>Tech</span></strong><small>We build. You grow.</small></a><div class="nav-actions"><div class="lang" role="group" aria-label="Language"><button type="button" data-set-lang="en" aria-pressed="true">EN</button><button type="button" data-set-lang="es" aria-pressed="false">ES</button></div><a class="nav-cta" href="/#contact">{both('Free Lead-Flow Review','Revisión Gratuita')}</a></div></nav>
 <main id="main">
-<header class="hero"><div><div class="label">{both(offer['name'], offer['name_es'])}</div><h1>{both(offer['title'], offer['title_es'])}</h1><p class="hero-copy">{both(offer['meta'], offer['meta_es'])}</p><div class="actions"><a class="primary" href="/#contact">{both('Book a Free Systems Review','Solicita una Revisión Gratuita')}</a><a class="secondary" href="https://wa.me/13057415702" target="_blank" rel="noopener noreferrer">{both('Message us on WhatsApp ->','Escríbenos por WhatsApp ->')}</a></div></div><div class="signal" aria-hidden="true"><strong>{offer['signal']}</strong></div></header>
+<header class="hero"><div><div class="label">{both(offer['name'], offer['name_es'])}</div><h1>{both(offer['title'], offer['title_es'])}</h1><p class="hero-copy">{both(offer['meta'], offer['meta_es'])}</p><div class="actions"><a class="primary" href="/#contact">{both('Book a Free Lead-Flow Review','Solicita una Revisión Gratuita')}</a><a class="secondary" href="https://wa.me/13057415702" target="_blank" rel="noopener noreferrer">{both('Message us on WhatsApp ->','Escríbenos por WhatsApp ->')}</a></div></div><div class="signal" aria-hidden="true"><strong>{offer['signal']}</strong></div></header>
 <section class="intro"><div><div class="label">{both('The useful outcome','El resultado útil')}</div><h2>{both('Start with the result.','Empieza con el resultado.')}</h2></div><div><p class="lead">{both(offer['intro'], offer['intro_es'])}</p><div class="outcomes">{outcomes}</div></div></section>
 <section class="process"><div><div class="label">{both('How we work','Cómo trabajamos')}</div><h2>{both('Simple process.<br>Real responsibility.','Proceso simple.<br>Responsabilidad real.')}</h2></div><div class="steps">{steps}</div></section>
 <section class="proof"><div class="label">{both('Systems we operate','Sistemas que operamos')}</div><h2>{both('Credibility without<br>invented results.','Credibilidad sin<br>resultados inventados.')}</h2><div class="proof-grid">{proof}</div></section>
 <section class="faq"><div><div class="label">FAQ</div><h2>{both('Clear answers<br>before we build.','Respuestas claras<br>antes de construir.')}</h2></div><div class="faq-list">{faq}</div></section>
-<section class="cta"><div><div class="label">{both('Free systems review','Revisión gratuita de sistemas')}</div><h2>{both('Show us where the process gets stuck.','Muéstranos dónde se atasca el proceso.')}</h2></div><a class="primary" href="/#contact">{both('Book the review ->','Solicitar revisión ->')}</a></section>
+<section class="cta"><div><div class="label">{both('Free lead-flow review','Revisión gratuita del flujo')}</div><h2>{both('Show us where the process gets stuck.','Muéstranos dónde se atasca el proceso.')}</h2></div><a class="primary" href="/#contact">{both('Book the review ->','Solicitar revisión ->')}</a></section>
 <section class="more"><div class="label">{both('Explore capabilities','Explora capacidades')}</div><div class="more-grid">{more}</div></section>
 </main>
 <footer><span>© 2026 Sosa Tech Solutions · Miami, Florida</span><span><a href="/privacy-policy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/blog/">Blog</a></span></footer>

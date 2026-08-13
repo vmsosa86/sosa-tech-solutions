@@ -2,7 +2,7 @@
 
 The public Sosa Tech Solutions website and its reusable brand/content production system.
 
-**Positioning:** connected websites, WhatsApp automation, AI workflows, marketing systems, reliable infrastructure, and streaming for small businesses.
+**Positioning:** connected websites, WhatsApp automation, approval-based AI content, marketing systems, reliable infrastructure, and streaming for small businesses.
 
 **Market:** Miami and South Florida, English and Spanish.
 
@@ -13,8 +13,8 @@ The public Sosa Tech Solutions website and its reusable brand/content production
 The site is static HTML/CSS/JavaScript with no build step. It includes:
 
 - Bilingual English/Spanish homepage and legal pages.
-- Five outcome-based offers and evidence-backed operational proof.
-- Free systems-review contact funnel and WhatsApp CTA.
+- Six outcome-based offers and evidence-backed operational proof.
+- Free lead-flow review contact funnel and WhatsApp CTA.
 - First-touch UTM capture in the contact form.
 - LocalBusiness, Organization, WebSite, and FAQ structured data.
 - Accessible colors, visible keyboard focus, and reduced-motion support.
