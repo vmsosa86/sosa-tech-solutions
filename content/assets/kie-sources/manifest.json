@@ -1,0 +1,29 @@
+[
+  {
+    "name": "connected-lead-flow",
+    "task_id": "173acbd35baea5f954323940df1c9a16",
+    "model": "nano-banana-2",
+    "aspect_ratio": "4:5",
+    "prompt": "Premium editorial technology illustration for a bilingual Miami small-business technology consultancy. Carbon-black background #080A0F, restrained electric-teal #00E5C8 signal paths, graphite #131820 panels, subtle technical grid, clean negative space, realistic depth, precise modern lighting, one clear focal point, practical business technology rather than science fiction, no typography, no letters, no numbers, no logos, no watermark. A visual journey beginning with one incoming customer inquiry on the left, flowing through three clean connected system nodes, and arriving at a clear completed follow-up state on the right. Use abstract cards and signal paths only; no recognizable app interfaces. Leave generous dark negative space in the upper third for a headline overlay.",
+    "source_url": "https://tempfile.aiquickdraw.com/workers/images/image_0ff93d1308b5e8cd90964368c24f2145.png",
+    "output": "connected-lead-flow.png"
+  },
+  {
+    "name": "automation-routing",
+    "task_id": "bb6761d4da39a357260e0c07123cd760",
+    "model": "nano-banana-2",
+    "aspect_ratio": "4:5",
+    "prompt": "Premium editorial technology illustration for a bilingual Miami small-business technology consultancy. Carbon-black background #080A0F, restrained electric-teal #00E5C8 signal paths, graphite #131820 panels, subtle technical grid, clean negative space, realistic depth, precise modern lighting, one clear focal point, practical business technology rather than science fiction, no typography, no letters, no numbers, no logos, no watermark. A precise automation routing scene: one customer message enters, then branches into contact update, team notification, scheduled action, and visible status. Represent it as elegant abstract nodes and panels, not a real application. Leave negative space on the left for copy.",
+    "source_url": "https://tempfile.aiquickdraw.com/workers/images/image_aeeb2802b5210cbf4b2bcca1346ac0de.png",
+    "output": "automation-routing.png"
+  },
+  {
+    "name": "reliable-infrastructure",
+    "task_id": "9ee6e7f556d9cd977c1c3b15e1117cc3",
+    "model": "nano-banana-2",
+    "aspect_ratio": "4:5",
+    "prompt": "Premium editorial technology illustration for a bilingual Miami small-business technology consultancy. Carbon-black background #080A0F, restrained electric-teal #00E5C8 signal paths, graphite #131820 panels, subtle technical grid, clean negative space, realistic depth, precise modern lighting, one clear focal point, practical business technology rather than science fiction, no typography, no letters, no numbers, no logos, no watermark. A calm reliable infrastructure scene with a primary server node, an encrypted off-site backup path, a monitoring signal, and a verified recovery loop. Sophisticated and reassuring, not a data-center stock photo. Leave negative space in the upper-left for copy.",
+    "source_url": "https://tempfile.aiquickdraw.com/workers/images/image_bf717e6a59030ff99ffab79bd93dc67f.png",
+    "output": "reliable-infrastructure.png"
+  }
+]

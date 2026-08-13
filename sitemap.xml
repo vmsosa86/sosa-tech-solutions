@@ -2,27 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- English - Homepage -->
   <url>
     <loc>https://sosatechsolutions.com/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://sosatechsolutions.com/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://sosatechsolutions.com/es/"/>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Spanish - Homepage -->
   <url>
-    <loc>https://sosatechsolutions.com/es/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://sosatechsolutions.com/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://sosatechsolutions.com/es/"/>
-    <lastmod>2026-04-21</lastmod>
+    <loc>https://sosatechsolutions.com/services/websites/</loc>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Legal pages -->
+  <url>
+    <loc>https://sosatechsolutions.com/services/automation/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatechsolutions.com/services/marketing/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatechsolutions.com/services/infrastructure/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatechsolutions.com/services/streaming/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatechsolutions.com/blog/</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatechsolutions.com/blog/como-la-inteligencia-artificial-puede-automatizar-tu-negocio-en-miami/</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatechsolutions.com/blog/automatizacion-de-whatsapp-para-negocios-en-miami/</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatechsolutions.com/blog/por-que-tu-negocio-en-miami-necesita-un-sitio-web-rapido-y-movil/</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatechsolutions.com/blog/facebook-ads-vs-google-ads-para-negocios-locales/</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://sosatechsolutions.com/blog/que-es-n8n-y-como-puede-automatizar-tu-negocio/</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <url>
     <loc>https://sosatechsolutions.com/privacy-policy/</loc>
     <lastmod>2026-08-07</lastmod>
@@ -42,35 +105,6 @@
     <lastmod>2026-08-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
-  </url>
-
-  <!-- Services anchors (treated as content sections) -->
-  <url>
-    <loc>https://sosatechsolutions.com/#services</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://sosatechsolutions.com/#process</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://sosatechsolutions.com/#about</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://sosatechsolutions.com/#contact</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
 
 </urlset>

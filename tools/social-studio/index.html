@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sosa Tech Social Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --carbon:#080a0f;
+      --surface:#0d1117;
+      --card:#131820;
+      --border:#1e2731;
+      --teal:#00e5c8;
+      --white:#f0f4f8;
+      --steel:#91a1b2;
+    }
+    * { box-sizing:border-box; }
+    html, body { width:100%; height:100%; margin:0; overflow:hidden; }
+    body { background:var(--carbon); }
+    .slide {
+      width:100vw;
+      height:100vh;
+      min-width:1080px;
+      min-height:1350px;
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 78% 18%, rgba(0,229,200,.09), transparent 30%),
+        linear-gradient(145deg, var(--surface), var(--carbon) 62%);
+      color:var(--white);
+      font-family:"DM Sans", sans-serif;
+      padding:72px;
+      isolation:isolate;
+    }
+    .slide::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-3;
+      opacity:.38;
+      background-image:
+        linear-gradient(rgba(145,161,178,.075) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(145,161,178,.075) 1px, transparent 1px);
+      background-size:72px 72px;
+      mask-image:linear-gradient(to bottom, transparent 1%, #000 30%, #000 82%, transparent 100%);
+    }
+    .slide::after {
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      width:420px;
+      height:8px;
+      background:var(--teal);
+    }
+    .bg-image {
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      background-size:cover;
+      background-position:center;
+      opacity:.72;
+      filter:saturate(.85) contrast(1.08);
+    }
+    .bg-image::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(8,10,15,.22), rgba(8,10,15,.66) 58%, rgba(8,10,15,.96));
+    }
+    .topbar { display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:2; }
+    .brand { width:266px; height:auto; display:block; }
+    .series {
+      font:500 24px/1.2 "DM Mono", monospace;
+      letter-spacing:.14em;
+      color:var(--steel);
+      text-transform:uppercase;
+      padding-top:10px;
+    }
+    .content { position:relative; z-index:2; margin-top:124px; max-width:920px; }
+    .eyebrow {
+      display:flex;
+      align-items:center;
+      gap:18px;
+      color:var(--teal);
+      font:500 27px/1.2 "DM Mono", monospace;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:35px;
+    }
+    .eyebrow::before { content:""; width:48px; height:4px; background:var(--teal); }
+    h1 {
+      font:800 104px/.94 "Syne", sans-serif;
+      letter-spacing:-.055em;
+      margin:0;
+      max-width:940px;
+      text-wrap:balance;
+    }
+    h1 .accent { color:var(--teal); }
+    .body {
+      color:var(--steel);
+      font:400 44px/1.28 "DM Sans", sans-serif;
+      max-width:850px;
+      margin-top:40px;
+      text-wrap:balance;
+    }
+    .checklist { display:flex; flex-wrap:wrap; gap:18px; margin-top:48px; max-width:900px; }
+    .chip {
+      border:2px solid rgba(0,229,200,.35);
+      background:rgba(13,17,23,.82);
+      color:var(--white);
+      padding:17px 23px;
+      font:500 29px/1.15 "DM Sans", sans-serif;
+    }
+    .number {
+      position:absolute;
+      right:58px;
+      bottom:92px;
+      color:rgba(0,229,200,.10);
+      font:800 330px/.7 "Syne", sans-serif;
+      letter-spacing:-.08em;
+      z-index:0;
+    }
+    .footer {
+      position:absolute;
+      left:72px;
+      right:72px;
+      bottom:58px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      z-index:3;
+      border-top:1px solid rgba(145,161,178,.18);
+      padding-top:24px;
+      font:500 23px/1.3 "DM Mono", monospace;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--steel);
+    }
+    .footer .progress { color:var(--teal); }
+    .signal {
+      position:absolute;
+      left:70px;
+      right:70px;
+      bottom:214px;
+      height:198px;
+      opacity:.85;
+      z-index:1;
+    }
+    .signal .line { position:absolute; left:44px; right:44px; top:88px; height:5px; background:var(--teal); box-shadow:0 0 24px rgba(0,229,200,.42); }
+    .signal .node { position:absolute; top:64px; width:52px; height:52px; border:5px solid var(--teal); background:var(--carbon); border-radius:50%; }
+    .signal .node:nth-child(2){ left:20px; }
+    .signal .node:nth-child(3){ left:31%; }
+    .signal .node:nth-child(4){ left:62%; }
+    .signal .node:nth-child(5){ right:20px; }
+    .signal .node.active { background:var(--teal); box-shadow:0 0 34px rgba(0,229,200,.6); }
+    .system-card {
+      position:absolute;
+      right:76px;
+      bottom:208px;
+      width:430px;
+      height:300px;
+      background:rgba(19,24,32,.92);
+      border:1px solid rgba(145,161,178,.2);
+      box-shadow:0 38px 90px rgba(0,0,0,.4);
+      padding:38px;
+      z-index:1;
+    }
+    .system-card .mini { color:var(--steel); font:500 20px/1.2 "DM Mono", monospace; letter-spacing:.12em; text-transform:uppercase; }
+    .system-card .state { color:var(--teal); font:800 47px/1 "Syne", sans-serif; margin-top:28px; }
+    .system-card .bar { height:8px; background:var(--border); margin-top:42px; }
+    .system-card .bar span { display:block; width:78%; height:100%; background:var(--teal); }
+    .layout-closing { background:var(--teal); color:var(--carbon); }
+    .layout-closing::before { opacity:.22; background-image:linear-gradient(rgba(8,10,15,.18) 1px, transparent 1px), linear-gradient(90deg, rgba(8,10,15,.18) 1px, transparent 1px); }
+    .layout-closing::after { background:var(--carbon); }
+    .layout-closing .brand { filter:brightness(0); }
+    .layout-closing .series, .layout-closing .eyebrow, .layout-closing .body { color:rgba(8,10,15,.70); }
+    .layout-closing .eyebrow::before { background:var(--carbon); }
+    .layout-closing .footer { color:rgba(8,10,15,.70); border-color:rgba(8,10,15,.20); }
+    .layout-closing .footer .progress { color:var(--carbon); }
+    .layout-closing .cta {
+      display:inline-block;
+      margin-top:58px;
+      background:var(--carbon);
+      color:var(--teal);
+      padding:25px 32px;
+      font:500 29px/1 "DM Mono", monospace;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .layout-image .content { max-width:790px; margin-top:100px; }
+    .layout-image h1 { font-size:92px; text-shadow:0 6px 30px rgba(0,0,0,.6); }
+    .layout-image .body { color:var(--white); text-shadow:0 3px 18px rgba(0,0,0,.75); }
+    .layout-hero .content { margin-top:110px; }
+    .layout-hero h1 { font-size:118px; }
+    .layout-hero .body { max-width:760px; }
+    .layout-hero .mark {
+      position:absolute;
+      right:-80px;
+      bottom:120px;
+      width:640px;
+      opacity:.075;
+      filter:saturate(1.2);
+      z-index:0;
+    }
+  </style>
+</head>
+<body>
+  <main class="slide" id="slide" aria-label="Sosa Tech social media artwork">
+    <div class="bg-image" id="bg-image" hidden></div>
+    <div class="topbar">
+      <img class="brand" src="/assets/logo.svg" alt="Sosa Tech Solutions">
+      <div class="series" id="series"></div>
+    </div>
+    <div class="content">
+      <div class="eyebrow" id="eyebrow"></div>
+      <h1 id="headline"></h1>
+      <div class="body" id="body"></div>
+      <div class="checklist" id="checklist"></div>
+      <div class="cta" id="cta"></div>
+    </div>
+    <div class="number" id="number"></div>
+    <div class="signal" id="signal" hidden>
+      <div class="line"></div><div class="node"></div><div class="node"></div><div class="node"></div><div class="node active"></div>
+    </div>
+    <div class="system-card" id="system-card" hidden>
+      <div class="mini">System status</div>
+      <div class="state">CONNECTED</div>
+      <div class="bar"><span></span></div>
+    </div>
+    <img class="mark" id="mark" src="/assets/whatsapp-profile-icon.png" alt="" hidden>
+    <div class="footer">
+      <span>WE BUILD. YOU GROW.</span>
+      <span class="progress" id="progress"></span>
+    </div>
+  </main>
+  <script>
+    const campaigns = {
+      reintroduction: [
+        {layout:'hero', eyebrow:'Miami · English / Español', headline:'Tech that <span class="accent">works</span> for your business.', body:'Connected websites, automation, AI, and infrastructure for growing businesses.', mark:true},
+        {layout:'number', eyebrow:'The problem', headline:'Leads arrive. <span class="accent">Follow-up gets lost.</span>', body:'Your website, WhatsApp, inbox, and team should work together.', number:'01', signal:true},
+        {layout:'number', eyebrow:'01 · Launch & Convert', headline:'Websites built to <span class="accent">create action.</span>', body:'Fast pages, clear offers, lead capture, and conversion tracking.', number:'01', chips:['Fast','Clear','Measurable']},
+        {layout:'number', eyebrow:'02 · Automate & Respond', headline:'Faster follow-up. <span class="accent">Less repetitive work.</span>', body:'WhatsApp, CRM, n8n, AI assistants, reminders, and routing.', number:'02', chips:['Capture','Route','Follow up']},
+        {layout:'number', eyebrow:'03 · Reach & Grow', headline:'Marketing connected to the <span class="accent">system behind it.</span>', body:'Campaigns work better when the landing page and follow-up are ready.', number:'03', chips:['Offer','Traffic','Tracking']},
+        {layout:'closing', eyebrow:'Ready to fix the flow?', headline:'We build.<br>You grow.', body:'Direct bilingual technology support for small businesses.', cta:'Message us on WhatsApp'}
+      ],
+      offers: [
+        {layout:'hero', eyebrow:'What we build', headline:'Three systems that help a small business <span class="accent">grow.</span>', body:'Start with the business bottleneck. Choose the technology second.', mark:true},
+        {layout:'number', eyebrow:'01 · Launch & Convert', headline:'Turn visits into <span class="accent">real inquiries.</span>', number:'01', chips:['Fast website','Clear offer','Lead capture','Tracking']},
+        {layout:'number', eyebrow:'02 · Automate & Respond', headline:'Move every lead to the <span class="accent">right next step.</span>', number:'02', chips:['WhatsApp','CRM','n8n','AI','Reminders']},
+        {layout:'number', eyebrow:'03 · Reach & Grow', headline:'Bring in attention you can <span class="accent">measure and follow up.</span>', number:'03', chips:['Meta','Google','Landing pages','Reporting']},
+        {layout:'closing', eyebrow:'Start with the bottleneck', headline:'You don’t need more tools.<br>You need a clearer system.', cta:'Book a free systems review'}
+      ],
+      process: [
+        {layout:'hero', eyebrow:'How we work', headline:'Clear process.<br><span class="accent">Useful result.</span>', body:'A practical path from business problem to dependable system.', mark:true},
+        {layout:'number', eyebrow:'01 · Map', headline:'Find where time or leads are <span class="accent">getting lost.</span>', number:'01', chips:['Inputs','Owners','Handoffs','Failures']},
+        {layout:'number', eyebrow:'02 · Scope', headline:'See the deliverables, owner, timeline, and <span class="accent">cost.</span>', number:'02'},
+        {layout:'number', eyebrow:'03 · Build', headline:'Connect the smallest system that solves the <span class="accent">real problem.</span>', number:'03'},
+        {layout:'number', eyebrow:'04 · Verify', headline:'Test the workflow, handoff, alerts, and <span class="accent">failure paths.</span>', number:'04', chips:['Test','Observe','Recover']},
+        {layout:'closing', eyebrow:'05 · Improve', headline:'Measure what matters.<br>Fix what slows growth.', cta:'We build. You grow.'}
+      ],
+      meta: [
+        {layout:'hero', eyebrow:'Before you spend more', headline:'Is your business ready for <span class="accent">Meta Ads?</span>', body:'Check the system behind the click first.', mark:true},
+        {layout:'number', eyebrow:'01 · Offer', headline:'A visitor knows who it is for and <span class="accent">what happens next.</span>', number:'01'},
+        {layout:'number', eyebrow:'02 · Page', headline:'The landing page matches the <span class="accent">ad promise.</span>', number:'02', chips:['Same offer','Same language','No detour']},
+        {layout:'number', eyebrow:'03 · Response', headline:'Every lead gets a <span class="accent">fast next step.</span>', number:'03'},
+        {layout:'number', eyebrow:'04 · Tracking', headline:'Test the event before trusting the <span class="accent">report.</span>', number:'04'},
+        {layout:'number', eyebrow:'05 · Ownership', headline:'Every new lead has a clear owner and <span class="accent">status.</span>', number:'05'},
+        {layout:'closing', eyebrow:'Save this checklist', headline:'Build the system before scaling the traffic.', cta:'Book a systems review'}
+      ],
+      reliability: [
+        {layout:'image', eyebrow:'Reliable infrastructure', headline:'Reliable does not mean <span class="accent">“never fails.”</span>', body:'It means recovery is deliberate.', image:'/content/assets/kie-sources/reliable-infrastructure.png'},
+        {layout:'number', eyebrow:'01 · Observe', headline:'The system tells you when <span class="accent">something is wrong.</span>', number:'01'},
+        {layout:'number', eyebrow:'02 · Protect', headline:'Backups live <span class="accent">outside the server.</span>', number:'02'},
+        {layout:'number', eyebrow:'03 · Verify', headline:'The backup is tested—not just <span class="accent">assumed.</span>', number:'03'},
+        {layout:'number', eyebrow:'04 · Recover', headline:'There is a clear recovery path and <span class="accent">owner.</span>', number:'04', systemCard:true},
+        {layout:'closing', eyebrow:'Infrastructure principle', headline:'Design for recovery.', body:'Monitoring · Encrypted backup · Verification · Restore test', cta:'We build. You grow.'}
+      ]
+    };
+
+    function render() {
+      const query = new URLSearchParams(location.search);
+      const campaignName = query.get('campaign') || 'reintroduction';
+      const index = Math.max(0, Number(query.get('slide') || 1) - 1);
+      const campaign = campaigns[campaignName] || campaigns.reintroduction;
+      const item = campaign[Math.min(index, campaign.length - 1)];
+      const root = document.getElementById('slide');
+      root.className = `slide layout-${item.layout || 'number'}`;
+      document.getElementById('series').textContent = campaignName.replaceAll('-', ' ');
+      document.getElementById('eyebrow').textContent = item.eyebrow || '';
+      document.getElementById('headline').innerHTML = item.headline || '';
+      document.getElementById('body').textContent = item.body || '';
+      document.getElementById('number').textContent = item.number || '';
+      document.getElementById('progress').textContent = `${String(index + 1).padStart(2,'0')} / ${String(campaign.length).padStart(2,'0')}`;
+      const checklist = document.getElementById('checklist');
+      checklist.replaceChildren(...(item.chips || []).map(text => {
+        const node = document.createElement('span'); node.className='chip'; node.textContent=text; return node;
+      }));
+      const cta = document.getElementById('cta');
+      cta.textContent = item.cta || '';
+      cta.hidden = !item.cta;
+      document.getElementById('signal').hidden = !item.signal;
+      document.getElementById('system-card').hidden = !item.systemCard;
+      document.getElementById('mark').hidden = !item.mark;
+      const bg = document.getElementById('bg-image');
+      bg.hidden = !item.image;
+      bg.style.backgroundImage = item.image ? `url('${item.image}')` : '';
+      document.title = `${campaignName}-${String(index + 1).padStart(2,'0')}`;
+      document.documentElement.dataset.ready = 'true';
+    }
+    document.fonts.ready.then(render);
+  </script>
+</body>
+</html>

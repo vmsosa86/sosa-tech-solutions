@@ -1,0 +1,5 @@
+A WhatsApp message should not disappear into one phone.
+It can create or update the contact, identify the request, notify the right person, schedule the next action, and keep the conversation visible.
+Automation does not replace the relationship.
+It makes sure the relationship gets a response.
+That is the system behind better follow-up.

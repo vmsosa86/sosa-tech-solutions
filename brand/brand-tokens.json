@@ -1,0 +1,73 @@
+{
+  "brand": {
+    "name": "Sosa Tech Solutions",
+    "shortName": "Sosa Tech",
+    "tagline": "We build. You grow.",
+    "market": "Miami and South Florida",
+    "languages": ["en", "es"]
+  },
+  "colors": {
+    "electricTeal": "#00E5C8",
+    "carbon": "#080A0F",
+    "deepSurface": "#0D1117",
+    "graphiteCard": "#131820",
+    "circuitBorder": "#1E2731",
+    "signalWhite": "#F0F4F8",
+    "steelDecorative": "#5A6A7A",
+    "clearSteelAccessible": "#91A1B2",
+    "deepTealOnLight": "#00796B"
+  },
+  "typography": {
+    "display": "Syne",
+    "body": "DM Sans",
+    "technicalAccent": "DM Mono",
+    "displayWeights": [700, 800],
+    "bodyWeights": [400, 500],
+    "technicalAccentWeights": [400, 500]
+  },
+  "logo": {
+    "master": "../assets/logo.svg",
+    "darkBackground": "../assets/logo-dark.png",
+    "lightBackground": "../assets/logo-light.png",
+    "profileSource": "../assets/whatsapp-profile-icon.png",
+    "minimumFullLogoWidthPx": 160,
+    "minimumIconWidthPx": 24,
+    "socialProfileSourcePx": 512
+  },
+  "layout": {
+    "feedSafeMarginPxAt1080": 72,
+    "preferredDarkColorRatioPercent": 70,
+    "preferredLightNeutralRatioPercent": 20,
+    "preferredTealRatioPercent": 10,
+    "cornerStyle": "square-or-slightly-rounded",
+    "gridStyle": "fine-technical-grid"
+  },
+  "exports": {
+    "instagramPortrait": [1080, 1350],
+    "square": [1080, 1080],
+    "reelStory": [1080, 1920],
+    "linkPreview": [1200, 630]
+  },
+  "generation": {
+    "promptCore": "Premium editorial technology illustration for a bilingual Miami small-business technology consultancy. Carbon-black background, restrained electric-teal signal paths, graphite panels, subtle technical grid, clean negative space, realistic depth, precise modern lighting, one clear focal point, practical business technology rather than science fiction, no typography, no logos, no watermark.",
+    "negative": [
+      "humanoid robot",
+      "robot head",
+      "floating hologram",
+      "green matrix code",
+      "cyberpunk city",
+      "fake dashboard text",
+      "fake logo",
+      "watermark",
+      "unreadable typography",
+      "excessive neon glow",
+      "generic handshake stock photo"
+    ],
+    "rules": [
+      "Generate imagery without important text or logos.",
+      "Overlay approved logo and copy after generation.",
+      "Do not invent client results or technical interfaces.",
+      "Create three candidates and require human approval before publishing."
+    ]
+  }
+}

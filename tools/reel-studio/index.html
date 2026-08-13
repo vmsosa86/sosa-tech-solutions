@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sosa Tech Reel Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--carbon:#080a0f;--surface:#0d1117;--card:#131820;--border:#1e2731;--teal:#00e5c8;--white:#f0f4f8;--steel:#91a1b2}
+    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--carbon)}
+    .frame{position:relative;width:100vw;height:100vh;min-width:1080px;min-height:1920px;padding:86px 72px 118px;overflow:hidden;color:var(--white);background:radial-gradient(circle at 75% 18%,rgba(0,229,200,.13),transparent 28%),linear-gradient(155deg,var(--surface),var(--carbon) 68%);font-family:"DM Sans",sans-serif;isolation:isolate}
+    .frame::before{content:"";position:absolute;inset:0;z-index:-4;background-image:linear-gradient(rgba(145,161,178,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(145,161,178,.075) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent)}
+    .frame::after{content:"";position:absolute;left:0;top:0;width:38%;height:10px;background:var(--teal)}
+    .bg{position:absolute;inset:0;z-index:-3;background-size:cover;background-position:center;opacity:.57;filter:saturate(.82) contrast(1.1)}
+    .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,15,.25),rgba(8,10,15,.62) 52%,rgba(8,10,15,.96))}
+    .top{display:flex;align-items:flex-start;justify-content:space-between;position:relative;z-index:3}.logo{width:250px}.counter{font:500 25px/1.2 "DM Mono",monospace;color:var(--steel);letter-spacing:.12em}
+    .copy{position:relative;z-index:3;margin-top:148px}.kicker{display:flex;align-items:center;gap:17px;color:var(--teal);font:500 28px/1.2 "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;margin-bottom:34px}.kicker::before{content:"";width:48px;height:4px;background:var(--teal)}
+    h1{font:800 112px/.95 "Syne",sans-serif;letter-spacing:-.055em;margin:0;max-width:940px;text-wrap:balance}h1 span{color:var(--teal)}
+    .support{margin-top:38px;max-width:860px;color:var(--steel);font:500 44px/1.3 "DM Sans",sans-serif;text-wrap:balance}
+    .visual{position:absolute;left:72px;right:72px;bottom:380px;height:470px;z-index:2}
+    .visual .flow{position:absolute;left:20px;right:20px;top:170px;height:8px;background:var(--teal);box-shadow:0 0 34px rgba(0,229,200,.5)}.flow-node{position:absolute;top:130px;width:88px;height:88px;border:6px solid var(--teal);background:var(--carbon);border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 30px/1 "Syne",sans-serif}.flow-node:nth-child(2){left:0}.flow-node:nth-child(3){left:29%}.flow-node:nth-child(4){left:59%}.flow-node:nth-child(5){right:0;background:var(--teal);color:var(--carbon);box-shadow:0 0 42px rgba(0,229,200,.5)}
+    .inboxes{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding-top:60px}.box{height:260px;border:2px solid var(--border);background:rgba(19,24,32,.9);padding:34px}.box .micro{font:500 22px/1.2 "DM Mono",monospace;color:var(--steel);letter-spacing:.1em;text-transform:uppercase}.box .dot{width:32px;height:32px;border-radius:50%;background:var(--teal);margin-top:68px;box-shadow:0 0 30px rgba(0,229,200,.5)}
+    .stack{display:grid;grid-template-columns:1fr 1fr;gap:28px}.stack .box{height:190px}.stack .box.active{border-color:var(--teal)}
+    .caption{position:absolute;left:72px;right:72px;bottom:230px;z-index:5;padding:30px 34px;background:rgba(8,10,15,.90);border-left:7px solid var(--teal);font:600 42px/1.25 "DM Sans",sans-serif;color:var(--white)}
+    .footer{position:absolute;left:72px;right:72px;bottom:62px;z-index:5;display:flex;justify-content:space-between;font:500 22px/1.2 "DM Mono",monospace;letter-spacing:.1em;color:var(--steel);text-transform:uppercase}
+    .end{background:var(--teal);color:var(--carbon)}.end::before{opacity:.25;background-image:linear-gradient(rgba(8,10,15,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(8,10,15,.18) 1px,transparent 1px)}.end::after{background:var(--carbon)}.end .logo{filter:brightness(0)}.end .kicker,.end .support,.end .counter,.end .footer{color:rgba(8,10,15,.70)}.end .kicker::before{background:var(--carbon)}.end h1{font-size:86px;max-width:920px}.end h1 span{color:var(--carbon)}.end .caption{background:var(--carbon);color:var(--teal);border-color:var(--carbon)}
+    .image .copy{margin-top:115px}.image h1{text-shadow:0 8px 35px rgba(0,0,0,.72)}.image .support{color:var(--white);text-shadow:0 4px 24px rgba(0,0,0,.8)}
+    .small-headline h1{font-size:68px}
+  </style>
+</head>
+<body><main class="frame" id="frame"><div class="bg" id="bg" hidden></div><div class="top"><img class="logo" src="/assets/logo.svg" alt="Sosa Tech Solutions"><div class="counter" id="counter"></div></div><div class="copy"><div class="kicker" id="kicker"></div><h1 id="headline"></h1><div class="support" id="support"></div></div><div class="visual" id="visual"></div><div class="caption" id="caption"></div><div class="footer"><span id="disclosure">AI-GENERATED VOICE · DEMO VISUALS</span><span>WE BUILD. YOU GROW.</span></div></main>
+<script>
+const reels={
+  '1':[
+    {type:'hero',k:'Lead systems',h:'Your leads may not be the <span>problem.</span>',s:'Your follow-up might be.',c:'Your leads may not be the problem. Your follow-up might be.'},
+    {type:'boxes',k:'Sign 01',h:'Inquiries sit in <span>different inboxes.</span>',c:'One: inquiries sit in different inboxes.'},
+    {type:'boxes',k:'Sign 02',h:'The same information gets <span>copied again.</span>',c:'Two: somebody copies the same information into another system.'},
+    {type:'stack',k:'Sign 03',h:'Nobody can see the <span>response status.</span>',c:'Three: the owner cannot see which leads received a response.'},
+    {type:'flow',k:'Fix the flow',h:'Connect intake, routing & <span>follow-up first.</span>',c:'Connect the intake, routing, and follow-up first. Then spend more on traffic.'},
+    {type:'end',k:'Sosa Tech Solutions',h:'We build.<br><span>You grow.</span>',c:'Message “FLOW” to map your process.'}
+  ],
+  '2':[
+    {type:'hero',k:'WhatsApp automation',h:'One message should trigger a <span>system.</span>',c:'A WhatsApp message should not disappear into one phone.'},
+    {type:'flow',k:'01 · Capture',h:'Create or update the <span>contact.</span>',c:'It can create or update the contact and identify the request.'},
+    {type:'stack',k:'02 · Route',h:'Notify the <span>right person.</span>',c:'Notify the right person.'},
+    {type:'stack',k:'03 · Follow up',h:'Schedule the <span>next action.</span>',c:'Schedule the next action and keep the conversation visible.'},
+    {type:'flow',k:'The principle',h:'Automation supports the <span>relationship.</span>',c:'Automation does not replace the relationship. It helps make sure the relationship gets a response.'},
+    {type:'end',k:'Ready to connect the flow?',h:'Message<br><span>“AUTOMATE”</span>',c:'Sosa Tech Solutions · Miami · English / Español'}
+  ],
+  '3':[
+    {type:'hero',k:'Behind Sosa Tech',h:'We don’t just recommend tools.<br><span>We operate systems.</span>',c:'We do not just recommend tools. We operate real systems.'},
+    {type:'boxes',k:'Customer operations',h:'Lead intake & WhatsApp <span>automation.</span>',c:'Lead intake and WhatsApp automation.'},
+    {type:'flow',k:'Content operations',h:'Approval & publishing <span>workflows.</span>',c:'Content publishing and guarded campaign delivery.'},
+    {type:'image',k:'Infrastructure',h:'Streaming, monitoring & <span>encrypted backups.</span>',c:'Streaming, monitoring, and encrypted backups.',image:'/content/assets/kie-sources/reliable-infrastructure.png'},
+    {type:'stack',k:'The standard',h:'Reliable. Measurable. <span>Clear.</span>',c:'Each connection must be reliable, measurable, and clear to the people who use it.'},
+    {type:'end',k:'Sosa Tech Solutions',h:'That is what<br><span>we build.</span>',c:'We build. You grow.'}
+  ]
+};
+const reelsEs={
+  '1':[
+    {type:'hero',k:'Sistemas de prospectos',h:'Quizás el problema no son tus <span>prospectos.</span>',s:'Puede ser el seguimiento.',c:'Quizás el problema no son tus prospectos. Puede ser el seguimiento.'},
+    {type:'boxes',k:'Señal 01',h:'Los mensajes llegan a <span>bandejas diferentes.</span>',c:'Uno: los mensajes llegan a bandejas diferentes.'},
+    {type:'boxes',k:'Señal 02',h:'La misma información se <span>copia otra vez.</span>',c:'Dos: alguien copia la misma información de un sistema a otro.'},
+    {type:'stack',k:'Señal 03',h:'El estado de respuesta <span>no está claro.</span>',c:'Tres: el dueño no puede ver cuáles prospectos recibieron respuesta.'},
+    {type:'flow',k:'Conecta el flujo',h:'Conecta el flujo antes de <span>invertir más.</span>',c:'Primero conecta la entrada, la asignación y el seguimiento. Después invierte más en tráfico.'},
+    {type:'end',k:'Sosa Tech Solutions',h:'We build.<br><span>You grow.</span>',c:'Escribe “FLUJO” para mapear tu proceso.'}
+  ],
+  '2':[
+    {type:'hero',k:'Automatización de WhatsApp',h:'Un mensaje debe activar un <span>sistema.</span>',c:'Un mensaje de WhatsApp no debe perderse dentro de un solo teléfono.'},
+    {type:'flow',k:'01 · Captar',h:'Crea o actualiza el <span>contacto.</span>',c:'Puede crear o actualizar el contacto e identificar la solicitud.'},
+    {type:'stack',small:true,k:'02 · Asignar',h:'Avisa al <span>responsable.</span>',c:'Notifica a la persona correcta.'},
+    {type:'stack',k:'03 · Seguimiento',h:'Programa la <span>próxima acción.</span>',c:'Programa la próxima acción y mantiene visible la conversación.'},
+    {type:'flow',small:true,k:'El principio',h:'Automatiza sin perder la <span>relación.</span>',c:'La automatización no reemplaza la relación. Ayuda a que la relación reciba una respuesta.'},
+    {type:'end',small:true,k:'¿Listo para conectar el flujo?',h:'Escribe<br><span>“AUTOMATIZAR”</span>',c:'Sosa Tech Solutions · Miami · English / Español'}
+  ],
+  '3':[
+    {type:'hero',small:true,k:'Detrás de Sosa Tech',h:'No solo recomendamos herramientas.<br><span>Operamos sistemas.</span>',c:'No solo recomendamos herramientas. Operamos sistemas reales.'},
+    {type:'boxes',small:true,k:'Operación del cliente',h:'Captación y automatización de <span>WhatsApp.</span>',c:'Captación de prospectos y flujos de WhatsApp.'},
+    {type:'flow',small:true,k:'Operación de contenido',h:'Flujos de aprobación y <span>publicación.</span>',c:'Publicación de contenido y entrega controlada de campañas.'},
+    {type:'image',small:true,k:'Infraestructura',h:'Streaming, monitoreo y <span>respaldos cifrados.</span>',c:'Infraestructura de streaming, monitoreo y respaldos cifrados.',image:'/content/assets/kie-sources/reliable-infrastructure.png'},
+    {type:'stack',k:'El estándar',h:'Confiable. Medible. <span>Claro.</span>',c:'Cada conexión debe ser confiable, medible y clara para las personas que la usan.'},
+    {type:'end',k:'Sosa Tech Solutions',h:'Eso es lo que<br><span>construimos.</span>',c:'We build. You grow.'}
+  ]
+};
+function visual(type,lang){const es=lang==='es';if(type==='flow')return '<div class="flow"></div><div class="flow-node">IN</div><div class="flow-node">01</div><div class="flow-node">02</div><div class="flow-node">OK</div>';if(type==='boxes')return `<div class="inboxes"><div class="box"><div class="micro">${es?'Sitio web':'Website'}</div><div class="dot"></div></div><div class="box"><div class="micro">WhatsApp</div><div class="dot"></div></div><div class="box"><div class="micro">${es?'Entrada':'Inbox'}</div><div class="dot"></div></div></div>`;if(type==='stack')return `<div class="stack"><div class="box active"><div class="micro">${es?'Captar':'Capture'}</div><div class="dot"></div></div><div class="box"><div class="micro">${es?'Asignar':'Route'}</div></div><div class="box"><div class="micro">${es?'Notificar':'Notify'}</div></div><div class="box active"><div class="micro">${es?'Próxima acción':'Next action'}</div><div class="dot"></div></div></div>`;return ''}
+document.fonts.ready.then(()=>{const q=new URLSearchParams(location.search),r=q.get('reel')||'1',lang=q.get('lang')==='es'?'es':'en',source=lang==='es'?reelsEs:reels,i=Math.max(0,Number(q.get('scene')||1)-1),items=source[r]||source['1'],item=items[Math.min(i,items.length-1)],frame=document.getElementById('frame');frame.className=`frame ${item.type}${item.small?' small-headline':''}`;document.getElementById('counter').textContent=`${String(i+1).padStart(2,'0')} / ${String(items.length).padStart(2,'0')}`;document.getElementById('kicker').textContent=item.k||'';document.getElementById('headline').innerHTML=item.h||'';document.getElementById('support').textContent=item.s||'';document.getElementById('caption').textContent=item.c||'';document.getElementById('disclosure').textContent=lang==='es'?'VOZ GENERADA CON IA · VISUALES DEMO':'AI-GENERATED VOICE · DEMO VISUALS';document.getElementById('visual').innerHTML=visual(item.type,lang);const bg=document.getElementById('bg');bg.hidden=!item.image;bg.style.backgroundImage=item.image?`url('${item.image}')`:'';document.title=`reel-${r}-${lang}-scene-${i+1}`;document.documentElement.dataset.ready='true'});
+</script></body></html>

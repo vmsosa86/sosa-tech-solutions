@@ -1,0 +1,13 @@
+sequence,week,channel,format,campaign,language,objective,cta,status
+1,1,"Instagram + Facebook",carousel,reintroduction,"EN + ES",brand-awareness,"Message SYSTEMS",asset-ready
+2,1,"Instagram + Facebook",reel,manual-follow-up,"EN + ES",problem-awareness,"Message FLOW",video-ready
+3,1,"Instagram + Facebook",carousel,three-systems,"EN + ES",offer-clarity,"Message REVIEW",asset-ready
+4,2,"Instagram + Facebook",reel,whatsapp-inquiry-flow,"EN + ES",capability-demo,"Message AUTOMATE",video-ready
+5,2,"Instagram + Facebook",carousel,how-we-work,"EN + ES",trust,"Message FLOW",asset-ready
+6,2,"Instagram + Facebook",stories,lead-channel-poll,"EN + ES",engagement,"Reply FLOW",copy-ready
+7,3,"Instagram + Facebook",carousel,meta-readiness,"EN + ES",education,"Save checklist",asset-ready
+8,3,"Instagram + Facebook",reel,systems-behind-sosa,"EN + ES",proof,"Message SYSTEMS",video-ready
+9,3,"Instagram + Facebook",stories,behind-the-build,"EN + ES",trust,"Reply with a task",copy-ready
+10,4,"Instagram + Facebook",carousel,reliability-recovery,"EN + ES",education,"Share with an owner",asset-ready
+11,4,"Instagram + Facebook",static,founder-principle,"EN + ES",founder-trust,"Book systems review",needs-founder-photo
+12,4,"Instagram + Facebook",stories,automation-question-box,"EN + ES",research,"Submit repeated task",copy-ready

@@ -1,124 +1,113 @@
-# Sosa Tech Solutions — Landing Page
+# Sosa Tech Solutions
 
-Miami-based tech consulting landing page. Bilingual (EN/ES), SEO-optimized, with Facebook Pixel, WhatsApp CTA, and GSAP animations.
+The public Sosa Tech Solutions website and its reusable brand/content production system.
 
-**Slogan:** We build. You grow.
+**Positioning:** connected websites, WhatsApp automation, AI workflows, marketing systems, reliable infrastructure, and streaming for small businesses.
 
----
+**Market:** Miami and South Florida, English and Spanish.
 
-## 📁 File Structure
+**Tagline:** **We build. You grow.**
 
-```
-sosatech-landing/
-├── index.html                    # Main landing page
-├── favicon.ico                   # Legacy browser favicon (16+32px embedded)
-├── robots.txt                    # Search engine crawler rules
-├── sitemap.xml                   # Sitemap for Google Search Console
-├── og-image.png                  # Social sharing preview (1200x630)
-├── README.md                     # This file
-└── assets/
-    ├── logo-dark.png             # Logo for dark backgrounds
-    ├── logo-light.png            # Logo for light backgrounds
-    ├── logo.svg                  # Scalable vector logo
-    ├── whatsapp-profile-icon.png # Source logo mark (640x640)
-    ├── favicon-16x16.png         # Browser tab
-    ├── favicon-32x32.png         # Browser tab (retina)
-    ├── favicon-180x180.png       # iOS Apple Touch Icon
-    ├── favicon-192x192.png       # Android PWA
-    └── favicon-512x512.png       # Android PWA splash
-```
+## Website
 
----
+The site is static HTML/CSS/JavaScript with no build step. It includes:
 
-## 🚀 Deployment
+- Bilingual English/Spanish homepage and legal pages.
+- Five outcome-based offers and evidence-backed operational proof.
+- Free systems-review contact funnel and WhatsApp CTA.
+- First-touch UTM capture in the contact form.
+- LocalBusiness, Organization, WebSite, and FAQ structured data.
+- Accessible colors, visible keyboard focus, and reduced-motion support.
+- Blog index and five bilingual long-form articles.
 
-### Option 1: GitHub Pages (Free)
+Run a local preview from the repository root:
 
 ```bash
-git init
-git add .
-git commit -m "Initial launch"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/sosatech-landing.git
-git push -u origin main
+python3 -m http.server 8765
 ```
 
-Then go to **Settings → Pages → Source: main branch → root** to enable.
+Then open `http://127.0.0.1:8765/`.
 
-### Option 2: Your VPS
+## Brand system
 
-Upload all files to your web root (e.g., `/var/www/sosatech.io/`) and make sure `index.html` is the default document.
+- `brand/BRAND_GUIDELINES.md` - complete source-of-truth manual.
+- `brand/brand-tokens.json` - machine-readable colors, type, sizes, and generation rules.
+- `.agents/brand-context.md` - concise context for future AI-assisted production.
+- `output/pdf/SOSA_TECH_BRAND_GUIDELINES_V1.pdf` - rendered manual.
+- `output/pdf/SOSA_TECH_BRAND_QUICK_REFERENCE_V1.pdf` - one-page production reference.
 
----
+Rebuild the PDFs:
 
-## ⚙️ Before Going Live — Checklist
-
-### 1. Replace Facebook Pixel ID
-In `index.html`, find and replace both instances:
-```
-REPLACE_WITH_YOUR_PIXEL_ID
-```
-Get your Pixel ID from: https://business.facebook.com/events_manager
-
-### 2. Activate the Contact Form (Web3Forms)
-The form POSTs to [web3forms.com](https://web3forms.com) and delivers submissions to `info@sosatechsolutions.com`.
-
-**One-time setup:**
-1. Go to https://web3forms.com
-2. Enter `info@sosatechsolutions.com` → click "Create Access Key"
-3. In `index.html` replace the placeholder:
-```html
-<input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY"/>
+```bash
+python3 scripts/build_brand_pdfs.py
 ```
 
-**Spam & bot protection included:**
-- Honeypot field (hidden checkbox — bots trigger it, submissions are silently dropped)
-- Time check (rejects submissions under 3 seconds — bot speed)
-- Double-submit guard (button disabled after first click)
-- Client-side validation (name, email, message required)
-- Server-side spam filtering by Web3Forms
+## Content system
 
-### 3. Update URLs
-In `index.html` and `sitemap.xml`, replace `https://sosatech.io/` with your actual domain if different.
+- `BRAND_CONTENT_GROWTH_PLAN.md` - 90-day brand, website, SEO, and social roadmap.
+- `content/calendar.csv` - 30-day publishing calendar.
+- `content/launch/LAUNCH_CONTENT_PACK_01.md` - captions, scripts, shot lists, and CTAs.
+- `content/assets/social/` - final feed, profile, cover, highlight, and reel exports.
+- `content/assets/kie-sources/` - generated source illustrations and provenance metadata.
+- `tools/social-studio/` - deterministic carousel renderer.
+- `tools/brand-assets/` - profile, Facebook cover, and highlight renderer.
+- `tools/reel-studio/` - bilingual vertical-video scene renderer.
 
-### 4. Favicon ✅
-Already wired. All sizes generated from `assets/whatsapp-profile-icon.png` and linked in `<head>`.
+Build the six launch Reels from the approved WAV voiceovers in `content/audio/voiceovers/`:
 
----
+```bash
+bash scripts/build_reels.sh
+```
 
-## 🔍 Post-Launch SEO Setup
+Generate a new Kie visual source from a server-side credential:
 
-1. **Google Search Console** — https://search.google.com/search-console
-   - Add property: `sosatech.io`
-   - Submit sitemap: `https://sosatech.io/sitemap.xml`
+```bash
+KIE_API_KEY='...' python3 scripts/kie_generate_brand_sources.py \
+  --name campaign-source \
+  --scene 'Describe the business scene here' \
+  --aspect-ratio 4:5
+```
 
-2. **Google Business Profile** — https://business.google.com
-   - Create listing for Miami location (local SEO)
+Never place API keys, Meta tokens, decrypted n8n credentials, client data, or customer messages in this repository.
 
-3. **Facebook Business Page** — link the Pixel to your page
+## Key files
 
-4. **Test social previews:**
-   - Facebook: https://developers.facebook.com/tools/debug
-   - LinkedIn: https://www.linkedin.com/post-inspector
-   - General: https://opengraph.xyz
+```text
+index.html                       Homepage
+blog/                            Bilingual SEO articles
+privacy-policy/                  Privacy policy
+data-deletion/                   Meta user-data deletion instructions
+terms/                           Terms of service
+assets/                          Approved site/logo assets
+brand/                           Brand source of truth
+content/                         Calendar, copy, and launch assets
+tools/                           Deterministic visual renderers
+scripts/                         Content and PDF build utilities
+output/pdf/                      Final brand documents
+robots.txt                       Crawler policy
+sitemap.xml                      Public URL inventory
+```
 
----
+## Tracking status
 
-## 📱 Contact Info (Hard-coded in site)
+The homepage records `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, and the landing URL with each form inquiry. Meta Pixel is intentionally disabled because no verified Dataset/Pixel is currently assigned to the Sosa Tech business. Do not add a placeholder ID or reuse another client's data source.
 
-- **WhatsApp:** +1 (305) 741-5702
-- **Email:** info@sosatechsolutions.com
+When the correct data source exists, validate PageView, Contact, Lead, and booked-review events before enabling paid traffic. The Meta ad account also requires an account-level review before spend.
 
----
+## Deployment
 
-## 🛠️ Tech Stack
+- GitHub: `vmsosa86/sosa-tech-solutions`
+- Branch: `main`
+- Public URL: `https://sosatechsolutions.com/`
+- Hostinger document root: `/home/u876565679/domains/sosatechsolutions.com/public_html`
 
-- Pure HTML/CSS/JS (no build step needed)
-- GSAP + ScrollTrigger for animations
-- Google Fonts: Syne, DM Mono, DM Sans
-- Facebook Pixel
-- JSON-LD schema (LocalBusiness)
+Deploy through an intentional Git commit and fast-forward the Hostinger checkout to that exact commit. Verify the homepage, legal pages, blog, sitemap, social preview image, and contact/WhatsApp links after deployment.
 
----
+## Contact
 
-© 2026 Sosa Tech Solutions · Miami, FL
+- WhatsApp: +1 (305) 741-5702
+- Email: info@sosatechsolutions.com
+- Facebook: `facebook.com/sosatechsolutions`
+- Instagram: `instagram.com/sosatechsolutions`
+
+© 2026 Sosa Tech Solutions · Miami, Florida

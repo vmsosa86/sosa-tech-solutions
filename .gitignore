@@ -1,2 +1,11 @@
 .DS_Store
 Thumbs.db
+.playwright-cli/
+__pycache__/
+*.pyc
+tmp/
+
+# Local QA and intermediate media. Keep final PDFs versioned.
+output/*
+!output/pdf/
+!output/pdf/*.pdf
