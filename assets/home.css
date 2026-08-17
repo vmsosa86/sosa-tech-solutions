@@ -57,12 +57,12 @@ button{color:inherit}
 .text-link{font:500 .72rem/1.3 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--line);padding:.8rem 0 .45rem;color:var(--white)}
 .text-link span{color:var(--cyan);margin-left:.35rem}
 
-.hero{max-width:var(--max);min-height:calc(100vh - 1rem);margin:0 auto;padding:clamp(8rem,12vw,10.5rem) var(--pad) 5rem;display:grid;grid-template-columns:minmax(0,.95fr) minmax(25rem,1.05fr);gap:clamp(2.5rem,5vw,5rem);align-items:center;position:relative}
+.hero{max-width:var(--max);min-height:calc(100vh - 1rem);margin:0 auto;padding:clamp(8rem,12vw,10.5rem) var(--pad) 5rem;display:grid;grid-template-columns:minmax(0,.95fr) minmax(25rem,1.05fr);gap:clamp(2.5rem,5vw,5rem);align-items:center;position:relative;overflow-x:clip}
 .hero::before{content:"";position:absolute;left:-18%;top:5rem;width:48rem;height:48rem;background:radial-gradient(circle,rgba(0,229,200,.1),transparent 66%);pointer-events:none}
-.hero-copy{position:relative;z-index:2}
+.hero-copy{position:relative;z-index:2;min-width:0}
 .eyebrow,.kicker{display:flex;align-items:center;gap:.7rem;font:500 .68rem/1.4 'DM Mono',monospace;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan)}
 .eyebrow::before,.kicker::before{content:"";width:2rem;height:1px;background:currentColor}
-.hero h1,.section-intro h2,.friction h2,.about h2,.faq h2,.contact h2{font-family:'Syne',sans-serif;font-weight:800;letter-spacing:-.055em;line-height:.94}
+.hero h1,.section-intro h2,.friction h2,.about h2,.faq h2,.contact h2{font-family:'Syne',sans-serif;font-weight:800;letter-spacing:-.055em;line-height:.94;overflow-wrap:break-word}
 .hero h1{font-size:clamp(3.4rem,6.8vw,6.5rem);max-width:8.5ch;margin:1.5rem 0 1.6rem}
 em{font-style:normal;color:var(--cyan)}
 .hero-lead{font-size:clamp(1.05rem,1.45vw,1.3rem);line-height:1.65;color:#c1cfcb;max-width:36rem}
@@ -295,10 +295,10 @@ section{scroll-margin-top:5rem}
 @media (max-width:600px){
   :root{--pad:1.15rem}
   .site-header{padding:0 1rem}.brand img{width:124px}.lang-btn{padding:.62rem}.menu-toggle{width:2.55rem;height:2.55rem}
-  .hero{padding:7rem 1.15rem 3.5rem}.hero h1{font-size:clamp(3.15rem,15vw,4.6rem);margin-top:1.1rem}.hero-lead{font-size:1rem}.hero-actions{align-items:flex-start;flex-direction:column;gap:.6rem}.hero-actions .button{width:100%}.hero-media{min-height:29rem;border-radius:.9rem}.hero-media img{object-position:64% center}.hero-media-label{left:.8rem;top:.8rem;right:.8rem;font-size:.52rem}.lead-card{right:.7rem;bottom:.7rem;width:calc(100% - 1.4rem);padding:.9rem}.lead-card-top{font-size:.53rem}.lead-steps span{font-size:.5rem}.trust-list li{font-size:.55rem}
+  .hero{padding:7rem 1.15rem 3.5rem}.hero h1{font-size:clamp(2.3rem,calc(13.4vw - .56rem),4.6rem);margin-top:1.1rem}.hero-lead{font-size:1rem}.hero-actions{align-items:flex-start;flex-direction:column;gap:.6rem}.hero-actions .button{width:100%}.hero-media{min-height:29rem;border-radius:.9rem}.hero-media img{object-position:64% center}.hero-media-label{left:.8rem;top:.8rem;right:.8rem;font-size:.52rem}.lead-card{right:.7rem;bottom:.7rem;width:calc(100% - 1.4rem);padding:.9rem}.lead-card-top{font-size:.53rem}.lead-steps span{font-size:.5rem}.trust-list li{font-size:.55rem}
   .signal-bar{grid-template-columns:1fr}.signal-bar div{border-right:0;border-bottom:1px solid var(--line)}.signal-bar div:last-child{border-bottom:0}
   .audience,.friction,.flow,.solutions,.content-engine,.proof,.about,.faq,.contact{padding-top:4.5rem;padding-bottom:4.5rem}
-  .section-intro h2,.friction h2,.about h2,.faq h2,.contact h2{font-size:clamp(2.5rem,13vw,3.8rem)}
+  .section-intro h2,.friction h2,.about h2,.faq h2,.contact h2{font-size:clamp(1.7rem,calc(9.7vw - .4rem),3.2rem)}
   .audience-grid{grid-template-columns:1fr}.audience-card:last-child{grid-column:auto;display:block}.audience-card:last-child .audience-image,.audience-image{aspect-ratio:4/4.2}.audience-copy p{min-height:0}.fit-strip{grid-template-columns:1fr}.fit-strip ul{display:grid;grid-template-columns:1fr}.photo-disclosure{text-align:left}
   .friction-grid{grid-template-columns:1fr}.friction-card{min-height:0}.friction-card h3{margin-top:2.5rem}
   .flow-track{grid-template-columns:1fr}.flow-step{min-height:0;border-right:0!important;border-bottom:1px solid rgba(7,16,15,.3)!important}.flow-step:last-child{border-bottom:0!important}.flow-icon{margin:2.2rem 0 1rem}.flow-cta{align-items:flex-start;flex-direction:column;gap:.8rem}
