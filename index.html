@@ -44,11 +44,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link rel="preload" as="image" href="/assets/site/miami-beauty-owner-hero.webp" type="image/webp" fetchpriority="high"/>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap"/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
   <noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/></noscript>
-  <link rel="stylesheet" href="/assets/home.css"/>
+  <link rel="stylesheet" href="/assets/home.css?v=20260911b"/>
 
   <!-- Meta Pixel stays disabled until a verified Sosa Tech Dataset/Pixel is assigned. -->
   <script type="application/ld+json">
@@ -137,9 +136,9 @@
       <span></span><span></span><span></span>
     </button>
     <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
-      <a href="#who" data-i18n="nav.who">Who we help</a>
+      <a href="#specialist-services" data-i18n="nav.specialists">AI & streaming</a>
       <a href="#solutions" data-i18n="nav.solutions">Solutions</a>
-      <a href="#proof" data-i18n="nav.proof">Proof</a>
+      <a href="#proof" data-i18n="nav.proof">Selected work</a>
       <a href="#about" data-i18n="nav.about">About</a>
       <a href="/blog/" data-i18n="nav.blog">Blog</a>
     </nav>
@@ -148,251 +147,98 @@
         <button class="lang-btn active" type="button" data-lang="en" aria-pressed="true">EN</button>
         <button class="lang-btn" type="button" data-lang="es" aria-pressed="false">ES</button>
       </div>
-      <a class="button button-small button-cyan" href="#contact" data-i18n="nav.cta">Free lead-flow review</a>
+      <a class="button button-small button-cyan" href="#contact" data-i18n="nav.cta">Request a free review</a>
     </div>
   </header>
 
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <div class="eyebrow" data-i18n="hero.eyebrow">Miami · English + Español · Direct support</div>
-        <h1 id="hero-title" data-i18n="hero.title">Don’t lose the <em>next customer.</em></h1>
-        <p class="hero-lead" data-i18n="hero.lead">We connect your website, Instagram, Facebook and WhatsApp so every new inquiry gets a fast response, a clear owner and consistent follow-up.</p>
+        <div class="eyebrow" data-i18n="hero.eyebrow">Your technology partner in Miami</div>
+        <h1 id="hero-title" data-i18n="hero.title">Your website, WhatsApp and follow‑up. Working together.</h1>
+        <p class="hero-lead" data-i18n="hero.lead">I build connected systems that help your business respond faster and keep track of every inquiry.</p>
         <div class="hero-actions">
-          <a class="button button-cyan" href="#contact" data-i18n="hero.primary">Review my lead flow</a>
-          <a class="text-link" href="#how" data-i18n="hero.secondary">See how it works <span aria-hidden="true">↓</span></a>
+          <a class="button button-cyan" href="#contact" data-i18n="hero.primary">Request a free review</a>
+          <a class="text-link" href="#proof" data-i18n="hero.secondary">See my work</a>
         </div>
         <ul class="trust-list" aria-label="Service advantages">
           <li data-i18n="hero.trust1">English + Español</li>
-          <li data-i18n="hero.trust2">Founder-led</li>
-          <li data-i18n="hero.trust3">Works with your tools</li>
+          <li data-i18n="hero.trust2">Work directly with Victor</li>
+          <li data-i18n="hero.trust3">Built around your business</li>
         </ul>
       </div>
 
-      <div class="hero-media reveal">
-        <picture>
-          <source media="(max-width: 720px)" srcset="/assets/site/miami-beauty-owner-hero-960.webp"/>
-          <img src="/assets/site/miami-beauty-owner-hero.webp" width="1536" height="1024" fetchpriority="high" alt="Miami small-business owner responding to a customer inquiry on her phone" data-i18n-alt="hero.imageAlt"/>
-        </picture>
-        <div class="hero-media-label"><span class="live-dot"></span><span data-i18n="hero.photoLabel">Built for the way local business really happens</span></div>
-        <div class="lead-card" aria-label="Example connected lead flow">
-          <div class="lead-card-top"><span data-i18n="hero.cardLabel">New inquiry</span><strong data-i18n="hero.cardStatus">Follow-up active</strong></div>
-          <div class="lead-steps">
-            <span class="complete" data-i18n="hero.step1">Captured</span>
-            <span class="complete" data-i18n="hero.step2">Replied</span>
-            <span class="active" data-i18n="hero.step3">Assigned</span>
-          </div>
-          <small data-i18n="hero.cardNote">Example workflow · No customer data</small>
-        </div>
-      </div>
+      <figure class="business-journey" id="how" aria-labelledby="journey-title">
+        <figcaption id="journey-title" data-i18n="journey.title">From attention to a conversation.</figcaption>
+        <ol class="journey-stages">
+          <li><span class="journey-number" aria-hidden="true">01</span><div><h2 data-i18n="journey.1.title">Your ad</h2><p data-i18n="journey.1.body">Facebook &amp; Instagram put your offer in front of people.</p></div></li>
+          <li><span class="journey-number" aria-hidden="true">02</span><div><h2 data-i18n="journey.2.title">Their inquiry</h2><p data-i18n="journey.2.body">Your website or WhatsApp makes it easy to get in touch.</p></div></li>
+          <li><span class="journey-number" aria-hidden="true">03</span><div><h2 data-i18n="journey.3.title">A clear handoff</h2><p data-i18n="journey.3.body">Details are organized. The right person gets the alert.</p></div></li>
+          <li><span class="journey-number" aria-hidden="true">04</span><div><h2 data-i18n="journey.4.title">Follow-up that happens</h2><p data-i18n="journey.4.body">A reminder and a clear next step keep the conversation moving.</p></div></li>
+        </ol>
+        <p class="journey-note" data-i18n="journey.note">An example of how we connect your process.</p>
+      </figure>
     </section>
 
-    <section class="signal-bar" aria-label="What Sosa Tech connects">
-      <div><strong data-i18n="signal.1.title">Your channels</strong><span data-i18n="signal.1.body">Website · Meta · Google · WhatsApp</span></div>
-      <div><strong data-i18n="signal.2.title">Your process</strong><span data-i18n="signal.2.body">Capture · Respond · Assign · Follow up</span></div>
-      <div><strong data-i18n="signal.3.title">Your visibility</strong><span data-i18n="signal.3.body">Status · Attribution · Alerts · Recovery</span></div>
-    </section>
-
-    <section class="audience section-light" id="who">
-      <div class="section-intro reveal">
-        <div>
-          <span class="kicker" data-i18n="who.kicker">Who we help</span>
-          <h2 data-i18n="who.title">Built for businesses where <em>every inquiry matters.</em></h2>
-        </div>
-        <p data-i18n="who.lead">For Miami owners who win business through relationships—but need a better system behind the conversation.</p>
+    <section class="selected-work section-light" id="proof">
+      <div class="work-intro"><div><span class="kicker" data-i18n="work.kicker">Selected work</span><h2 data-i18n="work.title">Built around real businesses.</h2></div><p data-i18n="work.lead">Websites, customer workflows and publishing systems. Different businesses, connected by practical technology.</p></div>
+      <div class="project-grid">
+        <article class="project-card"><a class="project-image work-screenshot" href="https://mocasahairtransplant.com/" target="_blank" rel="noopener noreferrer"><img src="/assets/site/project-mocasa-website.jpg" alt="Mocasa Hair Transplant homepage with consultation and WhatsApp links" width="1902" height="815" loading="lazy" data-i18n-alt="work.1.alt"></a><div class="project-copy"><span data-i18n="work.1.tag">Wellness · Website & inquiries</span><h3>Mocasa</h3><p data-i18n="work.1.body"><strong>The need</strong> Help visitors understand the service and start a consultation.<br><strong>The build</strong> A landing page with service information, a consultation form, and direct WhatsApp and call links.</p><a href="https://mocasahairtransplant.com/" target="_blank" rel="noopener noreferrer" data-i18n="work.1.link">View the live website</a></div></article>
+        <article class="project-card"><a class="project-image work-content" href="/assets/site/project-heh-content.jpg" target="_blank" rel="noopener"><img src="/assets/site/project-heh-content.jpg" alt="HEH Miami Business Watch social graphic about electric buses" width="1080" height="1350" loading="lazy" data-i18n-alt="work.2.alt"></a><div class="project-copy"><span data-i18n="work.2.tag">Professional services · Content</span><h3>HEH</h3><p data-i18n="work.2.body"><strong>The need</strong> Turn business news into consistent branded content.<br><strong>The build</strong> A social graphic combining a clear headline, source attribution, and HEH’s visual identity.</p><a href="/assets/site/project-heh-content.jpg" target="_blank" rel="noopener" data-i18n="work.2.link">View the full creative</a></div></article>
+        <article class="project-card"><a class="project-image work-screenshot" href="https://radiotobemiami.com/" target="_blank" rel="noopener noreferrer"><img src="/assets/site/project-radio-website.jpg" width="1902" height="815" loading="lazy" alt="Radio To Be website showing the station player and mobile app links" data-i18n-alt="work.3.alt"></a><div class="project-copy"><span data-i18n="work.3.tag">Radio · Website & streaming</span><h3>Radio To Be</h3><p data-i18n="work.3.body"><strong>The need</strong> Make the station easy to listen to online.<br><strong>The build</strong> A website player connected to the station stream, alongside programming and app links.</p><a href="https://radiotobemiami.com/" target="_blank" rel="noopener noreferrer" data-i18n="work.3.link">View the live website</a></div></article>
       </div>
-
-      <div class="audience-grid">
-        <article class="audience-card reveal">
-          <div class="audience-image beauty-image">
-            <img src="/assets/site/miami-beauty-owner-hero-960.webp" width="960" height="640" loading="lazy" decoding="async" alt="Owner of a Miami beauty business using her phone" data-i18n-alt="who.beautyAlt"/>
-            <span>01</span>
-          </div>
-          <div class="audience-copy">
-            <span class="audience-tag" data-i18n="who.1.tag">Appointments</span>
-            <h3 data-i18n="who.1.title">Beauty &amp; wellness</h3>
-            <p data-i18n="who.1.body">Move a new DM or form inquiry toward a real appointment—with clear handoff and follow-up.</p>
-            <strong data-i18n="who.1.outcome">From inquiry → booked conversation</strong>
-          </div>
-        </article>
-
-        <article class="audience-card reveal">
-          <div class="audience-image">
-            <img src="/assets/site/miami-travel-owner.webp" width="800" height="1000" loading="lazy" decoding="async" alt="Miami travel agency owner helping customers while managing a phone inquiry" data-i18n-alt="who.travelAlt"/>
-            <span>02</span>
-          </div>
-          <div class="audience-copy">
-            <span class="audience-tag" data-i18n="who.2.tag">Quotes &amp; requests</span>
-            <h3 data-i18n="who.2.title">Travel &amp; customer services</h3>
-            <p data-i18n="who.2.body">Keep every quote, document request and WhatsApp conversation visible to the right person.</p>
-            <strong data-i18n="who.2.outcome">From message → accountable next step</strong>
-          </div>
-        </article>
-
-        <article class="audience-card reveal">
-          <div class="audience-image">
-            <img src="/assets/site/miami-home-services-owner.webp" width="800" height="1000" loading="lazy" decoding="async" alt="Miami home-services owner coordinating work from her phone" data-i18n-alt="who.homeAlt"/>
-            <span>03</span>
-          </div>
-          <div class="audience-copy">
-            <span class="audience-tag" data-i18n="who.3.tag">Field &amp; office</span>
-            <h3 data-i18n="who.3.title">Home &amp; professional services</h3>
-            <p data-i18n="who.3.body">Route new opportunities between the field, office and owner without copying the same details twice.</p>
-            <strong data-i18n="who.3.outcome">From lead → right owner, right status</strong>
-          </div>
-        </article>
-      </div>
-
-      <div class="fit-strip reveal">
-        <span class="fit-label" data-i18n="fit.label">A strong fit if…</span>
-        <ul>
-          <li data-i18n="fit.1">WhatsApp is central to your business</li>
-          <li data-i18n="fit.2">Leads arrive in several places</li>
-          <li data-i18n="fit.3">Follow-up still depends on memory</li>
-          <li data-i18n="fit.4">You want one accountable partner</li>
-        </ul>
-      </div>
-      <p class="photo-disclosure" data-i18n="photo.disclosure">Representative AI-generated business photography; no client identities or results are implied.</p>
-    </section>
-
-    <section class="friction section-dark">
-      <div class="friction-intro reveal">
-        <span class="kicker" data-i18n="friction.kicker">The real problem</span>
-        <h2 data-i18n="friction.title">The lead arrived.<br/><em>What happened next?</em></h2>
-      </div>
-      <div class="friction-grid">
-        <article class="friction-card reveal"><span>01</span><h3 data-i18n="friction.1.title">Scattered inboxes</h3><p data-i18n="friction.1.body">Website forms, Instagram DMs, Facebook messages, calls and WhatsApp all live in different places.</p></article>
-        <article class="friction-card reveal"><span>02</span><h3 data-i18n="friction.2.title">Slow response</h3><p data-i18n="friction.2.body">A good inquiry waits because the right person never saw it—or assumed someone else replied.</p></article>
-        <article class="friction-card reveal"><span>03</span><h3 data-i18n="friction.3.title">Manual follow-up</h3><p data-i18n="friction.3.body">Names and notes move between chats, paper and spreadsheets until the next step becomes unclear.</p></article>
-        <article class="friction-card reveal"><span>04</span><h3 data-i18n="friction.4.title">Invisible results</h3><p data-i18n="friction.4.body">Money goes into a website or campaign, but no one can connect the click to a useful business outcome.</p></article>
-      </div>
-      <blockquote class="friction-quote reveal" data-i18n="friction.quote">You usually do not need more tools. You need the tools you already have to work together.</blockquote>
-    </section>
-
-    <section class="flow section-cyan" id="how">
-      <div class="section-intro flow-intro reveal">
-        <div>
-          <span class="kicker dark" data-i18n="flow.kicker">The connected lead flow</span>
-          <h2 data-i18n="flow.title">A clear path from <em>interest to action.</em></h2>
-        </div>
-        <p data-i18n="flow.lead">Simple enough for the team to use. Structured enough for the owner to see what is happening.</p>
-      </div>
-      <div class="flow-track" role="list">
-        <article class="flow-step reveal" role="listitem"><span>01</span><div class="flow-icon">↘</div><h3 data-i18n="flow.1.title">Capture</h3><p data-i18n="flow.1.body">Bring website, social and campaign inquiries into a known path.</p></article>
-        <article class="flow-step reveal" role="listitem"><span>02</span><div class="flow-icon">↗</div><h3 data-i18n="flow.2.title">Respond</h3><p data-i18n="flow.2.body">Acknowledge quickly and collect the details needed for a human conversation.</p></article>
-        <article class="flow-step reveal" role="listitem"><span>03</span><div class="flow-icon">→</div><h3 data-i18n="flow.3.title">Assign</h3><p data-i18n="flow.3.body">Notify the right person and make responsibility visible.</p></article>
-        <article class="flow-step reveal" role="listitem"><span>04</span><div class="flow-icon">✓</div><h3 data-i18n="flow.4.title">Follow up</h3><p data-i18n="flow.4.body">Record the status, trigger the next action and protect opt-outs.</p></article>
-      </div>
-      <a class="flow-cta reveal" href="#contact"><span data-i18n="flow.ctaLead">Where does your process break?</span><strong data-i18n="flow.cta">Let’s map it together →</strong></a>
+      <div class="who-summary" id="who"><strong data-i18n="who.shortTitle">For businesses built on relationships.</strong><p data-i18n="who.shortBody">Wellness, travel, professional services and media. A strong fit when inquiries arrive in several places and follow-up still depends on memory.</p></div>
     </section>
 
     <section class="solutions section-light" id="solutions">
       <div class="section-intro reveal">
         <div>
           <span class="kicker" data-i18n="solutions.kicker">What we build first</span>
-          <h2 data-i18n="solutions.title">A connected system for <em>business growth.</em></h2>
+          <h2 data-i18n="solutions.title">Start with what your business needs.</h2>
         </div>
         <p data-i18n="solutions.lead">Start with the bottleneck—not a shopping list of technology.</p>
       </div>
       <div class="solution-stack">
         <a class="solution-row reveal" href="/services/websites/">
           <span class="solution-number">01</span>
-          <div><span class="solution-kicker" data-i18n="solutions.1.kicker">Website + offer</span><h3 data-i18n="solutions.1.title">Capture &amp; convert</h3></div>
+          <div><span class="solution-kicker" data-i18n="solutions.1.kicker">Website + offer</span><h3 data-i18n="solutions.1.title">Websites</h3></div>
           <p data-i18n="solutions.1.body">A fast bilingual website or landing page that makes the offer clear, captures the right details and sends the inquiry somewhere useful.</p>
           <span class="solution-arrow" aria-hidden="true">↗</span>
         </a>
-        <a class="solution-row reveal" href="/services/automation/">
+        <a class="solution-row reveal" href="/services/marketing/">
           <span class="solution-number">02</span>
-          <div><span class="solution-kicker" data-i18n="solutions.2.kicker">WhatsApp + workflow</span><h3 data-i18n="solutions.2.title">Respond &amp; follow up</h3></div>
-          <p data-i18n="solutions.2.body">Routing, reminders, alerts and AI-assisted intake that reduce repetitive work while keeping important conversations human.</p>
+          <div><span class="solution-kicker" data-i18n="solutions.4.kicker">Campaign + measurement</span><h3 data-i18n="solutions.4.title">Facebook &amp; Instagram ads</h3></div>
+          <p data-i18n="solutions.4.body">Facebook and Instagram campaigns connected to your website or WhatsApp, with tracking to understand where inquiries come from.</p>
+          <span class="solution-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="solution-row reveal" href="/services/automation/">
+          <span class="solution-number">03</span>
+          <div><span class="solution-kicker" data-i18n="solutions.2.kicker">WhatsApp + workflow</span><h3 data-i18n="solutions.2.title">WhatsApp &amp; follow-up automation</h3></div>
+          <p data-i18n="solutions.2.body">Collect and organize inquiries, route alerts to the right person, and automate reminders and follow-up around your existing process.</p>
           <span class="solution-arrow" aria-hidden="true">↗</span>
         </a>
         <a class="solution-row reveal" href="/services/content-engine/">
-          <span class="solution-number">03</span>
-          <div><span class="solution-kicker" data-i18n="solutions.3.kicker">Content + approval</span><h3 data-i18n="solutions.3.title">Create &amp; publish</h3></div>
+          <span class="solution-number">04</span>
+          <div><span class="solution-kicker" data-i18n="solutions.3.kicker">Content + approval</span><h3 data-i18n="solutions.3.title">Content creation &amp; publishing</h3></div>
           <p data-i18n="solutions.3.body">Brand-aware ideas, bilingual posts, carousels and Reels—with a human approval step before scheduled Facebook and Instagram publishing.</p>
           <span class="solution-arrow" aria-hidden="true">↗</span>
         </a>
-        <a class="solution-row reveal" href="/services/marketing/">
-          <span class="solution-number">04</span>
-          <div><span class="solution-kicker" data-i18n="solutions.4.kicker">Campaign + measurement</span><h3 data-i18n="solutions.4.title">Reach &amp; improve</h3></div>
-          <p data-i18n="solutions.4.body">Meta and Google campaigns connected to the landing page, response process and reporting needed to make the next decision.</p>
-          <span class="solution-arrow" aria-hidden="true">↗</span>
-        </a>
-      </div>
-      <div class="advanced-strip reveal">
-        <div><span class="kicker" data-i18n="advanced.kicker">Advanced capabilities when needed</span><p data-i18n="advanced.body">Reliable infrastructure, monitoring, backups, recovery and live-media systems support the business behind the scenes.</p></div>
-        <div class="advanced-links"><a href="/services/infrastructure/" data-i18n="advanced.infrastructure">Infrastructure →</a><a href="/services/streaming/" data-i18n="advanced.streaming">Streaming →</a></div>
       </div>
     </section>
 
-    <section class="content-engine section-dark" id="content-engine">
-      <div class="section-intro reveal">
-        <div>
-          <span class="kicker" data-i18n="engine.kicker">The AI-assisted content engine</span>
-          <h2 data-i18n="engine.title">Stay visible without the <em>content chaos.</em></h2>
-        </div>
-        <p data-i18n="engine.lead">A practical system for small businesses that need consistent content but cannot spend every week inventing, designing and scheduling it from scratch.</p>
-      </div>
-      <div class="engine-shell">
-        <div class="engine-track" role="list" aria-label="AI-assisted content workflow">
-          <article class="engine-stage reveal" role="listitem"><span>01</span><strong data-i18n="engine.1.title">Ideas</strong><small data-i18n="engine.1.body">Audience, offer and local moments</small></article>
-          <article class="engine-stage reveal" role="listitem"><span>02</span><strong data-i18n="engine.2.title">Create</strong><small data-i18n="engine.2.body">Posts, carousels, Reels and captions</small></article>
-          <article class="engine-stage engine-stage-approval reveal" role="listitem"><span>03</span><strong data-i18n="engine.3.title">Approve</strong><small data-i18n="engine.3.body">A person reviews every public asset</small></article>
-          <article class="engine-stage reveal" role="listitem"><span>04</span><strong data-i18n="engine.4.title">Schedule</strong><small data-i18n="engine.4.body">A clear bilingual content calendar</small></article>
-          <article class="engine-stage reveal" role="listitem"><span>05</span><strong data-i18n="engine.5.title">Publish</strong><small data-i18n="engine.5.body">Facebook and Instagram delivery</small></article>
-          <article class="engine-stage reveal" role="listitem"><span>06</span><strong data-i18n="engine.6.title">Learn</strong><small data-i18n="engine.6.body">Use real signals to improve the next cycle</small></article>
-        </div>
-        <div class="engine-bottom">
-          <div class="engine-promise reveal">
-            <span class="engine-pulse" aria-hidden="true"></span>
-            <div><strong data-i18n="engine.promiseTitle">AI assists. You approve.</strong><p data-i18n="engine.promiseBody">The system can draft and organize at scale. Your business keeps the final say before anything becomes public.</p></div>
-          </div>
-          <ul class="engine-features reveal">
-            <li data-i18n="engine.feature1">Your brand voice and visual rules</li>
-            <li data-i18n="engine.feature2">English and Spanish variants</li>
-            <li data-i18n="engine.feature3">Publication status and failure alerts</li>
-            <li data-i18n="engine.feature4">Winning ideas ready to test in ads</li>
-          </ul>
-          <a class="button button-cyan reveal" href="/services/content-engine/" data-i18n="engine.cta">Explore the content engine →</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="proof section-dark" id="proof">
-      <div class="section-intro reveal">
-        <div>
-          <span class="kicker" data-i18n="proof.kicker">What we have actually operated</span>
-          <h2 data-i18n="proof.title">Real systems.<br/><em>No invented results.</em></h2>
-        </div>
-        <p data-i18n="proof.lead">Our proof is operational: connected workflows, clear safeguards and verifiable delivery—without exposing private client information.</p>
-      </div>
-      <div class="proof-layout">
-        <div class="proof-cases">
-          <article class="proof-case reveal"><span data-i18n="proof.1.tag">Travel &amp; services</span><h3 data-i18n="proof.1.title">Campaign response with accountable follow-up</h3><p data-i18n="proof.1.body">Match the contact, check communication status, notify the team, record delivery and preserve opt-outs.</p><div data-i18n="proof.1.flow">REPLY → MATCH → ASSIGN → RECORD</div></article>
-          <article class="proof-case reveal"><span data-i18n="proof.2.tag">Lead-driven businesses</span><h3 data-i18n="proof.2.title">New inquiry routed without duplicate work</h3><p data-i18n="proof.2.body">Capture the lead, check for duplicates, send the right alert and retain a visible status for the next action.</p><div data-i18n="proof.2.flow">CAPTURE → CHECK → ROUTE → FOLLOW UP</div></article>
-          <article class="proof-case reveal"><span data-i18n="proof.3.tag">Content &amp; operations</span><h3 data-i18n="proof.3.title">Approved publishing with verification</h3><p data-i18n="proof.3.body">Keep creative review separate from the public write, verify delivery and surface failures instead of silently assuming success.</p><div data-i18n="proof.3.flow">REVIEW → APPROVE → PUBLISH → VERIFY</div></article>
-        </div>
-        <aside class="guardrail-card reveal">
-          <span class="guardrail-label" data-i18n="guardrail.label">Built-in guardrails</span>
-          <ul>
-            <li><span>01</span><strong data-i18n="guardrail.1.title">Human approval</strong><small data-i18n="guardrail.1.body">Public actions stay deliberate.</small></li>
-            <li><span>02</span><strong data-i18n="guardrail.2.title">Consent &amp; opt-outs</strong><small data-i18n="guardrail.2.body">Communication rules stay part of the workflow.</small></li>
-            <li><span>03</span><strong data-i18n="guardrail.3.title">Monitoring &amp; alerts</strong><small data-i18n="guardrail.3.body">Failure becomes visible.</small></li>
-            <li><span>04</span><strong data-i18n="guardrail.4.title">Backups &amp; recovery</strong><small data-i18n="guardrail.4.body">The system has a way back.</small></li>
-          </ul>
-        </aside>
-      </div>
-    </section>
+    <section class="specialist-services section-dark" id="specialist-services" aria-labelledby="specialist-title"><div class="section-intro"><div><span class="kicker"><span data-i18n="specialist.kicker">More ways I can help</span></span><h2 id="specialist-title"><span data-i18n="specialist.title">AI, live media and the systems behind them.</span></h2></div><p><span data-i18n="specialist.lead">From a custom assistant to an online radio station, I build and connect the tools your operation needs.</span></p></div><div class="specialist-grid"><article><h3><span data-i18n="specialist.agents.title">AI agents &amp; custom integrations</span></h3><p><span data-i18n="specialist.agents.body">Assist your team with business questions, inquiry organization and repetitive tasks, connected to the tools you use.</span></p><a href="/services/agents/"><span data-i18n="specialist.agents.link">Explore AI agents</span><span aria-hidden="true"> ↗</span></a></article><article><h3><span data-i18n="specialist.streaming.title">Streaming &amp; broadcasting</span></h3><p><span data-i18n="specialist.streaming.body">Internet radio, website players and live audio or video workflows, with monitoring and practical technical support.</span></p><a href="/services/streaming/"><span data-i18n="specialist.streaming.link">Explore streaming</span><span aria-hidden="true"> ↗</span></a></article><article><h3><span data-i18n="specialist.infrastructure.title">Infrastructure &amp; reliability</span></h3><p><span data-i18n="specialist.infrastructure.body">Keep the systems behind your business running with server management, monitoring, backups and recovery planning.</span></p><a href="/services/infrastructure/"><span data-i18n="specialist.infrastructure.link">Explore infrastructure</span><span aria-hidden="true"> ↗</span></a></article></div></section>
 
     <section class="about section-light" id="about">
-      <div class="founder-mark reveal" aria-hidden="true"><span>VS</span><small>Miami · FL</small></div>
+      <figure class="founder-photo reveal">
+        <img src="/assets/site/victor-sosa-broadcast-branded.jpg" width="1448" height="1086" loading="lazy" decoding="async" alt="Victor Sosa wearing headphones at a broadcast booth overlooking a baseball field" data-i18n-alt="about.photoAlt">
+        <figcaption><strong>Victor Sosa</strong><span data-i18n="about.photoCaption">Founder · Sosa Tech Solutions</span></figcaption>
+      </figure>
       <div class="about-copy reveal">
         <span class="kicker" data-i18n="about.kicker">Founder-led, Miami-rooted</span>
-        <h2 data-i18n="about.title">You work directly with the person <em>building the system.</em></h2>
-        <p class="about-lead" data-i18n="about.lead">Sosa Tech Solutions is led by Victor Sosa. The work starts with your real process, keeps ownership clear and stays understandable after launch.</p>
+        <h2 data-i18n="about.title">Hi, I’m Victor. <em>Let’s connect your business.</em></h2>
+        <p class="about-lead" data-i18n="about.lead">I build and connect the technology behind your business. You work directly with me—from the first conversation through implementation and ongoing support, in English or Spanish.</p>
         <div class="about-points">
-          <div><strong data-i18n="about.1.title">Direct</strong><span data-i18n="about.1.body">No account-manager maze or mystery handoff.</span></div>
+          <div><strong data-i18n="about.1.title">Direct</strong><span data-i18n="about.1.body">Work directly with the person building your system.</span></div>
           <div><strong data-i18n="about.2.title">Bilingual</strong><span data-i18n="about.2.body">Discovery, delivery and support in English or Spanish.</span></div>
           <div><strong data-i18n="about.3.title">Practical</strong><span data-i18n="about.3.body">Keep useful tools. Add only what solves the bottleneck.</span></div>
           <div><strong data-i18n="about.4.title">Accountable</strong><span data-i18n="about.4.body">Clear scope, ownership, verification and next steps.</span></div>
@@ -401,8 +247,10 @@
       </div>
     </section>
 
+    <section class="journal section-light" id="insights" aria-labelledby="journal-title"><div class="section-intro"><div><span class="kicker"><span data-i18n="journal.kicker">From the blog</span></span><h2 id="journal-title"><span data-i18n="journal.title">Understand what’s possible.</span></h2></div><div><p><span data-i18n="journal.lead">Practical reading on websites, automation and the tools behind a connected business.</span></p><a class="journal-all" href="/blog/"><span data-i18n="journal.all">Explore all articles</span></a></div></div><div class="journal-grid"><a class="journal-article" href="/blog/como-la-inteligencia-artificial-puede-automatizar-tu-negocio-en-miami/"><span class="journal-topic"><span data-i18n="journal.1.topic">AI &amp; automation</span></span><h3><span data-i18n="journal.1.title">How AI can help automate your business</span></h3><p><span data-i18n="journal.1.body">Explore practical uses for repetitive work and customer service.</span></p><span class="journal-read"><span data-i18n="journal.read">Read article</span> <span aria-hidden="true">↗</span></span></a><a class="journal-article" href="/blog/automatizacion-de-whatsapp-para-negocios-en-miami/"><span class="journal-topic"><span data-i18n="journal.2.topic">WhatsApp</span></span><h3><span data-i18n="journal.2.title">A better process for WhatsApp inquiries</span></h3><p><span data-i18n="journal.2.body">Read about capturing inquiries and organizing follow-up.</span></p><span class="journal-read"><span data-i18n="journal.read">Read article</span> <span aria-hidden="true">↗</span></span></a><a class="journal-article" href="/blog/por-que-tu-negocio-en-miami-necesita-un-sitio-web-rapido-y-movil/"><span class="journal-topic"><span data-i18n="journal.3.topic">Websites</span></span><h3><span data-i18n="journal.3.title">Why a fast, mobile-friendly website matters</span></h3><p><span data-i18n="journal.3.body">See how the mobile experience shapes the path to contacting your business.</span></p><span class="journal-read"><span data-i18n="journal.read">Read article</span> <span aria-hidden="true">↗</span></span></a></div></section>
+
     <section class="faq section-dark" id="faq">
-      <div class="faq-heading reveal"><span class="kicker" data-i18n="faq.kicker">Questions before we build</span><h2 data-i18n="faq.title">Clear answers.<br/><em>No tech theater.</em></h2></div>
+      <div class="faq-heading reveal"><span class="kicker" data-i18n="faq.kicker">Questions before we build</span><h2 data-i18n="faq.title">Before we get started.</h2></div>
       <div class="faq-list reveal">
         <details><summary data-i18n="faq.1.q">What happens in the free lead-flow review?</summary><p data-i18n="faq.1.a">We map how inquiries arrive, who responds, what happens next and where opportunities become delayed or invisible. You receive a practical recommended next step with no obligation to continue.</p></details>
         <details><summary data-i18n="faq.2.q">Can you automate WhatsApp without making it feel robotic?</summary><p data-i18n="faq.2.a">Yes. Useful automation handles capture, routing, reminders and status while leaving important conversations to people. The goal is better service, not replacing the relationship.</p></details>
@@ -416,9 +264,14 @@
 
     <section class="contact section-cyan" id="contact">
       <div class="contact-copy reveal">
-        <span class="kicker dark" data-i18n="contact.kicker">Free lead-flow review</span>
-        <h2 data-i18n="contact.title">Show us where the <em>lead gets lost.</em></h2>
-        <p data-i18n="contact.lead">Tell us how customers find you, where your team responds and what keeps falling through the cracks. We will reply within one business day with the clearest next step.</p>
+        <span class="kicker dark" data-i18n="contact.kicker">Your free process review</span>
+        <h2 data-i18n="contact.title">Let’s find your next step.</h2>
+        <p data-i18n="contact.lead">Tell me how your business handles inquiries today. I’ll reply within one business day to arrange your review.</p>
+        <ol class="review-deliverables">
+          <li><strong data-i18n="review.1.title">Map your current process</strong><span data-i18n="review.1.body">Where inquiries arrive, who responds, and what happens next.</span></li>
+          <li><strong data-i18n="review.2.title">Find the main gap</strong><span data-i18n="review.2.body">Identify the handoff or repeated task causing the most friction.</span></li>
+          <li><strong data-i18n="review.3.title">Get a practical next step</strong><span data-i18n="review.3.body">A clear recommendation, with implementation scoped separately if you choose to proceed.</span></li>
+        </ol>
         <a class="whatsapp-direct" href="https://wa.me/13057415702?text=Hi%20Sosa%20Tech%2C%20I%20want%20to%20review%20my%20lead%20flow." target="_blank" rel="noopener noreferrer"><span>WhatsApp</span><strong>+1 (305) 741-5702</strong></a>
       </div>
       <div class="contact-panel reveal">
@@ -441,8 +294,18 @@
             <label><span data-i18n="form.business">Business / industry</span><input id="f-service" name="service" type="text" data-i18n-placeholder="form.businessPh" placeholder="Salon, travel agency, contractor…"/></label>
             <label><span data-i18n="form.stage">Current stage</span><input id="f-budget" name="budget" type="text" data-i18n-placeholder="form.stagePh" placeholder="Exploring, ready to fix, not sure…"/></label>
           </div>
+          <label><span data-i18n="form.interest">What can I help you with?</span><select id="f-interest" name="service_interest">
+            <option value="" data-i18n="interest.unsure">Not sure yet</option>
+            <option value="websites" data-i18n="interest.websites">Websites</option>
+            <option value="marketing" data-i18n="interest.marketing">Facebook &amp; Instagram ads</option>
+            <option value="automation" data-i18n="interest.automation">WhatsApp &amp; follow-up automation</option>
+            <option value="content-engine" data-i18n="interest.content-engine">Content creation &amp; publishing</option>
+            <option value="infrastructure" data-i18n="interest.infrastructure">Infrastructure</option>
+            <option value="agents" data-i18n="interest.agents">AI agents &amp; custom integrations</option>
+            <option value="streaming" data-i18n="interest.streaming">Streaming &amp; broadcasting</option>
+          </select></label>
           <label><span data-i18n="form.message">Where does the process get stuck?</span><textarea id="f-message" name="message" rows="5" required data-i18n-placeholder="form.messagePh" placeholder="Leads come from Instagram and WhatsApp, but follow-up is manual…"></textarea></label>
-          <button class="button button-dark form-submit" id="contact-submit" type="submit" data-i18n="form.submit">Review my lead flow →</button>
+          <button class="button button-dark form-submit" id="contact-submit" type="submit" data-i18n="form.submit">Request my free review</button>
           <p class="form-privacy" data-i18n="form.privacy">By submitting, you agree to our <a href="/privacy-policy/">Privacy Policy</a> and <a href="/terms/">Terms</a>.</p>
         </form>
         <div class="form-success" id="form-success" role="status" aria-live="polite">
@@ -463,6 +326,6 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.486a.5.5 0 00.619.599l5.79-1.516A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.728 9.728 0 01-4.962-1.357l-.355-.212-3.685.965.983-3.596-.232-.37A9.711 9.711 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
   </a>
 
-  <script src="/assets/home.js" defer></script>
+  <script src="/assets/home.js?v=20260911b" defer></script>
 </body>
 </html>

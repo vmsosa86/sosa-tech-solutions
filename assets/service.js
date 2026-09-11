@@ -19,20 +19,28 @@
   function setLanguage(language) {
     const lang = language === 'es' ? 'es' : 'en';
     document.documentElement.lang = lang;
+    document.querySelectorAll('[data-alt-en]').forEach(image => { image.alt = image.dataset[lang === 'es' ? 'altEs' : 'altEn']; });
+    document.querySelectorAll('a[href^="/"]').forEach(link => {
+      const url = new URL(link.href, location.origin);
+      url.searchParams.set('lang', lang);
+      link.href = `${url.pathname}${url.search}${url.hash}`;
+    });
     document.querySelectorAll('[data-lang]').forEach(element => {
       element.hidden = element.dataset.lang !== lang;
     });
     document.querySelectorAll('[data-set-lang]').forEach(button => {
       button.setAttribute('aria-pressed', button.dataset.setLang === lang ? 'true' : 'false');
     });
-    try { localStorage.setItem('sosa-tech-language', lang); } catch {}
+    try { localStorage.setItem('sosa-language', lang); } catch {}
   }
 
   document.querySelectorAll('[data-set-lang]').forEach(button => {
     button.addEventListener('click', () => setLanguage(button.dataset.setLang));
   });
 
+  document.addEventListener('sosa:language', event => setLanguage(event.detail));
+
   let saved = null;
-  try { saved = localStorage.getItem('sosa-tech-language'); } catch {}
+  try { saved = localStorage.getItem('sosa-language') || localStorage.getItem('sosa-tech-language'); } catch {}
   setLanguage(params.get('lang') || saved || 'en');
 })();
