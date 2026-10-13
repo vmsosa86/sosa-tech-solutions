@@ -4,8 +4,8 @@
   const toggle = nav.querySelector('.site-nav-toggle');
   const links = nav.querySelector('.site-nav-links');
   const labels = {
-    en: {specialists:'AI & streaming', solutions:'Solutions', proof:'Selected work', about:'About', blog:'Blog', contact:'Request a free review', open:'Open navigation menu', close:'Close navigation menu'},
-    es: {specialists:'IA y streaming', solutions:'Soluciones', proof:'Proyectos', about:'Nosotros', blog:'Blog', contact:'Solicitar revisión gratuita', open:'Abrir menú de navegación', close:'Cerrar menú de navegación'}
+    en: {specialists:'AI & streaming', solutions:'Solutions', proof:'Selected work', about:'About', blog:'Blog', contact:'Request a free review', whatsapp:'Message us on WhatsApp', open:'Open navigation menu', close:'Close navigation menu'},
+    es: {specialists:'IA y streaming', solutions:'Soluciones', proof:'Proyectos', about:'Nosotros', blog:'Blog', contact:'Solicitar revisión gratuita', whatsapp:'Escríbenos por WhatsApp', open:'Abrir menú de navegación', close:'Cerrar menú de navegación'}
   };
   const language = () => document.documentElement.lang === 'es' ? 'es' : 'en';
   function closeMenu() {
@@ -19,6 +19,7 @@
     nav.querySelectorAll('[data-nav-lang]').forEach(button => {button.setAttribute('aria-pressed',String(button.dataset.navLang===lang));});
     nav.querySelectorAll('a').forEach(link => {
       const url = new URL(link.href,location.origin);
+      if (url.origin !== location.origin) return;
       url.searchParams.set('lang',lang);
       link.href = `${url.pathname}${url.search}${url.hash}`;
       if (url.pathname === '/blog/' && location.pathname.startsWith('/blog/')) link.setAttribute('aria-current','page');

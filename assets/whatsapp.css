@@ -1,0 +1,21 @@
+/* Shared WhatsApp contact: floating button on every page and the blog in-article CTA. */
+.floating-whatsapp{position:fixed;z-index:190;right:1.25rem;bottom:1.25rem;width:3.6rem;height:3.6rem;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 9px 30px rgba(37,211,102,.35);transition:transform .2s}
+.floating-whatsapp:hover{transform:scale(1.06)}
+.floating-whatsapp:focus-visible{outline:3px solid #00e5c8;outline-offset:4px}
+.floating-whatsapp svg{display:block;width:1.7rem;height:1.7rem;fill:#fff}
+
+/* Blog posts: a quieter companion to the existing cyan .cta block. */
+.blog-page .cta.cta-whatsapp{background:var(--card,#101720);color:var(--white,#f4f7fb);border:1px solid var(--border,rgba(255,255,255,.1))}
+.blog-page .cta.cta-whatsapp h2{color:var(--white,#f4f7fb)}
+.blog-page .cta.cta-whatsapp p{color:var(--muted,#9aa6b5)}
+.blog-page .cta.cta-whatsapp .btn{background:var(--cyan,#00e5c8);color:var(--black,#080a0f)}
+
+/* Keep the end of every page (footer links, legal text) clear of the floating button. */
+body{padding-bottom:5.5rem}
+body:has(> .legal-footer){padding-bottom:0}
+.legal-footer{padding-bottom:5.5rem}
+@media (max-width:600px){
+  .floating-whatsapp{width:3.35rem;height:3.35rem;right:.85rem;bottom:.85rem}
+  body,.legal-footer{padding-bottom:4.75rem}
+}
+@media (prefers-reduced-motion:reduce){.floating-whatsapp{transition:none}.floating-whatsapp:hover{transform:none}}

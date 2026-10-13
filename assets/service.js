@@ -32,6 +32,7 @@
       button.setAttribute('aria-pressed', button.dataset.setLang === lang ? 'true' : 'false');
     });
     try { localStorage.setItem('sosa-language', lang); } catch {}
+    window.sosaWhatsApp?.update(lang);
   }
 
   document.querySelectorAll('[data-set-lang]').forEach(button => {

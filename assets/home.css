@@ -260,9 +260,6 @@ section{scroll-margin-top:5rem}
 .footer-brand img{width:150px;height:auto}.footer-brand span{display:block;color:var(--muted);font-size:.78rem;margin-top:.5rem}
 .footer-links,.footer-social{display:flex;flex-wrap:wrap;gap:1rem}
 .site-footer>p{grid-column:1/-1;padding-top:1.5rem;border-top:1px solid var(--line);color:#71817c;font:400 .62rem/1.4 'DM Mono',monospace}
-.floating-whatsapp{position:fixed;z-index:190;right:1.25rem;bottom:1.25rem;width:3.6rem;height:3.6rem;border-radius:50%;background:var(--green);display:grid;place-items:center;box-shadow:0 9px 30px rgba(37,211,102,.35);transition:transform .2s}
-.floating-whatsapp:hover{transform:scale(1.06)}
-.floating-whatsapp svg{width:1.7rem;fill:white}
 
 .motion-ready .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
 .motion-ready .reveal.is-visible{opacity:1;transform:none}
@@ -306,11 +303,11 @@ section{scroll-margin-top:5rem}
   .engine-track{grid-template-columns:1fr}.engine-stage{min-height:0;padding:1.2rem;display:grid;grid-template-columns:2rem 6rem 1fr;gap:.8rem;align-items:center;border-right:0!important;border-bottom:1px solid var(--line)!important}.engine-stage:last-child{border-bottom:0!important}.engine-stage::after{display:none}.engine-stage strong{margin-top:0}.engine-stage small{margin-top:0}.engine-bottom{grid-template-columns:1fr;padding:1.3rem}.engine-features{grid-template-columns:1fr}.engine-bottom .button{grid-column:1;width:100%}
   .proof-case{grid-template-columns:1fr;gap:.8rem}.proof-case p,.proof-case>div{grid-column:1}.proof-case h3{font-size:1.25rem}.guardrail-card{padding:1.4rem}
   .founder-photo{max-width:none}.about-points{grid-template-columns:1fr}.faq-list summary{font-size:1rem}
-  .field-row{grid-template-columns:1fr}.contact-panel{padding:1.2rem}.site-footer{grid-template-columns:1fr;align-items:start}.footer-social{justify-content:flex-start}.floating-whatsapp{width:3.35rem;height:3.35rem;right:.85rem;bottom:.85rem}
+  .field-row{grid-template-columns:1fr}.contact-panel{padding:1.2rem}.site-footer{grid-template-columns:1fr;align-items:start}.footer-social{justify-content:flex-start}
 }
 
 @media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}.motion-ready .reveal{opacity:1;transform:none;transition:none}.audience-card,.audience-image img,.button,.flow-cta,.floating-whatsapp{transition:none}
+  html{scroll-behavior:auto}.motion-ready .reveal{opacity:1;transform:none;transition:none}.audience-card,.audience-image img,.button,.flow-cta{transition:none}
 }
 
 .about-copy h2 em{color:var(--cyan-dark)}
@@ -406,3 +403,12 @@ html{scroll-padding-top:0}section{scroll-margin-top:6.5rem}.brand img{width:180p
 @media(max-width:860px){.specialist-services,.journal{padding-top:4.5rem;padding-bottom:4.5rem}.specialist-grid,.journal-grid{grid-template-columns:1fr;gap:2rem}.specialist-grid h3,.journal-article h3{max-width:none;font-size:1.7rem}.specialist-grid p,.journal-article p{max-width:60ch}.journal-article{padding-bottom:0}}
 
 .specialist-services .kicker{color:var(--cyan)}
+
+/* WhatsApp: secondary hero action and mobile menu item. Three hero actions no longer
+   fit beside the lead (especially in Spanish), so they sit under it at every width. */
+.hero-actions{position:static;margin-top:2rem}
+.button-whatsapp{gap:.6rem;background:transparent;color:var(--white);border-color:#ffffff40}
+.button-whatsapp:hover{background:#ffffff12}
+.button-whatsapp svg,.nav-whatsapp svg{width:1.15rem;height:1.15rem;fill:#25d366;flex:none}
+.primary-nav .nav-whatsapp{display:none}
+@media(max-width:860px){.primary-nav .nav-whatsapp{display:flex;align-items:center;justify-content:center;gap:.6rem;margin:.9rem 0 .6rem;padding:.85rem 1rem;border:1px solid #ffffff40;border-radius:2rem;color:var(--white);font-weight:500}}

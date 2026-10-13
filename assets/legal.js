@@ -19,6 +19,7 @@
     } catch (_) {
       // Language preference remains session-only when storage is unavailable.
     }
+    if (window.sosaWhatsApp) window.sosaWhatsApp.update(selected);
   }
 
   buttons.forEach((button) => {

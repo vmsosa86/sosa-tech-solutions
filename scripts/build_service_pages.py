@@ -5,7 +5,8 @@ from __future__ import annotations
 
 import json
 import html
-from site_navigation import render_navigation
+import whatsapp_contact
+from site_navigation import NAV_CSS_HREF, NAV_JS_SRC, render_navigation
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -245,6 +246,17 @@ for offer in OFFERS:
     if offer["slug"] in PRIMARY:
         offer.update(PRIMARY[offer["slug"]])
 
+# Service URL slug -> WhatsApp topic slug used in the prefilled [web-<slug>] tag.
+WHATSAPP_SLUGS = {
+    "websites": "websites",
+    "automation": "whatsapp-automation",
+    "content-engine": "content",
+    "marketing": "ads",
+    "agents": "ai-agents",
+    "streaming": "streaming",
+    "infrastructure": "infrastructure",
+}
+
 STEPS = [
     ("Map", "Understand the business process, current tools, people, risk, and useful outcome.", "Mapear", "Entender el proceso, herramientas, personas, riesgo y resultado útil."),
     ("Scope", "Define deliverables, owner, dependencies, timing, acceptance, and cost before building.", "Definir", "Acordar entregables, responsable, dependencias, tiempo, aceptación y costo."),
@@ -291,6 +303,7 @@ def render(offer: dict) -> str:
         example_section = f'<section class="example"><div><div class="label">{both("Selected work" if offer.get("image") else "Example workflow", "Trabajo seleccionado" if offer.get("image") else "Ejemplo de flujo")}</div><h2>{both(offer["example_title"], offer["example_title_es"])}</h2></div><div><p class="lead">{both(offer["example"], offer["example_es"])}</p>{example_link}</div></section>'
     else:
         example_section = f'<section class="proof"><h2>{both("Built for day-to-day operations.", "Para la operación diaria.")}</h2><div class="proof-grid">{proof}</div></section>'
+    whatsapp = WHATSAPP_SLUGS[offer["slug"]]
     name = html.escape(offer["name"])
     meta = html.escape(offer["meta"], quote=True)
     return f'''<!DOCTYPE html>
@@ -303,12 +316,12 @@ def render(offer: dict) -> str:
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{name} | Sosa Tech Solutions"><meta name="twitter:description" content="{meta}"><meta name="twitter:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
 <link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/assets/service.css?v=20260911">
 <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False, separators=(',', ':'))}</script>
-<link rel="stylesheet" href="/assets/site-nav.css?v=1">
+<link rel="stylesheet" href="{NAV_CSS_HREF}"><link rel="stylesheet" href="{whatsapp_contact.CSS_HREF}">
 </head><body class="has-site-nav">
 <a class="skip" href="#main">Skip to content</a>
-{render_navigation(offer['slug'])}
+{render_navigation(offer['slug'], whatsapp)}
 <main id="main">
-<header class="hero"><div><div class="label">{both(offer['name'], offer['name_es'])}</div><h1>{both(offer['title'], offer['title_es'])}</h1><p class="hero-copy">{both(offer['meta'], offer['meta_es'])}</p><div class="actions"><a class="primary" href="/?service={offer['slug']}#contact">{both('Request my free review','Solicitar revisión gratuita')}</a><a class="secondary" href="https://wa.me/13057415702" target="_blank" rel="noopener noreferrer">{both('Message Victor on WhatsApp','Escribe a Victor por WhatsApp')}</a></div></div>{visual}</header>
+<header class="hero"><div><div class="label">{both(offer['name'], offer['name_es'])}</div><h1>{both(offer['title'], offer['title_es'])}</h1><p class="hero-copy">{both(offer['meta'], offer['meta_es'])}</p><div class="actions"><a class="primary" href="/?service={offer['slug']}#contact">{both('Request my free review','Solicitar revisión gratuita')}</a><a class="secondary" {whatsapp_contact.link_attributes(whatsapp)}>{both('Message Victor on WhatsApp','Escribe a Victor por WhatsApp')}</a></div></div>{visual}</header>
 <section class="intro"><div><div class="label">{both('What we can build','Qué podemos crear')}</div><h2>{both('What’s included.','Qué incluye.')}</h2></div><div><p class="lead">{both(offer['intro'], offer['intro_es'])}</p><div class="outcomes">{outcomes}</div></div></section>
 <section class="process"><div><div class="label">{both('How we work','Cómo trabajamos')}</div><h2>{both('Start with one useful conversation.','Empecemos con una conversación útil.')}</h2></div><div><p class="lead engagement">{both(offer.get("start", offer["intro"]), offer.get("start_es", offer["intro_es"]))}</p><div class="steps">{steps}</div></div></section>
 {example_section}
@@ -317,7 +330,8 @@ def render(offer: dict) -> str:
 <section class="more"><div class="label">{both('Explore capabilities','Explora capacidades')}</div><div class="more-grid">{more}</div></section>
 </main>
 <footer><span>© 2026 Sosa Tech Solutions · Miami, Florida</span><span><a href="/privacy-policy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/blog/">Blog</a></span></footer>
-<script src="/assets/service.js?v=20260911c" defer></script><script src="/assets/site-nav.js?v=1" defer></script></body></html>'''
+{whatsapp_contact.floating_button(whatsapp)}
+<script src="/assets/service.js?v=20261013a" defer></script><script src="{NAV_JS_SRC}" defer></script><script src="{whatsapp_contact.JS_SRC}" defer></script></body></html>'''
 
 
 if __name__ == "__main__":

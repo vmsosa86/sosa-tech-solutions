@@ -15,6 +15,7 @@ The site is static HTML/CSS/JavaScript with no build step. It includes:
 - Bilingual English/Spanish homepage and legal pages.
 - Six outcome-based offers and evidence-backed operational proof.
 - Free lead-flow review contact funnel and WhatsApp CTA.
+- WhatsApp on every page: floating button, mobile-menu item and page-aware prefill (`[web-<slug>]` tag, EN/ES).
 - First-touch UTM capture in the contact form.
 - LocalBusiness, Organization, WebSite, and FAQ structured data.
 - Accessible colors, visible keyboard focus, and reduced-motion support.
@@ -27,6 +28,14 @@ python3 -m http.server 8765
 ```
 
 Then open `http://127.0.0.1:8765/`.
+
+After changing service copy, navigation or WhatsApp topics (`scripts/whatsapp_contact.py`), regenerate and validate:
+
+```bash
+python3 scripts/build_service_pages.py
+python3 scripts/sync_whatsapp_contact.py   # homepage, blog and legal pages
+python3 scripts/validate_site.py
+```
 
 ## Brand system
 
