@@ -118,8 +118,8 @@ OFFERS = [
     },
     {
         "slug": "infrastructure",
-        "name": "Run Reliably",
-        "name_es": "Operar con Confianza",
+        "name": "Infrastructure & reliability",
+        "name_es": "Infraestructura y confiabilidad",
         "title": "Infrastructure with <em>clear recovery ownership.</em>",
         "title_es": "Infraestructura con <em>recuperación claramente asignada.</em>",
         "meta": "Managed VPS, Docker, Cloudflare, monitoring, encrypted backups, and restore testing for small-business systems and media operations.",
@@ -144,8 +144,8 @@ OFFERS = [
     },
     {
         "slug": "streaming",
-        "name": "Stream & Broadcast",
-        "name_es": "Transmitir y Difundir",
+        "name": "Streaming & broadcasting",
+        "name_es": "Streaming y transmisión",
         "title": "Live media built for <em>stable delivery.</em>",
         "title_es": "Medios en vivo creados para una <em>entrega estable.</em>",
         "meta": "Radio and live-streaming infrastructure using RTMP, HLS, Icecast, FFmpeg, monitoring, and maintainable media workflows.",
@@ -246,6 +246,42 @@ for offer in OFFERS:
     if offer["slug"] in PRIMARY:
         offer.update(PRIMARY[offer["slug"]])
 
+# Search snippet per page: <title> (<= 60 chars, ends "| Sosa Tech Solutions") and
+# meta description (140-155 chars). The visible hero copy stays in "meta".
+SEO = {
+    "websites": (
+        "Bilingual Website Design in Miami",
+        "Get a clear, mobile-first website built around your offer, with WhatsApp and contact forms that make it easy to reach you. In English, Spanish or both.",
+    ),
+    "automation": (
+        "WhatsApp Automation in Miami",
+        "Connect your forms, WhatsApp, alerts and reminders so every inquiry reaches the right person with a clear next step, without copying details by hand.",
+    ),
+    "content-engine": (
+        "Social Media Content Creation in Miami",
+        "Posts, carousels, Reels and AI-assisted visuals built around your brand and approved by you before anything is scheduled on Facebook and Instagram.",
+    ),
+    "marketing": (
+        "Facebook & Instagram Ads in Miami",
+        "Facebook and Instagram ads tied to a clear offer, a landing page or WhatsApp and a follow-up plan, with tracking that shows where inquiries come from.",
+    ),
+    "agents": (
+        "AI Agents & Integrations in Miami",
+        "Custom AI assistants connected to your approved information and tools to answer questions, organize inquiries and cut repetitive work, with human review.",
+    ),
+    "infrastructure": (
+        "Server Management & Backups in Miami",
+        "Keep the servers and systems behind your business running, with monitoring, alerts, encrypted backups and tested recovery handled by someone accountable.",
+    ),
+    "streaming": (
+        "Radio & Live Streaming Setup in Miami",
+        "Internet radio, website players and live audio or video streams, set up and monitored for your station or business, with practical technical support.",
+    ),
+}
+for offer in OFFERS:
+    if offer["slug"] in SEO:
+        offer["seo_title"], offer["seo_description"] = SEO[offer["slug"]]
+
 # Service URL slug -> WhatsApp topic slug used in the prefilled [web-<slug>] tag.
 WHATSAPP_SLUGS = {
     "websites": "websites",
@@ -276,10 +312,12 @@ def render(offer: dict) -> str:
     faq_entities = []
     for en_q, en_a, _, _ in offer["faq"]:
         faq_entities.append({"@type": "Question", "name": en_q, "acceptedAnswer": {"@type": "Answer", "text": en_a}})
+    description = offer.get("seo_description", offer["meta"])
+    page_title = f'{offer.get("seo_title", offer["name"])} | Sosa Tech Solutions'
     schema = {
         "@context": "https://schema.org",
         "@graph": [
-            {"@type": "Service", "name": offer["name"], "description": offer["meta"], "url": url, "provider": {"@type": "LocalBusiness", "name": "Sosa Tech Solutions", "url": "https://sosatechsolutions.com/", "areaServed": "Miami and South Florida"}},
+            {"@type": "Service", "name": offer["name"], "description": description, "url": url, "areaServed": "Miami and South Florida", "provider": {"@type": "LocalBusiness", "@id": "https://sosatechsolutions.com/#business", "name": "Sosa Tech Solutions", "url": "https://sosatechsolutions.com/"}},
             {"@type": "FAQPage", "mainEntity": faq_entities},
             {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sosatechsolutions.com/"}, {"@type": "ListItem", "position": 2, "name": offer["name"], "item": url}]},
         ],
@@ -304,16 +342,16 @@ def render(offer: dict) -> str:
     else:
         example_section = f'<section class="proof"><h2>{both("Built for day-to-day operations.", "Para la operación diaria.")}</h2><div class="proof-grid">{proof}</div></section>'
     whatsapp = WHATSAPP_SLUGS[offer["slug"]]
-    name = html.escape(offer["name"])
-    meta = html.escape(offer["meta"], quote=True)
+    title = html.escape(page_title, quote=True)
+    meta = html.escape(description, quote=True)
     return f'''<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{name} | Sosa Tech Solutions Miami</title>
+<title>{title}</title>
 <meta name="description" content="{meta}"><meta name="robots" content="index,follow">
 <link rel="canonical" href="{url}"><meta name="theme-color" content="#080A0F">
-<meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:title" content="{name} | Sosa Tech Solutions"><meta property="og:description" content="{meta}"><meta property="og:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{name} | Sosa Tech Solutions"><meta name="twitter:description" content="{meta}"><meta name="twitter:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
+<meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:title" content="{title}"><meta property="og:description" content="{meta}"><meta property="og:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{meta}"><meta name="twitter:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
 <link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/assets/service.css?v=20260911">
 <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False, separators=(',', ':'))}</script>
 <link rel="stylesheet" href="{NAV_CSS_HREF}"><link rel="stylesheet" href="{whatsapp_contact.CSS_HREF}">

@@ -9,10 +9,10 @@ AUTOMATION = {
     "href": "/services/automation/",
     "en_title": "See the automation system",
     "en_desc": "Learn how Sosa Tech Solutions maps intake, routing, follow-up, safeguards, and ownership before automating a business process.",
-    "en_button": "Explore Automate & Respond →",
+    "en_button": "Explore WhatsApp & follow-up automation →",
     "es_title": "Conoce el sistema de automatización",
     "es_desc": "Descubre cómo Sosa Tech Solutions mapea la entrada, asignación, seguimiento, controles y responsabilidad antes de automatizar un proceso.",
-    "es_button": "Ver Automatizar y Responder →",
+    "es_button": "Ver WhatsApp y seguimiento automatizado →",
 }
 
 PAGES = {
@@ -23,19 +23,19 @@ PAGES = {
         "href": "/services/websites/",
         "en_title": "Build a website that creates action",
         "en_desc": "See how Sosa Tech Solutions connects a clear offer, fast mobile experience, lead capture, search foundations, and measurable inquiries.",
-        "en_button": "Explore Launch & Convert →",
+        "en_button": "Explore websites →",
         "es_title": "Crea una página que genere acción",
         "es_desc": "Conoce cómo Sosa Tech Solutions conecta una oferta clara, experiencia móvil rápida, captación, SEO y consultas medibles.",
-        "es_button": "Ver Lanzar y Convertir →",
+        "es_button": "Ver páginas web →",
     },
     "facebook-ads-vs-google-ads-para-negocios-locales": {
         "href": "/services/marketing/",
         "en_title": "Connect the system behind the click",
         "en_desc": "See how Sosa Tech Solutions connects the offer, landing page, measurement, lead routing, and follow-up before scaling traffic.",
-        "en_button": "Explore Reach & Grow →",
+        "en_button": "Explore Facebook & Instagram ads →",
         "es_title": "Conecta el sistema detrás del clic",
         "es_desc": "Conoce cómo Sosa Tech Solutions conecta oferta, página, medición, asignación y seguimiento antes de aumentar el tráfico.",
-        "es_button": "Ver Alcanzar y Crecer →",
+        "es_button": "Ver anuncios en Facebook e Instagram →",
     },
 }
 
@@ -65,15 +65,15 @@ for slug, values in PAGES.items():
     if slug == "automatizacion-de-whatsapp-para-negocios-en-miami":
         text = text.replace(
             "<title>WhatsApp automation for Miami businesses: how to capture more customers</title>",
-            "<title>WhatsApp automation in Miami | Sosa Tech Solutions</title>",
+            "<title>Miami WhatsApp Automation Guide | Sosa Tech Solutions</title>",
         )
         text = text.replace(
             "'metaTitle':'Automatización de WhatsApp para negocios en Miami: cómo captar más clientes'",
-            "'metaTitle':'Automatización de WhatsApp en Miami | Sosa Tech Solutions'",
+            "'metaTitle':'Guía: automatizar WhatsApp en Miami | Sosa Tech Solutions'",
         )
         text = text.replace(
             "'metaTitle':'WhatsApp automation for Miami businesses: how to capture more customers'",
-            "'metaTitle':'WhatsApp automation in Miami | Sosa Tech Solutions'",
+            "'metaTitle':'Miami WhatsApp Automation Guide | Sosa Tech Solutions'",
         )
     path.write_text(text, encoding="utf-8")
     print(path.relative_to(ROOT))

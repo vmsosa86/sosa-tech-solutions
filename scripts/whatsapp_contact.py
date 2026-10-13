@@ -34,7 +34,7 @@ TOPICS = {
     "ai-agents": ("AI agents and integrations", "agentes de IA e integraciones"),
     "ai-spokesperson": ("AI spokesperson videos", "videos con presentadores de IA"),
     "streaming": ("streaming and broadcasting", "streaming y transmisión"),
-    "infrastructure": ("infrastructure and reliability", "infraestructura y continuidad"),
+    "infrastructure": ("infrastructure and reliability", "infraestructura y confiabilidad"),
     "blog": ("my business", "mi negocio"),
     "blog-como-la-inteligencia-artificial-puede-automatizar-tu-negocio-en-miami": ("using AI in my business", "usar IA en mi negocio"),
     "blog-automatizacion-de-whatsapp-para-negocios-en-miami": ("WhatsApp automation for my business", "automatizar el WhatsApp de mi negocio"),

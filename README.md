@@ -37,6 +37,8 @@ python3 scripts/sync_whatsapp_contact.py   # homepage, blog and legal pages
 python3 scripts/validate_site.py
 ```
 
+The validator also enforces the search snippet standard (titles <= 60 characters ending in `| Sosa Tech Solutions`, meta descriptions 140-155 characters), the full brand name, and that every service and blog page is listed in `sitemap.xml` and `llms.txt`. When adding a page, update both files. Service-page titles and descriptions live in the `SEO` map in `scripts/build_service_pages.py`.
+
 ## Brand system
 
 - `brand/BRAND_GUIDELINES.md` - complete source-of-truth manual.
@@ -95,7 +97,8 @@ content/                         Calendar, copy, and launch assets
 tools/                           Deterministic visual renderers
 scripts/                         Content and PDF build utilities
 output/pdf/                      Final brand documents
-robots.txt                       Crawler policy
+robots.txt                       Crawler policy (opts out of AI training crawlers only)
+llms.txt                         Plain-language site summary for AI answer engines
 sitemap.xml                      Public URL inventory
 ```
 

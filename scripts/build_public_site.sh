@@ -26,5 +26,7 @@ for forbidden in .git .agents brand deploy scripts tools tmp content/audio conte
   [[ ! -e "$output_dir/$forbidden" ]] || { echo "Internal path entered public output: $forbidden" >&2; exit 1; }
 done
 
-python3 "$repo_root/scripts/validate_site.py" --root "$output_dir"
+# Extra arguments go to the validator, e.g. --allow-missing /services/new-page/ while a
+# page is still being built. deploy_hostinger.sh passes none, so deploys stay strict.
+python3 "$repo_root/scripts/validate_site.py" --root "$output_dir" "$@"
 echo "Public site built at $output_dir"
