@@ -4,19 +4,22 @@ from html import escape
 import whatsapp_contact
 
 NAV_CSS_HREF = "/assets/site-nav.css?v=4"
-NAV_JS_SRC = "/assets/site-nav.js?v=4"
+NAV_JS_SRC = "/assets/site-nav.js?v=5"
 
 
-def render_navigation(service=None, whatsapp="home"):
-    """Render the inner-page nav; `whatsapp` is the page's WhatsApp topic slug."""
+def render_navigation(service=None, whatsapp="home", current=None):
+    """Render the inner-page nav; `whatsapp` is the page's WhatsApp topic slug.
+
+    `current` is the path of a non-service page in the nav (e.g. "/work/") for aria-current.
+    """
     contact = '/?service=' + service + '#contact' if service else '/#contact'
-    links = [('/#specialist-services', 'specialists', 'AI & streaming'), ('/#solutions', 'solutions', 'Solutions'), ('/services/ai-spokesperson/', 'spokesperson', 'AI spokesperson'), ('/#proof', 'proof', 'Selected work'), ('/#about', 'about', 'About'), ('/blog/', 'blog', 'Blog')]
-    current_page = f'/services/{service}/' if service else None
-    current = ' aria-current="page"'
+    links = [('/#specialist-services', 'specialists', 'AI & streaming'), ('/#solutions', 'solutions', 'Solutions'), ('/services/ai-spokesperson/', 'spokesperson', 'AI spokesperson'), ('/work/', 'work', 'Work'), ('/#about', 'about', 'About'), ('/blog/', 'blog', 'Blog')]
+    current_page = current or (f'/services/{service}/' if service else None)
+    aria_current = ' aria-current="page"'
     # The sixth item is hidden only at 861-959px, where the desktop bar has no room (site-nav.css).
     extra = {'spokesperson': ' class="site-nav-spokesperson"'}
     items = ''.join(
-        f'<a href="{href}"{extra.get(key, "")} data-nav-text="{key}"{current if href == current_page else ""}>{escape(label)}</a>'
+        f'<a href="{href}"{extra.get(key, "")} data-nav-text="{key}"{aria_current if href == current_page else ""}>{escape(label)}</a>'
         for href, key, label in links
     )
     items += f'<a class="site-nav-whatsapp" {whatsapp_contact.link_attributes(whatsapp)}>{whatsapp_contact.ICON}<span data-nav-text="whatsapp">{whatsapp_contact.CTA_EN}</span></a>'

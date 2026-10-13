@@ -10,7 +10,7 @@ from site_navigation import NAV_CSS_HREF, NAV_JS_SRC, render_navigation
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SERVICE_CSS_HREF = "/assets/service.css?v=20261013d"
+SERVICE_CSS_HREF = "/assets/service.css?v=20261013e"
 SERVICE_JS_SRC = "/assets/service.js?v=20261013c"
 FONTS_HREF = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600&amp;family=Syne:wght@700;800&amp;display=swap"
 
@@ -571,3 +571,6 @@ if __name__ == "__main__":
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(render(item), encoding="utf-8")
         print(target.relative_to(ROOT))
+    # /work/ shares this stylesheet, script and navigation, so it is rebuilt with the services.
+    import build_work_page
+    print(build_work_page.write().relative_to(ROOT))

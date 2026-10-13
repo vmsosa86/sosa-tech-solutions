@@ -18,6 +18,7 @@ The site is static HTML/CSS/JavaScript with no build step. It includes:
 - WhatsApp on every page: floating button (tucked away while it would cover a video's controls), mobile-menu item and page-aware prefill (`[web-<slug>]` tag, EN/ES). Visible buttons say "Message Victor on WhatsApp" / "Escribe a Victor por WhatsApp".
 - AI spokesperson videos page (`/services/ai-spokesperson/`) with three example Reels from `assets/site/reels/` (web MP4 + 540x960 WebP poster of ~45-55 KB each, `preload="none"`, never autoplay, every card labeled as AI). The homepage band shows one lazy 360x640 WebP thumbnail per language (English reel in EN, "¿Parezco real?" in ES). Posters and thumbnails are re-encoded on the Radio Mac Studio.
 - Approved starting prices (2026-10-13), published in exactly two places: one line under the homepage services ("Monthly plans from $500/mo · Websites from $1,500") and "Websites from $1,500" by the closing call to action on `/services/websites/`. No other page shows prices, and none are in structured data.
+- Client work page (`/work/`, nav item "Work" / "Proyectos"): nine live client sites Victor confirmed he built (2026-10-13), each with a 600x750 phone screenshot from `assets/site/work/` (lazy, explicit dimensions), an industry tag, what was built and a "Visit site" link, plus six owner-approved testimonials shown verbatim in English and Spanish with name and business only (never as Review/AggregateRating data). The homepage `#proof` section features six of the sites, a link to `/work/` and three of the quotes. Content lives in `scripts/client_work.py`; `scripts/build_work_page.py` renders the page. The `<domain>-desktop.jpg` screenshots are kept for later use and not referenced yet.
 - First-touch UTM capture in the contact form.
 - LocalBusiness, Organization, WebSite, and FAQ structured data.
 - Accessible colors, visible keyboard focus, and reduced-motion support.
@@ -31,15 +32,15 @@ python3 -m http.server 8765
 
 Then open `http://127.0.0.1:8765/`.
 
-After changing service copy, navigation or WhatsApp topics (`scripts/whatsapp_contact.py`), regenerate and validate:
+After changing service copy, client work (`scripts/client_work.py`), navigation or WhatsApp topics (`scripts/whatsapp_contact.py`), regenerate and validate:
 
 ```bash
-python3 scripts/build_service_pages.py
+python3 scripts/build_service_pages.py     # services and /work/
 python3 scripts/sync_whatsapp_contact.py   # homepage, blog and legal pages
 python3 scripts/validate_site.py
 ```
 
-The validator also checks every `<video>` poster and `<source>` file exists and rejects `autoplay`. It enforces the search snippet standard (titles <= 60 characters ending in `| Sosa Tech Solutions`, meta descriptions 140-155 characters, in English and in the Spanish `data-title-es`/`data-description-es` of service pages), the full brand name in public HTML, `llms.txt` and `assets/*.js`, and that every service and blog page is listed in `sitemap.xml` and `llms.txt`. When adding a page, update both files. Service-page titles and descriptions live in the `SEO` and `SEO_ES` maps in `scripts/build_service_pages.py`.
+The validator also checks every `<video>` poster and `<source>` file exists and rejects `autoplay`. It enforces the search snippet standard (titles <= 60 characters ending in `| Sosa Tech Solutions`, meta descriptions 140-155 characters, in English and in the Spanish `data-title-es`/`data-description-es` of service pages), the full brand name in public HTML, `llms.txt` and `assets/*.js`, that every service and blog page and `/work/` is listed in `sitemap.xml` and `llms.txt`, that the approved testimonials appear verbatim (EN and ES) on `/work/` and, for the three homepage quotes, in `index.html` and `assets/home.js`, and that client screenshots are lazy-loaded with explicit dimensions. When adding a page, update both files. Service-page titles and descriptions live in the `SEO` and `SEO_ES` maps in `scripts/build_service_pages.py`.
 
 Every page stores the visitor's language under the `sosa-language` key and adds `?lang=` to internal page links; English is the default everywhere (the legal pages no longer follow the browser language).
 
@@ -92,6 +93,7 @@ This GitHub repository is currently public. The deploy allowlist prevents workin
 ```text
 index.html                       Homepage
 blog/                            Bilingual SEO articles
+work/                            Client work page (generated)
 privacy-policy/                  Privacy policy
 data-deletion/                   Meta user-data deletion instructions
 terms/                           Terms of service

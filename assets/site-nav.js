@@ -4,8 +4,8 @@
   const toggle = nav.querySelector('.site-nav-toggle');
   const links = nav.querySelector('.site-nav-links');
   const labels = {
-    en: {specialists:'AI & streaming', solutions:'Solutions', spokesperson:'AI spokesperson', proof:'Selected work', about:'About', blog:'Blog', contact:'Request a free review', whatsapp:'Message Victor on WhatsApp', open:'Open navigation menu', close:'Close navigation menu', nav:'Primary navigation', home:'Sosa Tech Solutions home', language:'Language'},
-    es: {specialists:'IA y streaming', solutions:'Soluciones', spokesperson:'Vocero con IA', proof:'Proyectos', about:'Nosotros', blog:'Blog', contact:'Solicitar revisión gratuita', whatsapp:'Escribe a Victor por WhatsApp', open:'Abrir menú de navegación', close:'Cerrar menú de navegación', nav:'Navegación principal', home:'Inicio de Sosa Tech Solutions', language:'Idioma'}
+    en: {specialists:'AI & streaming', solutions:'Solutions', spokesperson:'AI spokesperson', work:'Work', about:'About', blog:'Blog', contact:'Request a free review', whatsapp:'Message Victor on WhatsApp', open:'Open navigation menu', close:'Close navigation menu', nav:'Primary navigation', home:'Sosa Tech Solutions home', language:'Language'},
+    es: {specialists:'IA y streaming', solutions:'Soluciones', spokesperson:'Vocero con IA', work:'Proyectos', about:'Nosotros', blog:'Blog', contact:'Solicitar revisión gratuita', whatsapp:'Escribe a Victor por WhatsApp', open:'Abrir menú de navegación', close:'Cerrar menú de navegación', nav:'Navegación principal', home:'Inicio de Sosa Tech Solutions', language:'Idioma'}
   };
   const language = () => document.documentElement.lang === 'es' ? 'es' : 'en';
   function closeMenu() {

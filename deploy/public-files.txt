@@ -9,6 +9,7 @@ sitemap.xml
 assets
 blog
 services
+work
 privacy-policy
 data-deletion
 terms

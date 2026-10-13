@@ -449,3 +449,38 @@ html{scroll-padding-top:0}section{scroll-margin-top:6.5rem}.brand img{width:180p
 /* Approved starting prices: one quiet line under the main services. */
 .price-anchors{max-width:var(--max);margin:1.6rem auto 0;font:400 .95rem/1.6 'DM Sans',sans-serif;color:var(--dark-muted)}
 .price-anchors a{color:var(--cyan-dark);text-underline-offset:4px}
+/* Selected work (2026-10-13): phone screenshots of live client sites, a link to /work/ and three approved quotes. */
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.project-grid.work-featured{grid-template-columns:repeat(3,minmax(0,1fr));gap:3.5rem 2rem}
+.work-featured .project-card{position:relative;display:flex;flex-direction:column}
+.project-image.work-phone{height:auto;min-height:0;aspect-ratio:4/5;background:var(--ink-2);border:1px solid var(--dark-line);border-radius:.6rem}
+.project-image.work-phone img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.work-featured .project-card:hover .work-phone img{transform:scale(1.025)}
+.work-featured .project-copy{display:flex;flex-direction:column;flex:1;padding:1.3rem 0 0}
+.work-featured .project-copy>span{font:500 .68rem/1.4 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan-dark)}
+.work-featured .project-copy h3{font-size:1.6rem;line-height:1.2;margin:.45rem 0 .5rem}
+.work-featured .project-copy p{flex:1;margin-bottom:0}
+.work-featured .project-visit{align-self:flex-start;margin-top:1rem;color:var(--ink);text-decoration-color:var(--cyan-dark)}
+.project-visit [aria-hidden]{color:var(--cyan-dark)}
+/* The whole card opens the site; the link stays the only tab stop. */
+.project-visit::after{content:"";position:absolute;inset:0;border-radius:.6rem}
+.project-visit:focus-visible{outline:none}.project-visit:focus-visible::after{outline:3px solid var(--cyan-dark);outline-offset:8px}
+.work-more{max-width:var(--max);margin:2.75rem auto 0}
+.quote-strip{max-width:var(--max);margin:4rem auto 0;padding:clamp(1.6rem,3.5vw,2.75rem);background:var(--ink);color:var(--white);border-radius:.6rem}
+.quote-strip-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:1rem 2rem;margin-bottom:2rem}
+.quote-strip .kicker{color:var(--cyan)}
+.quote-strip-more{font-size:.95rem;color:var(--white);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:.3rem;transition:color .2s}
+.quote-strip-more:hover{color:var(--cyan)}
+.quote-strip-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.quote-strip .quote{margin:0;padding:0 2rem;display:flex;flex-direction:column;justify-content:space-between;gap:1.5rem}
+.quote-strip .quote:first-child{padding-left:0}.quote-strip .quote:last-child{padding-right:0}
+.quote-strip .quote+.quote{border-left:1px solid var(--line)}
+.quote-strip blockquote::before{content:"\201C";display:block;height:1.8rem;font:500 3rem/1 'DM Sans',sans-serif;color:var(--cyan)}
+.quote-strip blockquote p{font-size:1.02rem;line-height:1.65;color:#e4ebe8}
+.quote-strip figcaption{display:flex;flex-direction:column;gap:.2rem}
+.quote-strip figcaption strong{font-weight:500}
+.quote-strip figcaption span{font:400 .7rem/1.4 'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:900px){.project-grid.work-featured{grid-template-columns:repeat(2,minmax(0,1fr))}.quote-strip-grid{grid-template-columns:1fr}.quote-strip .quote,.quote-strip .quote:first-child,.quote-strip .quote:last-child{padding:1.6rem 0}.quote-strip .quote:first-child{padding-top:0}.quote-strip .quote:last-child{padding-bottom:0}.quote-strip .quote+.quote{border-left:0;border-top:1px solid var(--line)}}
+/* Phones: compact side-by-side cards keep six projects to a short scroll. */
+@media(max-width:540px){.project-grid.work-featured{grid-template-columns:minmax(0,1fr);gap:2rem}.work-featured .project-card{display:grid;grid-template-columns:7.25rem minmax(0,1fr);gap:1.1rem;align-items:start}.work-featured .project-copy{padding-top:.1rem}.work-featured .project-copy h3{font-size:1.3rem}.work-featured .project-copy p{font-size:.92rem;line-height:1.55}.work-featured .project-visit{margin-top:.7rem}.quote-strip{margin-top:3rem}}
+@media(prefers-reduced-motion:reduce){.project-image.work-phone img{transition:none}.work-featured .project-card:hover .work-phone img{transform:none}}

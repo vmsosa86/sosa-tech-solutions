@@ -10,6 +10,8 @@ from typing import List, Optional, Set
 from urllib.parse import parse_qs, quote, unquote, urlparse
 import xml.etree.ElementTree as ET
 
+import client_work
+
 DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_PATTERNS = [
     "index.html",
@@ -19,6 +21,7 @@ PUBLIC_PATTERNS = [
     "blog/index.html",
     "blog/*/index.html",
     "services/*/index.html",
+    "work/index.html",
 ]
 WHATSAPP_MESSAGE = re.compile(
     r"^(?:Hi Sosa Tech Solutions, I'd like to talk about (?P<en>.+)"
@@ -57,6 +60,7 @@ class PageParser(HTMLParser):
         self.autoplay_videos = 0
         self._whatsapp_wrapper_depth = 0  # >0 while inside the .wa-float wrapper
         self.html_attrs = {}  # type: dict
+        self.images = []  # type: List[dict]
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
@@ -71,6 +75,8 @@ class PageParser(HTMLParser):
         elif tag == "link" and "canonical" in values.get("rel", "").split():
             self.canonical = values.get("href", "")
         elif tag in {"a", "img", "script", "link", "source"}:
+            if tag == "img":
+                self.images.append(values)
             reference = values.get("href") or values.get("src")
             if reference:
                 self.links.append(reference)
@@ -138,6 +144,48 @@ def whatsapp_errors(rel: Path, parser: PageParser) -> List[str]:
                 errors.append(f"{rel}: WhatsApp href does not match its data-wa-* attributes {href}")
             if not values.get("data-wa-topic-es"):
                 errors.append(f"{rel}: WhatsApp link {slug} has no Spanish topic")
+    return errors
+
+
+def work_image_errors(rel: Path, parser: PageParser) -> List[str]:
+    """Client-work screenshots load lazily with explicit dimensions (no layout shift)."""
+    errors = []  # type: List[str]
+    width, height = (str(value) for value in client_work.WORK_IMAGE_SIZE)
+    for values in parser.images:
+        if not (values.get("src") or "").startswith(client_work.WORK_IMAGE_DIR + "/"):
+            continue
+        if values.get("loading") != "lazy" or values.get("width") != width or values.get("height") != height:
+            errors.append(f"{rel}: work image needs loading=lazy width={width} height={height}: {values.get('src')}")
+        if not values.get("alt"):
+            errors.append(f"{rel}: work image without alt text {values.get('src')}")
+    return errors
+
+
+def client_work_errors(root: Path) -> List[str]:
+    """Approved testimonials appear verbatim (EN and ES) and every listed client site is linked."""
+    errors = []  # type: List[str]
+    sources = {}
+    for name in ("work/index.html", "index.html", "assets/home.js"):
+        path = root / name
+        sources[name] = path.read_text(encoding="utf-8") if path.exists() else ""
+    work, home, home_js = sources["work/index.html"], sources["index.html"], sources["assets/home.js"]
+    for item in client_work.TESTIMONIALS:
+        quote_en, quote_es = item["quote"]
+        for language, text in (("EN", quote_en), ("ES", quote_es)):
+            if text not in work:
+                errors.append(f"work/index.html: {language} testimonial from {item['name']} is missing or not verbatim")
+        if item["name"] in client_work.HOMEPAGE_QUOTES:
+            if quote_en not in home:
+                errors.append(f"index.html: EN testimonial from {item['name']} is missing or not verbatim")
+            for language, text in (("EN", quote_en), ("ES", quote_es)):
+                if text not in home_js:
+                    errors.append(f"assets/home.js: {language} testimonial from {item['name']} is missing or not verbatim")
+    for client in client_work.CLIENTS:
+        if f'href="https://{client["domain"]}/"' not in work:
+            errors.append(f"work/index.html: no link to {client['domain']}")
+    for domain in client_work.HOMEPAGE_SITES:
+        if f'href="https://{domain}/"' not in home:
+            errors.append(f"index.html: no link to featured client {domain}")
     return errors
 
 
@@ -249,6 +297,7 @@ def main() -> int:
             if forbidden:
                 errors.append(f"{rel}: JSON-LD {index} uses {sorted(forbidden)}")
         errors.extend(whatsapp_errors(rel, parser))
+        errors.extend(work_image_errors(rel, parser))
         if parser.autoplay_videos:
             errors.append(f"{rel}: {parser.autoplay_videos} video(s) with autoplay")
         for reference in parser.links:
@@ -294,8 +343,10 @@ def main() -> int:
     for url in sorted(llms_urls):
         check_site_url("llms.txt", url, root, pending, errors, notes)
     for canonical in sorted(expected_canonicals):
-        if re.match(re.escape(SITE) + r"/(services|blog)/[^/]+/$", canonical) and canonical not in llms_urls:
+        if re.match(re.escape(SITE) + r"/(?:(?:services|blog)/[^/]+|work)/$", canonical) and canonical not in llms_urls:
             errors.append(f"llms.txt: page not listed {canonical}")
+
+    errors.extend(client_work_errors(root))
 
     scripts = sorted(root.glob(PUBLIC_SCRIPTS))
     for script in scripts:
