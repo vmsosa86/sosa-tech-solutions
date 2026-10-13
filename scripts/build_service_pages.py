@@ -10,7 +10,7 @@ from site_navigation import NAV_CSS_HREF, NAV_JS_SRC, render_navigation
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SERVICE_CSS_HREF = "/assets/service.css?v=20261013e"
+SERVICE_CSS_HREF = "/assets/service.css?v=20261013f"
 SERVICE_JS_SRC = "/assets/service.js?v=20261013c"
 FONTS_HREF = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600&amp;family=Syne:wght@700;800&amp;display=swap"
 

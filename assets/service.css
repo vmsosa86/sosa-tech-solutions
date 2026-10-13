@@ -79,7 +79,7 @@ h1,h2,h3{font-family:'DM Sans',sans-serif;font-weight:400}h1{font-size:clamp(2.8
 .work-visit::after{content:"";position:absolute;inset:0;border-radius:.6rem}
 .work-visit:focus-visible{outline:none}.work-visit:focus-visible::after{outline:2px solid #00796b;outline-offset:8px}
 .work-quotes{background:var(--surface)}.work-quotes .work-intro{margin-bottom:3rem}
-.quote-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+.quote-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem 2rem}
 .quote-card{display:flex;flex-direction:column;justify-content:space-between;gap:1.75rem;margin:0;padding:2rem;background:var(--card);border:1px solid var(--border);border-radius:.6rem}
 .quote-card blockquote::before{content:"\201C";display:block;height:1.9rem;font:500 3.2rem/1 'DM Sans',sans-serif;color:var(--teal)}
 .quote-card p{font-size:1.05rem;line-height:1.65}

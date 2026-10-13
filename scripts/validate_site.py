@@ -40,6 +40,11 @@ SHORT_BRAND = re.compile(
 # Public scripts hold copy too (homepage dictionary, navigation and WhatsApp labels).
 PUBLIC_SCRIPTS = "assets/*.js"
 FORBIDDEN_SCHEMA_KEYS = {"aggregateRating", "review", "reviews"}
+# Self-served reviews are never structured data, whether as a property or as a node of their own.
+FORBIDDEN_SCHEMA_TYPES = {"Review", "AggregateRating", "EmployerAggregateRating", "CriticReview", "UserReview"}
+# Pages with the shared primary navigation must offer the client work page.
+PRIMARY_NAV_CLASSES = {"site-nav", "primary-nav"}
+WORK_PATH = "/work/"
 SITE_URL = re.compile(r"https://sosatechsolutions\.com/[^\s)<>\"']*")
 
 
@@ -61,9 +66,23 @@ class PageParser(HTMLParser):
         self._whatsapp_wrapper_depth = 0  # >0 while inside the .wa-float wrapper
         self.html_attrs = {}  # type: dict
         self.images = []  # type: List[dict]
+        self.anchors = []  # type: List[dict]
+        self.primary_navs = 0
+        self.nav_work_links = 0
+        self._primary_nav_depth = 0  # >0 while inside a .site-nav/.primary-nav element
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
+        if tag == "nav":
+            if self._primary_nav_depth:
+                self._primary_nav_depth += 1
+            elif PRIMARY_NAV_CLASSES & set((values.get("class") or "").split()):
+                self._primary_nav_depth = 1
+                self.primary_navs += 1
+        if tag == "a":
+            self.anchors.append(values)
+            if self._primary_nav_depth and urlparse(values.get("href") or "").path == WORK_PATH:
+                self.nav_work_links += 1
         if tag == "html":
             self.html_attrs = values
         if tag == "title":
@@ -80,6 +99,10 @@ class PageParser(HTMLParser):
             reference = values.get("href") or values.get("src")
             if reference:
                 self.links.append(reference)
+            # Every responsive image candidate must exist too.
+            for candidate in (values.get("srcset") or "").split(","):
+                if candidate.strip():
+                    self.links.append(candidate.split()[0])
             # Language-specific image sources (swapped by the page script) must exist too.
             for key in ("data-src-en", "data-src-es"):
                 if values.get(key):
@@ -104,6 +127,8 @@ class PageParser(HTMLParser):
             self._json_buffer = []
 
     def handle_endtag(self, tag):
+        if tag == "nav" and self._primary_nav_depth:
+            self._primary_nav_depth -= 1
         if tag == "div" and self._whatsapp_wrapper_depth:
             self._whatsapp_wrapper_depth -= 1
         if tag == "title":
@@ -151,6 +176,7 @@ def work_image_errors(rel: Path, parser: PageParser) -> List[str]:
     """Client-work screenshots load lazily with explicit dimensions (no layout shift)."""
     errors = []  # type: List[str]
     width, height = (str(value) for value in client_work.WORK_IMAGE_SIZE)
+    domains = {client["domain"] for client in client_work.CLIENTS}
     for values in parser.images:
         if not (values.get("src") or "").startswith(client_work.WORK_IMAGE_DIR + "/"):
             continue
@@ -158,7 +184,53 @@ def work_image_errors(rel: Path, parser: PageParser) -> List[str]:
             errors.append(f"{rel}: work image needs loading=lazy width={width} height={height}: {values.get('src')}")
         if not values.get("alt"):
             errors.append(f"{rel}: work image without alt text {values.get('src')}")
+        # Phone screenshots ship every width from client_work.py (sharp on high-DPR screens,
+        # small on phone thumbnails); the files themselves are checked with the other links.
+        domain = values["src"][len(client_work.WORK_IMAGE_DIR) + 1:-len(".jpg")]
+        if domain in domains:
+            if values.get("srcset") != client_work.srcset(domain):
+                errors.append(f"{rel}: work image srcset differs from client_work.srcset({domain!r})")
+            if not values.get("sizes"):
+                errors.append(f"{rel}: work image without sizes {values.get('src')}")
     return errors
+
+
+def navigation_errors(rel: Path, parser: PageParser) -> List[str]:
+    """The shared primary navigation always links to the client work page."""
+    if parser.primary_navs and not parser.nav_work_links:
+        return [f"{rel}: primary navigation has no {WORK_PATH} link"]
+    return []
+
+
+def client_link_errors(rel: Path, parser: PageParser) -> List[str]:
+    """Links to client sites open in a new tab without giving the client page access to ours."""
+    errors = []  # type: List[str]
+    domains = {client["domain"] for client in client_work.CLIENTS}
+    for values in parser.anchors:
+        host = (urlparse(values.get("href") or "").hostname or "").lower()
+        if host.startswith("www."):
+            host = host[4:]
+        if host not in domains:
+            continue
+        if values.get("target") != "_blank" or "noopener" not in (values.get("rel") or "").split():
+            errors.append(f"{rel}: client link needs target=_blank and rel=noopener: {values.get('href')}")
+    return errors
+
+
+def schema_types(node) -> Set[str]:
+    types = set()  # type: Set[str]
+    if isinstance(node, dict):
+        value = node.get("@type")
+        if isinstance(value, str):
+            types.add(value)
+        elif isinstance(value, list):
+            types.update(item for item in value if isinstance(item, str))
+        for child in node.values():
+            types |= schema_types(child)
+    elif isinstance(node, list):
+        for child in node:
+            types |= schema_types(child)
+    return types
 
 
 def client_work_errors(root: Path) -> List[str]:
@@ -296,8 +368,13 @@ def main() -> int:
             forbidden = schema_keys(data) & FORBIDDEN_SCHEMA_KEYS
             if forbidden:
                 errors.append(f"{rel}: JSON-LD {index} uses {sorted(forbidden)}")
+            forbidden_types = schema_types(data) & FORBIDDEN_SCHEMA_TYPES
+            if forbidden_types:
+                errors.append(f"{rel}: JSON-LD {index} has @type {sorted(forbidden_types)}")
         errors.extend(whatsapp_errors(rel, parser))
         errors.extend(work_image_errors(rel, parser))
+        errors.extend(navigation_errors(rel, parser))
+        errors.extend(client_link_errors(rel, parser))
         if parser.autoplay_videos:
             errors.append(f"{rel}: {parser.autoplay_videos} video(s) with autoplay")
         for reference in parser.links:

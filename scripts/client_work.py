@@ -6,12 +6,21 @@ site or what Victor stated; never add metrics, results or dates. Testimonials ar
 the exact texts the owners approved on 2026-10-13: show them verbatim, with name
 and business only (no job titles), and never as Review/AggregateRating schema.
 
-Screenshots live in assets/site/work/<domain>.jpg (600x750 phone crop of the live
-mobile homepage). The <domain>-desktop.jpg variants (960x600) are kept for later use.
+Screenshots live in assets/site/work/: <domain>.jpg is the 600x750 phone crop of the
+live mobile homepage (the src, width and height pages declare), and <domain>-<width>.jpg
+are the same capture at other widths for srcset. Recaptured 2026-10-13 at 1200x1500
+(viewport width chosen per site so no button or text line is cut at the bottom edge).
+Cafe Travel's Cloudflare challenge blocks automated capture, so its largest variant is
+the original 780x975 capture. The <domain>-desktop.jpg variants (960x600) are kept for
+later use.
 """
 
 WORK_IMAGE_DIR = "/assets/site/work"
 WORK_IMAGE_SIZE = (600, 750)
+WORK_IMAGE_WIDTHS = (300, 600, 900, 1200)
+# Rendered widths for the sizes attribute: /work/ cards and homepage #proof thumbnails.
+WORK_PAGE_SIZES = "(max-width:640px) calc(100vw - 40px), (max-width:1023px) calc(50vw - 50px), 410px"
+HOME_SIZES = "(max-width:540px) 116px, (max-width:900px) calc(50vw - 40px), 410px"
 
 # Display order on /work/: Mocasa x2, HEH, Miami Travel y Más, Cafe Travel, the radios, HAAG.
 CLIENTS = [
@@ -37,8 +46,8 @@ CLIENTS = [
             "Creé la página web del centro, con sus servicios, reservas en línea e información de planes de pago.",
         ),
         "alt": (
-            "Mocasa Wellness Center mobile homepage with the MWC logo, the line “Mocasa, Tu Casa!” and a services button",
-            "Página de inicio móvil de Mocasa Wellness Center con el logo MWC, la frase “Mocasa, Tu Casa!” y un botón de servicios",
+            "Mocasa Wellness Center mobile homepage with the MWC logo, the line “Mocasa, Tu Casa!” and buttons for services and booking",
+            "Página de inicio móvil de Mocasa Wellness Center con el logo MWC, la frase “Mocasa, Tu Casa!” y botones de servicios y reservas",
         ),
     },
     {
@@ -70,6 +79,7 @@ CLIENTS = [
     {
         "domain": "cafetravel.com",
         "name": "Cafe Travel",
+        "widths": (300, 600, 780),
         "tag": ("Group tours · Miami", "Viajes en grupo · Miami"),
         "built": (
             "I built their website and produce their tour campaigns: flyers, videos and scheduled WhatsApp Status updates.",
@@ -89,8 +99,8 @@ CLIENTS = [
             "Creé su página web con un reproductor en vivo conectado a la señal de la emisora, titulares de noticias y enlaces a las apps, y me encargo de la configuración y el soporte del streaming.",
         ),
         "alt": (
-            "Radio To Be mobile homepage with the station logo, a news headline ticker and the live player",
-            "Página de inicio móvil de Radio To Be con el logo de la emisora, titulares de noticias y el reproductor en vivo",
+            "Radio To Be mobile homepage with the station logo, a news headline ticker and the station description",
+            "Página de inicio móvil de Radio To Be con el logo de la emisora, titulares de noticias y la descripción de la emisora",
         ),
     },
     {
@@ -98,7 +108,7 @@ CLIENTS = [
         "name": "Radio 305",
         "tag": ("Online radio", "Radio en línea"),
         "built": (
-            "I built the station’s website with a live player, now playing and news. I also made its audio imaging and support the stream.",
+            "I built the station’s website with news and a live player that shows the song now playing. I also made the station’s audio imaging and support its stream.",
             "Creé la página web de la emisora con reproductor en vivo, la canción que suena y noticias. También hice su identidad sonora y doy soporte a la señal.",
         ),
         "alt": (
@@ -197,3 +207,15 @@ HOMEPAGE_SITES = [
     "radio305.com",
 ]
 HOMEPAGE_QUOTES = ["Humberto Hernandez", "Lisbeth Sanchez", "Betsi"]
+
+
+def image_url(domain: str, width: int) -> str:
+    """The 600 px file keeps the plain name; other widths carry a -<width> suffix."""
+    suffix = "" if width == WORK_IMAGE_SIZE[0] else f"-{width}"
+    return f"{WORK_IMAGE_DIR}/{domain}{suffix}.jpg"
+
+
+def srcset(domain: str) -> str:
+    client = next(item for item in CLIENTS if item["domain"] == domain)
+    widths = client.get("widths", WORK_IMAGE_WIDTHS)
+    return ", ".join(f"{image_url(domain, width)} {width}w" for width in widths)

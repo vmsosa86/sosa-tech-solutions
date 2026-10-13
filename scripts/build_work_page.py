@@ -14,7 +14,7 @@ from pathlib import Path
 
 import whatsapp_contact
 from build_service_pages import FONTS_HREF, OFFERS, SERVICE_CSS_HREF, SERVICE_JS_SRC, both
-from client_work import CLIENTS, TESTIMONIALS, WORK_IMAGE_DIR, WORK_IMAGE_SIZE
+from client_work import CLIENTS, TESTIMONIALS, WORK_IMAGE_SIZE, WORK_PAGE_SIZES, image_url, srcset
 from site_navigation import NAV_CSS_HREF, NAV_JS_SRC, render_navigation
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,16 +26,16 @@ WHATSAPP = "work"
 # Search snippet: title <= 60 chars ending "| Sosa Tech Solutions", description 140-155 chars.
 SEO = (
     "Client Work: Miami Websites & Systems | Sosa Tech Solutions",
-    "Websites and systems I built and run for Miami businesses, from a med spa and travel agencies to online radio, plus what my clients say about the work.",
+    "Websites and systems I built for Miami businesses and online radio stations, from a med spa and travel agencies to a nonprofit, plus what my clients say.",
 )
 SEO_ES = (
     "Proyectos: webs y sistemas en Miami | Sosa Tech Solutions",
-    "Páginas web y sistemas que creé y mantengo para negocios de Miami: un med spa, agencias de viajes, radios en línea y más, y lo que dicen mis clientes.",
+    "Páginas web y sistemas que creé para negocios de Miami y radios en línea: un med spa, agencias de viajes, una fundación y más, y lo que dicen mis clientes.",
 )
 
 COPY = {
     "label": ("Client work", "Proyectos de clientes"),
-    "title": ("Websites and systems I built and run for Miami businesses.", "Páginas web y sistemas que creé y mantengo para negocios de Miami."),
+    "title": ("Websites and systems I built for Miami businesses and online radio.", "Páginas web y sistemas que creé para negocios de Miami y radios en línea."),
     "lead": (
         "Nine live sites for wellness, professional services, travel, radio and a nonprofit. For several of these clients I also run the content, WhatsApp campaigns or streaming behind the site.",
         "Nueve sitios publicados para bienestar, servicios profesionales, viajes, radio y una organización sin fines de lucro. Para varios de estos clientes también manejo el contenido, las campañas por WhatsApp o el streaming detrás de la web.",
@@ -47,6 +47,8 @@ COPY = {
         "Cada tarjeta muestra la página de inicio del cliente en un teléfono y lo que hice. Abre cualquier sitio para verlo en contexto.",
     ),
     "visit": ("Visit site", "Ver sitio"),
+    # Screen-reader suffix after "Visit site": the business name and that the link opens a new tab.
+    "new_tab": ("opens in a new tab", "se abre en una pestaña nueva"),
     "quotes_label": ("In their words", "En sus palabras"),
     "quotes_title": ("What my clients say.", "Lo que dicen mis clientes."),
     "cta_label": ("Your project", "Tu proyecto"),
@@ -58,19 +60,29 @@ def esc(text: str) -> str:
     return html.escape(text, quote=True)
 
 
+def visit_suffix(name: str) -> str:
+    """Bilingual screen-reader text, so each "Visit site" link names the business and the new tab."""
+    new_tab_en, new_tab_es = COPY["new_tab"]
+    return (
+        f'<span class="sr-only" data-lang="en">: {esc(name)} ({new_tab_en})</span>'
+        f'<span class="sr-only" data-lang="es" hidden>: {esc(name)} ({new_tab_es})</span>'
+    )
+
+
 def render_card(client: dict) -> str:
     width, height = WORK_IMAGE_SIZE
     alt_en, alt_es = client["alt"]
     domain = client["domain"]
     return (
         '<li class="work-card">'
-        f'<div class="work-shot"><img src="{WORK_IMAGE_DIR}/{domain}.jpg" width="{width}" height="{height}" loading="lazy" decoding="async" '
+        f'<div class="work-shot"><img src="{image_url(domain, width)}" srcset="{srcset(domain)}" sizes="{WORK_PAGE_SIZES}" '
+        f'width="{width}" height="{height}" loading="lazy" decoding="async" '
         f'alt="{esc(alt_en)}" data-alt-en="{esc(alt_en)}" data-alt-es="{esc(alt_es)}"></div>'
         f'<span class="work-tag">{both(*client["tag"])}</span>'
         f'<h3>{esc(client["name"])}</h3>'
         f'<p>{both(*client["built"])}</p>'
         f'<a class="work-visit" href="https://{domain}/" target="_blank" rel="noopener">{both(*COPY["visit"])}'
-        f'<span aria-hidden="true">↗</span><span class="sr-only"> {domain}</span></a>'
+        f'<span aria-hidden="true">↗</span>{visit_suffix(client["name"])}</a>'
         "</li>"
     )
 
@@ -127,7 +139,7 @@ def render() -> str:
 {render_navigation(whatsapp=WHATSAPP, current=PATH)}
 <main id="main">
 <header class="hero hero-single"><div><div class="label">{both(*COPY['label'])}</div><h1>{both(*COPY['title'])}</h1><p class="hero-copy">{both(*COPY['lead'])}</p><div class="actions"><a class="primary" {review}>{both("Request my free review", "Solicitar revisión gratuita")}</a><a class="secondary" {whatsapp_link}>{both("Message Victor on WhatsApp", "Escribe a Victor por WhatsApp")}</a></div></div></header>
-<section class="work-sites" id="sites" aria-labelledby="sites-title"><div class="work-intro"><div><div class="label">{both(*COPY['sites_label'])}</div><h2 id="sites-title">{both(*COPY['sites_title'])}</h2></div><p class="lead">{both(*COPY['sites_lead'])}</p></div><ul class="work-grid">{cards}</ul></section>
+<section class="work-sites" id="sites" aria-labelledby="sites-title"><div class="work-intro"><div><div class="label">{both(*COPY['sites_label'])}</div><h2 id="sites-title">{both(*COPY['sites_title'])}</h2></div><p class="lead">{both(*COPY['sites_lead'])}</p></div><ul class="work-grid" role="list">{cards}</ul></section>
 <section class="work-quotes" id="testimonials" aria-labelledby="testimonials-title"><div class="work-intro"><div><div class="label">{both(*COPY['quotes_label'])}</div><h2 id="testimonials-title">{both(*COPY['quotes_title'])}</h2></div></div><div class="quote-grid">{quotes}</div></section>
 <section class="cta"><div><div class="label">{both(*COPY['cta_label'])}</div><h2>{both(*COPY['cta_title'])}</h2></div><div class="cta-actions"><a class="primary" {review}>{both("Request my free review", "Solicitar revisión gratuita")}</a><a class="primary cta-whatsapp whatsapp-action" {whatsapp_link}>{whatsapp_contact.ICON}{both("Message Victor on WhatsApp", "Escribe a Victor por WhatsApp")}</a></div></section>
 <section class="more"><div class="label">{both('Explore capabilities', 'Explora capacidades')}</div><div class="more-grid">{more}</div></section>

@@ -35,7 +35,7 @@ TOPICS = {
     "ai-agents": ("AI agents and integrations", "agentes de IA e integraciones"),
     "ai-spokesperson": ("the AI spokesperson videos I saw on your website", "los videos con vocero de IA que vi en su página web"),
     "streaming": ("streaming and broadcasting", "streaming y transmisión"),
-    "work": ("a project like the client work on your website", "un proyecto como los que vi en su página web"),
+    "work": ("a project like the ones I saw on your website", "un proyecto como los que vi en su página web"),
     "infrastructure": ("infrastructure and reliability", "infraestructura y confiabilidad"),
     "blog": ("my business", "mi negocio"),
     "blog-como-la-inteligencia-artificial-puede-automatizar-tu-negocio-en-miami": ("using AI in my business", "usar IA en mi negocio"),
