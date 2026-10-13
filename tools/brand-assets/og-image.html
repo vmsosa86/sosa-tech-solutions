@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1200,initial-scale=1">
+  <title>Sosa Tech Solutions Share Image</title>
+  <!--
+    Renders the 1200x630 link-preview image (og-image-2026-10.png).
+    Serve the repository root over HTTP, open /tools/brand-assets/og-image.html
+    at a 1200x630 viewport and screenshot it once <html data-ready="true">.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--carbon:#080a0f;--surface:#0d1117;--border:#1e2731;--teal:#00e5c8;--white:#f0f4f8;--steel:#91a1b2;--soft:#c9d4d8}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:var(--carbon)}
+    .card{position:relative;width:1200px;height:630px;overflow:hidden;color:var(--white);background:radial-gradient(circle at 80% 30%,rgba(0,229,200,.13),transparent 30%),linear-gradient(140deg,var(--surface),var(--carbon) 66%);font-family:"DM Sans",sans-serif}
+    .card::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(145,161,178,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(145,161,178,.07) 1px,transparent 1px);background-size:60px 60px;mask-image:linear-gradient(90deg,transparent,#000 22%,#000 92%,transparent)}
+    .card::after{content:"";position:absolute;left:0;top:0;width:34%;height:8px;background:var(--teal)}
+    .node-art{position:absolute;right:72px;top:160px;width:220px;height:291px;opacity:.14}
+    .top{position:absolute;left:72px;right:72px;top:60px;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:block;width:340px;height:auto}
+    .label{font:500 17px/1 "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+    h1{position:absolute;left:72px;top:192px;margin:0;font:800 112px/.95 "Syne",sans-serif;letter-spacing:-.05em}
+    h1 span{color:var(--teal)}
+    .offers{position:absolute;left:72px;right:72px;top:462px;margin:0;font:500 25px/1.3 "DM Sans",sans-serif;color:var(--soft);white-space:nowrap}
+    .offers i{font-style:normal;color:var(--teal);padding:0 .35em}
+    .foot{position:absolute;left:72px;right:72px;bottom:44px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;font:500 20px/1 "DM Mono",monospace;letter-spacing:.04em}
+    .foot .name{color:var(--white)}
+    .foot .url{color:var(--teal);font-size:22px}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <svg class="node-art" viewBox="0 10 34 45" aria-hidden="true">
+      <!-- Circuit-path S geometry copied from the icon mark in assets/logo.svg. -->
+      <g fill="#00e5c8"><rect x="4" y="14" width="26" height="5"/><rect x="25" y="14" width="5" height="18"/><rect x="4" y="28" width="26" height="5"/><rect x="4" y="32" width="5" height="18"/><rect x="4" y="46" width="26" height="5"/><circle cx="4" cy="14" r="3.5"/><circle cx="30" cy="14" r="3.5"/><circle cx="30" cy="32" r="3.5"/><circle cx="4" cy="32" r="3.5"/><circle cx="4" cy="51" r="3.5"/><circle cx="30" cy="51" r="3.5"/></g>
+    </svg>
+    <div class="top">
+      <img class="logo" src="../../assets/logo.svg" alt="Sosa Tech Solutions">
+      <div class="label">Miami · English + Español</div>
+    </div>
+    <h1>We build.<br><span>You grow.</span></h1>
+    <p class="offers">Websites<i>·</i>WhatsApp automation<i>·</i>AI agents<i>·</i>AI spokesperson videos<i>·</i>Content</p>
+    <div class="foot"><span class="name">Sosa Tech Solutions</span><span class="url">sosatechsolutions.com</span></div>
+  </main>
+  <script>
+    const logo = document.querySelector('.logo');
+    const loaded = logo.complete ? Promise.resolve() : new Promise(resolve => logo.addEventListener('load', resolve, { once: true }));
+    Promise.all([document.fonts.ready, loaded]).then(() => { document.documentElement.dataset.ready = 'true'; });
+  </script>
+</body>
+</html>

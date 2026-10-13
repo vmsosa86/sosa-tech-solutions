@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=900,initial-scale=1">
+  <title>Sosa Tech Solutions Logo Lockup</title>
+  <!--
+    Renders assets/logo-dark.png and assets/logo-light.png (900x320) from the
+    assets/logo.svg master. Serve the repository root over HTTP (the page
+    fetches the SVG so the light variant can be recoloured), open
+    /tools/brand-assets/logo-lockup.html?mode=dark|light at a 900x320 viewport
+    and screenshot it once <html data-ready="true">.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#080a0f;--tagline:#91a1b2}
+    .light{--bg:#f8fafc;--tagline:#4f5d68}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:900px;height:320px;overflow:hidden;background:var(--bg)}
+    /* Left-aligned like the original lockups (icon starts at x=60) so existing placements keep working. */
+    .lockup{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-start;padding-left:54px}
+    .stack{width:560px}
+    .mark svg{display:block;width:560px;height:auto}
+    /* 132px = wordmark start inside the 560px-wide SVG, so the tagline aligns with SOSA. */
+    .tagline{margin:14px 0 0 132px;font:400 30px/1.2 "DM Sans",sans-serif;color:var(--tagline);letter-spacing:-.01em}
+  </style>
+</head>
+<body>
+  <main class="lockup" id="lockup">
+    <div class="stack">
+      <div class="mark" id="mark"></div>
+      <div class="tagline">We build. You grow.</div>
+    </div>
+  </main>
+  <script>
+    const mode = new URLSearchParams(location.search).get('mode') === 'light' ? 'light' : 'dark';
+    document.documentElement.classList.add(mode);
+    fetch('../../assets/logo.svg').then(r => r.text()).then(source => {
+      const mark = document.getElementById('mark');
+      mark.innerHTML = source;
+      const svg = mark.querySelector('svg');
+      svg.removeAttribute('width');
+      svg.removeAttribute('height');
+      if (mode === 'light') {
+        // Approved light lockup: teal mark and TECH, Carbon SOSA, dark steel SOLUTIONS.
+        svg.querySelector('text.wordmark').setAttribute('fill', '#080a0f');
+        svg.querySelector('text.sub').setAttribute('fill', '#3d4b57');
+        svg.querySelector('line').setAttribute('stroke', '#c5ced6');
+      }
+      return document.fonts.ready;
+    }).then(() => { document.documentElement.dataset.ready = 'true'; });
+  </script>
+</body>
+</html>

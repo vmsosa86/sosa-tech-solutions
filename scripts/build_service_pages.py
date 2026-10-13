@@ -299,8 +299,8 @@ def render(offer: dict) -> str:
 <title>{name} | Sosa Tech Solutions Miami</title>
 <meta name="description" content="{meta}"><meta name="robots" content="index,follow">
 <link rel="canonical" href="{url}"><meta name="theme-color" content="#080A0F">
-<meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:title" content="{name} | Sosa Tech Solutions"><meta property="og:description" content="{meta}"><meta property="og:image" content="https://sosatechsolutions.com/og-image.png">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{name} | Sosa Tech Solutions"><meta name="twitter:description" content="{meta}"><meta name="twitter:image" content="https://sosatechsolutions.com/og-image.png">
+<meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:title" content="{name} | Sosa Tech Solutions"><meta property="og:description" content="{meta}"><meta property="og:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{name} | Sosa Tech Solutions"><meta name="twitter:description" content="{meta}"><meta name="twitter:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
 <link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/assets/service.css?v=20260911">
 <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False, separators=(',', ':'))}</script>
 <link rel="stylesheet" href="/assets/site-nav.css?v=1">

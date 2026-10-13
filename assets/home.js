@@ -3,8 +3,8 @@
 
   const copy = {
     en: {
-      'seo.title': 'WhatsApp Automation & Websites for Miami Businesses | Sosa Tech',
-      'seo.description': 'Sosa Tech connects websites, WhatsApp, automation and marketing so bilingual Miami service businesses respond faster and lose fewer leads.',
+      'seo.title': 'Miami Websites & WhatsApp Automation | Sosa Tech Solutions',
+      'seo.description': 'Sosa Tech Solutions connects websites, WhatsApp, automation and marketing so bilingual Miami service businesses respond faster and lose fewer leads.',
       'skip': 'Skip to content',
       'menu.open': 'Open navigation menu',
       'menu.close': 'Close navigation menu',
@@ -178,7 +178,7 @@
       'faq.6.q': 'Can you create and schedule our social media content?',
       'faq.6.a': 'Yes. We can build a brand-aware workflow for ideas, bilingual copy, graphics and Reels, with your approval before scheduled publishing and a visible publication record.',
       'faq.7.q': 'Who owns the accounts and systems?',
-      'faq.7.a': 'Whenever practical, your business owns its accounts. Sosa Tech receives only the access required to complete and support the work.',
+      'faq.7.a': 'Whenever practical, your business owns its accounts. Sosa Tech Solutions receives only the access required to complete and support the work.',
       'contact.kicker': 'Free lead-flow review',
       'contact.title': 'Show us where the <em>lead gets lost.</em>',
       'contact.lead': 'Tell us how customers find you, where your team responds and what keeps falling through the cracks. We will reply within one business day with the clearest next step.',
@@ -203,8 +203,8 @@
       'footer.terms': 'Terms'
     },
     es: {
-      'seo.title': 'Automatización de WhatsApp y Páginas Web en Miami | Sosa Tech',
-      'seo.description': 'Sosa Tech conecta páginas web, WhatsApp, automatización y marketing para que negocios bilingües en Miami respondan rápido y no pierdan oportunidades.',
+      'seo.title': 'Webs y WhatsApp automatizado en Miami | Sosa Tech Solutions',
+      'seo.description': 'Sosa Tech Solutions conecta páginas web, WhatsApp, automatización y marketing para que negocios bilingües en Miami respondan rápido y no pierdan oportunidades.',
       'skip': 'Saltar al contenido',
       'menu.open': 'Abrir menú de navegación',
       'menu.close': 'Cerrar menú de navegación',
@@ -378,7 +378,7 @@
       'faq.6.q': '¿Pueden crear y programar nuestro contenido para redes?',
       'faq.6.a': 'Sí. Podemos crear un flujo alineado con tu marca para ideas, textos bilingües, gráficos y Reels, con tu aprobación antes de programar y un registro visible de cada publicación.',
       'faq.7.q': '¿Quién es dueño de las cuentas y sistemas?',
-      'faq.7.a': 'Siempre que sea práctico, tu negocio es dueño de sus cuentas. Sosa Tech recibe únicamente el acceso necesario para completar y apoyar el trabajo.',
+      'faq.7.a': 'Siempre que sea práctico, tu negocio es dueño de sus cuentas. Sosa Tech Solutions recibe únicamente el acceso necesario para completar y apoyar el trabajo.',
       'contact.kicker': 'Revisión gratuita del flujo',
       'contact.title': 'Muéstranos dónde se <em>pierde la oportunidad.</em>',
       'contact.lead': 'Cuéntanos cómo te encuentran los clientes, dónde responde tu equipo y qué sigue quedándose atrás. Contestaremos en un día laborable con el próximo paso más claro.',

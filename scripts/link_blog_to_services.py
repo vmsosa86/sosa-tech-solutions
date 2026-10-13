@@ -8,10 +8,10 @@ ROOT = Path(__file__).resolve().parents[1]
 AUTOMATION = {
     "href": "/services/automation/",
     "en_title": "See the automation system",
-    "en_desc": "Learn how Sosa Tech maps intake, routing, follow-up, safeguards, and ownership before automating a business process.",
+    "en_desc": "Learn how Sosa Tech Solutions maps intake, routing, follow-up, safeguards, and ownership before automating a business process.",
     "en_button": "Explore Automate & Respond →",
     "es_title": "Conoce el sistema de automatización",
-    "es_desc": "Descubre cómo Sosa Tech mapea la entrada, asignación, seguimiento, controles y responsabilidad antes de automatizar un proceso.",
+    "es_desc": "Descubre cómo Sosa Tech Solutions mapea la entrada, asignación, seguimiento, controles y responsabilidad antes de automatizar un proceso.",
     "es_button": "Ver Automatizar y Responder →",
 }
 
@@ -22,19 +22,19 @@ PAGES = {
     "por-que-tu-negocio-en-miami-necesita-un-sitio-web-rapido-y-movil": {
         "href": "/services/websites/",
         "en_title": "Build a website that creates action",
-        "en_desc": "See how Sosa Tech connects a clear offer, fast mobile experience, lead capture, search foundations, and measurable inquiries.",
+        "en_desc": "See how Sosa Tech Solutions connects a clear offer, fast mobile experience, lead capture, search foundations, and measurable inquiries.",
         "en_button": "Explore Launch & Convert →",
         "es_title": "Crea una página que genere acción",
-        "es_desc": "Conoce cómo Sosa Tech conecta una oferta clara, experiencia móvil rápida, captación, SEO y consultas medibles.",
+        "es_desc": "Conoce cómo Sosa Tech Solutions conecta una oferta clara, experiencia móvil rápida, captación, SEO y consultas medibles.",
         "es_button": "Ver Lanzar y Convertir →",
     },
     "facebook-ads-vs-google-ads-para-negocios-locales": {
         "href": "/services/marketing/",
         "en_title": "Connect the system behind the click",
-        "en_desc": "See how Sosa Tech connects the offer, landing page, measurement, lead routing, and follow-up before scaling traffic.",
+        "en_desc": "See how Sosa Tech Solutions connects the offer, landing page, measurement, lead routing, and follow-up before scaling traffic.",
         "en_button": "Explore Reach & Grow →",
         "es_title": "Conecta el sistema detrás del clic",
-        "es_desc": "Conoce cómo Sosa Tech conecta oferta, página, medición, asignación y seguimiento antes de aumentar el tráfico.",
+        "es_desc": "Conoce cómo Sosa Tech Solutions conecta oferta, página, medición, asignación y seguimiento antes de aumentar el tráfico.",
         "es_button": "Ver Alcanzar y Crecer →",
     },
 }
@@ -65,15 +65,15 @@ for slug, values in PAGES.items():
     if slug == "automatizacion-de-whatsapp-para-negocios-en-miami":
         text = text.replace(
             "<title>WhatsApp automation for Miami businesses: how to capture more customers</title>",
-            "<title>WhatsApp automation for Miami businesses | Sosa Tech</title>",
+            "<title>WhatsApp automation in Miami | Sosa Tech Solutions</title>",
         )
         text = text.replace(
             "'metaTitle':'Automatización de WhatsApp para negocios en Miami: cómo captar más clientes'",
-            "'metaTitle':'Automatización de WhatsApp en Miami | Sosa Tech'",
+            "'metaTitle':'Automatización de WhatsApp en Miami | Sosa Tech Solutions'",
         )
         text = text.replace(
             "'metaTitle':'WhatsApp automation for Miami businesses: how to capture more customers'",
-            "'metaTitle':'WhatsApp automation for Miami businesses | Sosa Tech'",
+            "'metaTitle':'WhatsApp automation in Miami | Sosa Tech Solutions'",
         )
     path.write_text(text, encoding="utf-8")
     print(path.relative_to(ROOT))

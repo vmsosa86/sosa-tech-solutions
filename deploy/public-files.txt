@@ -2,6 +2,7 @@
 index.html
 favicon.ico
 og-image.png
+og-image-2026-10.png
 robots.txt
 sitemap.xml
 assets
