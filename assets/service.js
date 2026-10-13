@@ -16,9 +16,19 @@
     link.href = `${url.pathname}${url.search}${url.hash}`;
   });
 
+  // The static <title> and meta description are English (the default); Spanish comes from <html data-*-es>.
+  const root = document.documentElement;
+  const description = document.querySelector('meta[name="description"]');
+  const snippet = {
+    en: { title: document.title, description: description ? description.content : '' },
+    es: { title: root.dataset.titleEs || document.title, description: root.dataset.descriptionEs || (description ? description.content : '') }
+  };
+
   function setLanguage(language) {
     const lang = language === 'es' ? 'es' : 'en';
     document.documentElement.lang = lang;
+    document.title = snippet[lang].title;
+    if (description) description.content = snippet[lang].description;
     document.querySelectorAll('[data-alt-en]').forEach(image => { image.alt = image.dataset[lang === 'es' ? 'altEs' : 'altEn']; });
     document.querySelectorAll('a[href^="/"]').forEach(link => {
       const url = new URL(link.href, location.origin);

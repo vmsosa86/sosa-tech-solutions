@@ -25,4 +25,27 @@
   window.sosaWhatsApp = { update };
   new MutationObserver(() => update()).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   update();
+
+  // Keep the floating button off a video's native control bar (e.g. full-width Reels on a phone).
+  const float = document.querySelector('.wa-float');
+  const floatLink = float && float.querySelector('.floating-whatsapp');
+  const videos = Array.from(document.querySelectorAll('video[controls]'));
+  if (floatLink && videos.length) {
+    const controlBar = 56;
+    let queued = false;
+    const check = () => {
+      queued = false;
+      const button = floatLink.getBoundingClientRect();
+      const covered = videos.some((video) => {
+        const box = video.getBoundingClientRect();
+        return box.width > 0 && box.left < button.right && box.right > button.left
+          && box.bottom > button.top - 8 && box.bottom - controlBar < button.bottom + 8;
+      });
+      float.classList.toggle('is-tucked', covered);
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(check); } };
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    check();
+  }
 })();

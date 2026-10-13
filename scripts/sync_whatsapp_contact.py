@@ -20,7 +20,7 @@ from site_navigation import NAV_CSS_HREF, NAV_JS_SRC, render_navigation
 
 ROOT = Path(__file__).resolve().parents[1]
 LEGAL_PAGES = ["privacy-policy", "terms", "data-deletion"]
-LEGAL_JS_SRC = "/assets/legal.js?v=20261013a"
+LEGAL_JS_SRC = "/assets/legal.js?v=20261013b"
 
 BLOG_CTA = {
     "en": {
@@ -60,8 +60,9 @@ def normalize_tagged_links(text: str) -> str:
 def set_floating_button(text: str, slug: str, path: Path) -> str:
     """Replace the floating button in place, or add it right after the footer."""
     button = wa.floating_button(slug)
-    if '<aside class="wa-float"' in text:
-        return replace_once(text, r'<aside class="wa-float"[\s\S]*?</aside>', button, path)
+    # Earlier builds wrapped the button in <aside>; both forms are replaced in place.
+    if re.search(r'<(?:aside|div) class="wa-float"', text):
+        return replace_once(text, r'<(aside|div) class="wa-float"[\s\S]*?</\1>', button, path)
     end = text.rfind("</footer>\n")
     if end < 0:
         raise SystemExit(f"{path.relative_to(ROOT)}: missing </footer>")

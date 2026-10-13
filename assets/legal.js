@@ -1,6 +1,9 @@
 (function () {
   const buttons = Array.from(document.querySelectorAll("[data-set-language]"));
   const sections = Array.from(document.querySelectorAll("[data-language]"));
+  // Same key as the rest of the site; "sosatech-language" is the legal pages' older key.
+  const STORAGE_KEY = "sosa-language";
+  const LEGACY_KEY = "sosatech-language";
 
   function setLanguage(language) {
     const selected = language === "es" ? "es" : "en";
@@ -14,8 +17,15 @@
         button.dataset.setLanguage === selected ? "true" : "false"
       );
     });
+    // Internal page links carry the language, like the homepage, service and blog pages.
+    document.querySelectorAll('a[href^="/"]').forEach((link) => {
+      const url = new URL(link.href, window.location.origin);
+      if (url.origin !== window.location.origin || !url.pathname.endsWith("/")) return;
+      url.searchParams.set("lang", selected);
+      link.href = `${url.pathname}${url.search}${url.hash}`;
+    });
     try {
-      window.localStorage.setItem("sosatech-language", selected);
+      window.localStorage.setItem(STORAGE_KEY, selected);
     } catch (_) {
       // Language preference remains session-only when storage is unavailable.
     }
@@ -29,10 +39,11 @@
   const queryLanguage = new URLSearchParams(window.location.search).get("lang");
   let savedLanguage = "";
   try {
-    savedLanguage = window.localStorage.getItem("sosatech-language") || "";
+    savedLanguage =
+      window.localStorage.getItem(STORAGE_KEY) || window.localStorage.getItem(LEGACY_KEY) || "";
   } catch (_) {
     savedLanguage = "";
   }
-  const browserLanguage = navigator.language.toLowerCase().startsWith("es") ? "es" : "en";
-  setLanguage(queryLanguage || savedLanguage || browserLanguage);
+  // English is the site default; the browser language is not used.
+  setLanguage(queryLanguage || savedLanguage || "en");
 })();

@@ -203,8 +203,8 @@
       'footer.terms': 'Terms'
     },
     es: {
-      'seo.title': 'Webs, WhatsApp y marketing en Miami | Sosa Tech Solutions',
-      'seo.description': 'Creo tu web, tu seguimiento por WhatsApp, contenido, anuncios y videos con presentadores de IA, en español o inglés, para que tu negocio responda rápido.',
+      'seo.title': 'Páginas web y marketing en Miami | Sosa Tech Solutions',
+      'seo.description': 'Creo tu web, tu seguimiento por WhatsApp, contenido, anuncios y videos con vocero de IA, en español o inglés, para que tu negocio responda rápido.',
       'skip': 'Saltar al contenido',
       'menu.open': 'Abrir menú de navegación',
       'menu.close': 'Cerrar menú de navegación',
@@ -423,11 +423,13 @@
   Object.assign(copy.es, {"form.interest": "¿En qué puedo ayudarte?", "interest.unsure": "Todavía no estoy seguro", "interest.websites": "Páginas web", "interest.marketing": "Anuncios en Facebook e Instagram", "interest.automation": "WhatsApp y seguimiento automatizado", "interest.content-engine": "Creación y publicación de contenido", "interest.infrastructure": "Infraestructura y confiabilidad", "interest.streaming": "Streaming y transmisión"});
   Object.assign(copy.en, {"specialist.kicker": "More ways I can help", "specialist.title": "AI, live media and the systems behind them.", "specialist.lead": "From a custom assistant to an online radio station, I build and connect the tools your operation needs.", "specialist.agents.title": "AI agents & custom integrations", "specialist.agents.body": "Assist your team with business questions, inquiry organization and repetitive tasks, connected to the tools you use.", "specialist.agents.link": "Explore AI agents", "specialist.streaming.title": "Streaming & broadcasting", "specialist.streaming.body": "Internet radio, website players and live audio or video workflows, with monitoring and practical technical support.", "specialist.streaming.link": "Explore streaming", "specialist.infrastructure.title": "Infrastructure & reliability", "specialist.infrastructure.body": "Keep the systems behind your business running with server management, monitoring, backups and recovery planning.", "specialist.infrastructure.link": "Explore infrastructure", "nav.specialists": "AI & streaming", "journal.kicker": "From the blog", "journal.title": "Understand what’s possible.", "journal.lead": "Practical reading on websites, automation and the tools behind a connected business.", "journal.all": "Explore all articles", "journal.1.topic": "AI & automation", "journal.1.title": "How AI can help automate your business", "journal.1.body": "Explore practical uses for repetitive work and customer service.", "journal.read": "Read article", "journal.2.topic": "WhatsApp", "journal.2.title": "A better process for WhatsApp inquiries", "journal.2.body": "Read about capturing inquiries and organizing follow-up.", "journal.3.topic": "Websites", "journal.3.title": "Why a fast, mobile-friendly website matters", "journal.3.body": "See how the mobile experience shapes the path to contacting your business.", "interest.agents": "AI agents & custom integrations"});
   Object.assign(copy.es, {"specialist.kicker": "Más formas de ayudarte", "specialist.title": "IA, medios en vivo y los sistemas que los sostienen.", "specialist.lead": "Desde un asistente a medida hasta una emisora en línea, creo y conecto las herramientas que necesita tu operación.", "specialist.agents.title": "Agentes de IA e integraciones a medida", "specialist.agents.body": "Ayuda a tu equipo con consultas del negocio, organización de contactos y tareas repetitivas, conectado a tus herramientas.", "specialist.agents.link": "Explorar agentes de IA", "specialist.streaming.title": "Streaming y transmisión", "specialist.streaming.body": "Radio por internet, reproductores web y flujos de audio o video en vivo, con monitoreo y soporte técnico práctico.", "specialist.streaming.link": "Explorar streaming", "specialist.infrastructure.title": "Infraestructura y confiabilidad", "specialist.infrastructure.body": "Mantén los sistemas de tu negocio con administración de servidores, monitoreo, respaldos y planes de recuperación.", "specialist.infrastructure.link": "Explorar infraestructura", "nav.specialists": "IA y streaming", "journal.kicker": "En el blog", "journal.title": "Descubre lo que puedes hacer.", "journal.lead": "Lecturas prácticas sobre páginas web, automatización y las herramientas de un negocio conectado.", "journal.all": "Ver todos los artículos", "journal.1.topic": "IA y automatización", "journal.1.title": "Cómo la IA puede ayudar a automatizar tu negocio", "journal.1.body": "Explora usos prácticos para tareas repetitivas y atención al cliente.", "journal.read": "Leer artículo", "journal.2.topic": "WhatsApp", "journal.2.title": "Un mejor proceso para las consultas de WhatsApp", "journal.2.body": "Lee sobre captación de consultas y organización del seguimiento.", "journal.3.topic": "Páginas web", "journal.3.title": "Por qué importa una web rápida y adaptada al móvil", "journal.3.body": "Descubre cómo la experiencia móvil influye en el contacto con tu negocio.", "interest.agents": "Agentes de IA e integraciones a medida"});
-  Object.assign(copy.en, {"hero.whatsapp": "Message us on WhatsApp", "nav.whatsapp": "Message us on WhatsApp"});
-  Object.assign(copy.es, {"hero.whatsapp": "Escríbenos por WhatsApp", "nav.whatsapp": "Escríbenos por WhatsApp"});
+  Object.assign(copy.en, {"hero.whatsapp": "Message Victor on WhatsApp", "nav.whatsapp": "Message Victor on WhatsApp"});
+  Object.assign(copy.es, {"hero.whatsapp": "Escribe a Victor por WhatsApp", "nav.whatsapp": "Escribe a Victor por WhatsApp"});
+  Object.assign(copy.en, {"aria.home": "Sosa Tech Solutions home", "aria.nav": "Primary navigation", "aria.language": "Language selector", "aria.trust": "Service advantages"});
+  Object.assign(copy.es, {"aria.home": "Inicio de Sosa Tech Solutions", "aria.nav": "Navegación principal", "aria.language": "Selector de idioma", "aria.trust": "Ventajas del servicio"});
   // AI spokesperson: featured band, "more ways" card, nav item and form option.
   Object.assign(copy.en, {"nav.spokesperson": "AI spokesperson", "spokesperson.kicker": "Video without a film crew", "spokesperson.title": "New: your AI spokesperson", "spokesperson.body": "Your business on video every week: realistic AI presenters, scripts you approve, in English or Spanish.", "spokesperson.link": "See the videos", "spokesperson.ai": "Presenter generated with AI", "specialist.spokesperson.title": "AI spokesperson videos", "specialist.spokesperson.body": "Short videos where a realistic AI presenter, labeled as AI, explains your services in English or Spanish.", "specialist.spokesperson.link": "Explore AI spokesperson videos", "interest.ai-spokesperson": "AI spokesperson videos"});
-  Object.assign(copy.es, {"nav.spokesperson": "Vocero con IA", "spokesperson.kicker": "Video sin equipo de filmación", "spokesperson.title": "Nuevo: tu vocero con IA", "spokesperson.body": "Tu negocio en video cada semana: presentadores realistas con IA, guiones que tú apruebas, en español o inglés.", "spokesperson.link": "Ver los videos", "spokesperson.ai": "Presentador generado con IA", "specialist.spokesperson.title": "Videos con vocero de IA", "specialist.spokesperson.body": "Videos cortos en los que un presentador realista con IA, identificado como IA, explica tus servicios en español o inglés.", "specialist.spokesperson.link": "Explorar videos con vocero de IA", "interest.ai-spokesperson": "Videos con vocero de IA"});
+  Object.assign(copy.es, {"nav.spokesperson": "Vocero con IA", "spokesperson.kicker": "Video sin equipo de filmación", "spokesperson.title": "Nuevo: tu vocero con IA", "spokesperson.body": "Tu negocio en video cada semana: presentadores realistas con IA, guiones que tú apruebas, en español o inglés.", "spokesperson.link": "Ver los videos", "spokesperson.ai": "Presentadores generados con IA", "specialist.spokesperson.title": "Videos con vocero de IA", "specialist.spokesperson.body": "Videos cortos en los que un presentador realista con IA, identificado como IA, explica tus servicios en español o inglés.", "specialist.spokesperson.link": "Explorar videos con vocero de IA", "interest.ai-spokesperson": "Videos con vocero de IA"});
   let language = 'en';
   const menuButton = document.querySelector('.menu-toggle');
   const navigation = document.querySelector('.primary-nav');
@@ -460,6 +462,10 @@
     translateAttribute('[data-i18n-placeholder]', 'placeholder', 'i18nPlaceholder');
     translateAttribute('[data-i18n-alt]', 'alt', 'i18nAlt');
     translateAttribute('[data-i18n-aria]', 'aria-label', 'i18nAria');
+    document.querySelectorAll('img[data-src-en]').forEach((image) => {
+      const source = image.dataset[language === 'es' ? 'srcEs' : 'srcEn'];
+      if (source && image.getAttribute('src') !== source) image.setAttribute('src', source);
+    });
 
     document.querySelectorAll('.lang-btn').forEach((button) => {
       const active = button.dataset.lang === language;
@@ -467,8 +473,10 @@
       button.setAttribute('aria-pressed', String(active));
     });
     try { localStorage.setItem('sosa-language', language); } catch (_) { /* storage may be unavailable */ }
-    document.querySelectorAll('a[href^="/services/"], a[href^="/blog/"]').forEach(link => {
+    // Every internal page link (services, blog, legal, home) carries the language; files do not.
+    document.querySelectorAll('a[href^="/"]').forEach(link => {
       const url = new URL(link.href, window.location.origin);
+      if (url.origin !== window.location.origin || !url.pathname.endsWith('/')) return;
       url.searchParams.set('lang', language);
       link.href = `${url.pathname}${url.search}${url.hash}`;
     });

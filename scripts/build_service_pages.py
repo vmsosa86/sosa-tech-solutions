@@ -10,6 +10,9 @@ from site_navigation import NAV_CSS_HREF, NAV_JS_SRC, render_navigation
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+SERVICE_CSS_HREF = "/assets/service.css?v=20261013c"
+SERVICE_JS_SRC = "/assets/service.js?v=20261013c"
+FONTS_HREF = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600&amp;family=Syne:wght@700;800&amp;display=swap"
 
 OFFERS = [
     {
@@ -261,11 +264,11 @@ OFFERS.append({
     "reels_label": ("See it", "Míralo"),
     "reels_title": ("See it before you decide.", "Míralo antes de decidir."),
     "reels_lead": (
-        "These are Reels we made for Sosa Tech Solutions, with the same process we’d use for your business. The AI-agent video is the same message in English and in Spanish.",
-        "Son Reels que hicimos para Sosa Tech Solutions con el mismo proceso que usaríamos para tu negocio. El video sobre agentes de IA es el mismo mensaje en inglés y en español.",
+        "These are Reels I made for Sosa Tech Solutions, with the same process I’d use for your business. The AI-agent video is the same message in English and in Spanish.",
+        "Son Reels que hice para Sosa Tech Solutions con el mismo proceso que usaría para tu negocio. El video sobre agentes de IA es el mismo mensaje en inglés y en español.",
     ),
     "reels": [
-        {"file": "2026-10-17_sosa-parezco-real-es_v02", "title": "‘Do I look real?’ — four AI presenters (Spanish)", "title_es": "¿Parezco real? — cuatro presentadores con IA",
+        {"file": "2026-10-17_sosa-parezco-real-es_v02", "title": "‘Do I look real?’ — four AI presenters (Spanish)", "title_es": "¿Parezco real? — cuatro presentadores con IA (en español)",
          "ai": ("Presenters generated with AI", "Presentadores generados con IA")},
         {"file": "2026-10-16_sosa-tech-ai-agent-en_v03", "title": "AI-agent explainer (English)", "title_es": "Explicación de agentes de IA (en inglés)"},
         {"file": "2026-10-15_sosa-tech-agente-ia-es_v03", "title": "AI-agent explainer (Spanish)", "title_es": "Explicación de agentes de IA (en español)"},
@@ -276,27 +279,27 @@ OFFERS.append({
     "intro_es": "Usa un presentador con IA donde tu negocio necesite explicar algo en video, cada semana, sin organizar una grabación.",
     "outcomes": [
         ("Weekly Reels", "A steady flow of short vertical videos for Instagram and Facebook, so your page never goes quiet.", "Reels semanales", "Videos verticales cortos y constantes para Instagram y Facebook, para que tu página nunca se quede en silencio."),
-        ("Service explainers", "Explain what you do, how it works and who it’s for, in a video people finish watching.", "Explicación de servicios", "Explica qué haces, cómo funciona y para quién es, en un video que la gente ve hasta el final."),
+        ("Service explainers", "Explain what you do, how it works and who it’s for, in a short video that gets to the point.", "Explicación de servicios", "Explica qué haces, cómo funciona y para quién es, en un video corto que va al grano."),
         ("Promos and offers", "Announce a promotion, a seasonal offer or an event, with a clear invitation to message you.", "Promociones y ofertas", "Anuncia una promoción, una oferta de temporada o un evento, con una invitación clara a escribirte."),
         ("English and Spanish versions", "The same video in both languages, written for each audience instead of translated word for word.", "Versiones en español e inglés", "El mismo video en los dos idiomas, escrito para cada público y no traducido palabra por palabra."),
-        ("Story stills", "Matching vertical images for Instagram and Facebook Stories, so each video has a companion piece.", "Imágenes para historias", "Imágenes verticales a juego para las historias de Instagram y Facebook, para acompañar cada video."),
+        ("Story images", "Matching vertical images for Instagram and Facebook Stories, so each video has a companion piece.", "Imágenes para historias", "Imágenes verticales que combinan con cada video, para las historias de Instagram y Facebook."),
     ],
     "process_label": ("How it works", "Cómo funciona"),
     "process_title": ("From topic to published video.", "Del tema al video publicado."),
-    "start": "You decide what your business says. We handle the script, the production and, if you want, the publishing.",
-    "start_es": "Tú decides qué dice tu negocio. Nosotros nos encargamos del guion, la producción y, si quieres, la publicación.",
+    "start": "You decide what your business says. I handle the script, the production and, if you want, the publishing.",
+    "start_es": "Tú decides qué dice tu negocio. Yo me encargo del guion, la producción y, si quieres, la publicación.",
     "steps": [
-        ("You tell us the topic", "A service, an offer or a question your customers keep asking. A WhatsApp message is enough to start.", "Nos cuentas el tema", "Un servicio, una oferta o una pregunta que tus clientes repiten. Basta con un mensaje por WhatsApp."),
-        ("We write the script. You approve it.", "You read every word before production and can ask for changes. Nothing moves forward without your OK.", "Escribimos el guion. Tú lo apruebas.", "Lees cada palabra antes de producir y puedes pedir cambios. Nada avanza sin tu aprobación."),
-        ("We produce the video", "An AI presenter, motion graphics and on-screen captions, in vertical format for Reels and Stories.", "Producimos el video", "Un presentador con IA, gráficos en movimiento y subtítulos en pantalla, en formato vertical para Reels e historias."),
-        ("We publish it and confirm", "Optional: we schedule it on your Facebook and Instagram and let you know when it’s live.", "Lo publicamos y te confirmamos", "Opcional: lo programamos en tu Facebook e Instagram y te avisamos cuando ya está publicado."),
+        ("You tell me the topic", "A service, an offer or a question your customers keep asking. A WhatsApp message is enough to start.", "Me cuentas el tema", "Un servicio, una oferta o una pregunta que tus clientes repiten. Basta con un mensaje por WhatsApp."),
+        ("I write the script. You approve it.", "You read every word before production and can ask for changes. Nothing moves forward without your OK.", "Escribo el guion. Tú lo apruebas.", "Lees cada palabra antes de producir y puedes pedir cambios. Nada avanza sin tu aprobación."),
+        ("I produce the video", "An AI presenter, motion graphics and on-screen captions, in vertical format for Reels and Stories.", "Produzco el video", "Un presentador con IA, gráficos en movimiento y subtítulos en pantalla, en formato vertical para Reels e historias."),
+        ("I publish it and confirm", "Optional: I schedule it on your Facebook and Instagram and let you know when it’s live.", "Lo publico y te confirmo", "Opcional: lo programo en tu Facebook e Instagram y te aviso cuando ya está publicado."),
     ],
     "notes_label": ("Honest notes", "Notas claras"),
     "notes_title": ("What you should know first.", "Lo que debes saber primero."),
     "notes": [
-        ("The presenters are AI, and labeled as AI", "They are generated with AI. Every video says so on screen and in the post caption, and we never present them as real people.", "Los presentadores son IA y se identifican como IA", "Se generan con IA. Cada video lo indica en pantalla y en el texto de la publicación, y nunca los presentamos como personas reales."),
+        ("The presenters are AI, and labeled as AI", "They are generated with AI. Every video says so on screen and in the post caption, and I never present them as real people.", "Los presentadores son IA y se identifican como IA", "Se generan con IA. Cada video lo indica en pantalla y en el texto de la publicación, y nunca los presento como personas reales."),
         ("You approve every script", "Nothing is produced or published without your OK. The presenter only says what you approved.", "Tú apruebas cada guion", "Nada se produce ni se publica sin tu aprobación. El presentador solo dice lo que aprobaste."),
-        ("Ask for a quote on WhatsApp", "There are no prices on this page: every business needs a different mix of videos, languages and publishing. It’s much cheaper than a film crew.", "Pide una cotización por WhatsApp", "No publicamos precios aquí: cada negocio necesita una combinación distinta de videos, idiomas y publicación. Es mucho más barato que un equipo de filmación."),
+        ("Ask for a quote on WhatsApp", "Every business needs a different mix of videos, languages and publishing, so I quote each one on WhatsApp. It’s much cheaper than a film crew.", "Pide una cotización por WhatsApp", "Cada negocio necesita una combinación distinta de videos, idiomas y publicación, así que cotizo cada caso por WhatsApp. Es mucho más barato que un equipo de filmación."),
     ],
     "related_label": ("Works well with", "Funciona bien con"),
     "related_title": ("Pair it with the rest of your marketing.", "Combínalo con el resto de tu marketing."),
@@ -304,15 +307,16 @@ OFFERS.append({
         ("content-engine", "Explore content creation & publishing →", "Ver creación y publicación de contenido →", "Add the videos to a full content calendar of posts, carousels and Reels, approved by you before anything is scheduled.", "Suma los videos a un calendario completo de publicaciones, carruseles y Reels, aprobado por ti antes de programar."),
         ("agents", "Explore AI agents & integrations →", "Ver agentes de IA e integraciones →", "Want AI to answer your customers’ questions too? An AI agent can reply with your approved information and hand off to your team.", "¿Quieres que la IA también responda a tus clientes? Un agente de IA puede contestar con tu información aprobada y pasar la conversación a tu equipo."),
     ],
+    "faq_title": ("Clear answers<br>before your first video.", "Respuestas claras<br>antes de tu primer video."),
     "cta_label": ("Your AI spokesperson", "Tu vocero con IA"),
-    "cta_title": ("Tell us your first topic. We’ll write the script.", "Cuéntanos tu primer tema. Nosotros escribimos el guion."),
+    "cta_title": ("Tell me your first topic. I’ll write the script.", "Cuéntame tu primer tema. Yo escribo el guion."),
     "cta_button": ("Ask for a quote on WhatsApp", "Pide una cotización por WhatsApp"),
     "faq": [
-        ("Will people know it’s AI?", "Yes. We label it on screen and in the caption of every post. The goal is a clear, professional video, not to fool anyone.", "¿La gente sabrá que es IA?", "Sí. Lo indicamos en pantalla y en el texto de cada publicación. El objetivo es un video claro y profesional, no engañar a nadie."),
+        ("Will people know it’s AI?", "Yes. I label it on screen and in the caption of every post. The goal is a clear, professional video, not to fool anyone.", "¿La gente sabrá que es IA?", "Sí. Lo indico en pantalla y en el texto de cada publicación. El objetivo es un video claro y profesional, no engañar a nadie."),
         ("Can the videos be in Spanish and English?", "Yes. Spanish, English, or both versions of the same video, each written for its audience rather than translated word for word.", "¿Los videos pueden ser en español y en inglés?", "Sí. En español, en inglés o en ambas versiones del mismo video, cada una escrita para su público y no traducida palabra por palabra."),
         ("Who approves the script?", "You do, always. Nothing is produced until you approve the script, and you see the finished video before it’s published.", "¿Quién aprueba el guion?", "Tú, siempre. No se produce nada hasta que apruebes el guion, y ves el video terminado antes de que se publique."),
-        ("Can you publish it for me?", "Yes. We can schedule it on your Facebook and Instagram and confirm when it’s live. If you prefer to post it yourself, you get the final video files.", "¿Pueden publicarlo por mí?", "Sí. Lo programamos en tu Facebook e Instagram y te confirmamos cuando está publicado. Si prefieres publicarlo tú, te entregamos los archivos finales."),
-        ("Do I need to record anything?", "No. No camera, no studio and no recording on your side. If you have photos of your business, products or logo, we can use them in the video.", "¿Tengo que grabar algo?", "No. No necesitas cámara, estudio ni grabarte. Si tienes fotos de tu negocio, tus productos o tu logo, podemos usarlas en el video."),
+        ("Can you publish it for me?", "Yes. I can schedule it on your Facebook and Instagram and confirm when it’s live. If you prefer to post it yourself, you get the final video files.", "¿Puedes publicarlo por mí?", "Sí. Lo programo en tu Facebook e Instagram y te confirmo cuando está publicado. Si prefieres publicarlo tú, te entrego los archivos finales."),
+        ("Do I need to record anything?", "No. No camera, no studio and no recording on your side. If you have photos of your business, products or logo, I can use them in the video.", "¿Tengo que grabar algo?", "No. No necesitas cámara, estudio ni grabarte. Si tienes fotos de tu negocio, tus productos o tu logo, puedo usarlas en el video."),
     ],
 })
 OFFER_BY_SLUG = {offer["slug"]: offer for offer in OFFERS}
@@ -353,9 +357,47 @@ SEO = {
         "Weekly videos where a realistic AI presenter, labeled as AI, explains your services in English or Spanish. You approve every script. No cameras needed.",
     ),
 }
+# Spanish snippet, same limits; assets/service.js swaps document.title and the meta
+# description when the visitor switches the page to Spanish.
+SEO_ES = {
+    "websites": (
+        "Páginas web bilingües en Miami",
+        "Una página web clara y pensada para el móvil, centrada en tu oferta, con WhatsApp y formularios que facilitan el contacto. En español, inglés o ambos.",
+    ),
+    "automation": (
+        "Automatización de WhatsApp en Miami",
+        "Conecta formularios, WhatsApp, alertas y recordatorios para que cada consulta llegue a la persona indicada con un siguiente paso claro, sin copiar datos.",
+    ),
+    "content-engine": (
+        "Contenido para redes sociales en Miami",
+        "Posts, carruseles, Reels e imágenes con IA alineados con tu marca y aprobados por ti antes de programar cualquier publicación en Facebook e Instagram.",
+    ),
+    "marketing": (
+        "Anuncios en Facebook e Instagram",
+        "Anuncios en Facebook e Instagram con una oferta clara, una página de destino o WhatsApp y un plan de seguimiento, midiendo de dónde llegan las consultas.",
+    ),
+    "agents": (
+        "Agentes de IA e integraciones en Miami",
+        "Asistentes de IA a medida, conectados a tu información y herramientas aprobadas, para responder preguntas, organizar consultas y reducir trabajo manual.",
+    ),
+    "infrastructure": (
+        "Administración de servidores en Miami",
+        "Mantén funcionando los servidores y sistemas de tu negocio con monitoreo, alertas, respaldos cifrados y recuperación probada, con un responsable claro.",
+    ),
+    "streaming": (
+        "Radio y streaming en vivo en Miami",
+        "Radio por internet, reproductores web y transmisiones de audio o video en vivo, configurados y monitoreados para tu emisora o negocio, con soporte técnico.",
+    ),
+    "ai-spokesperson": (
+        "Videos con vocero de IA en Miami",
+        "Videos semanales en los que un presentador realista con IA, identificado como IA, explica tus servicios en español o inglés. Tú apruebas cada guion.",
+    ),
+}
 for offer in OFFERS:
     if offer["slug"] in SEO:
         offer["seo_title"], offer["seo_description"] = SEO[offer["slug"]]
+    if offer["slug"] in SEO_ES:
+        offer["seo_title_es"], offer["seo_description_es"] = SEO_ES[offer["slug"]]
 
 # Service URL slug -> WhatsApp topic slug used in the prefilled [web-<slug>] tag.
 WHATSAPP_SLUGS = {
@@ -388,7 +430,7 @@ def render_reels(offer: dict) -> str:
     cards = []
     for i, reel in enumerate(offer["reels"], 1):
         src = f'{REELS_DIR}/{reel["file"]}-web.mp4'
-        poster = f'{REELS_DIR}/{reel["file"]}-poster.jpg'
+        poster = f'{REELS_DIR}/{reel["file"]}-poster.webp'
         ai_en, ai_es = reel.get("ai", ("Presenter generated with AI", "Presentador generado con IA"))
         caption_id = f"reel-{i}-caption"
         cards.append(
@@ -484,36 +526,40 @@ def render(offer: dict) -> str:
     intro_title = offer.get("intro_title", ("What’s included.", "Qué incluye."))
     process_label = offer.get("process_label", ("How we work", "Cómo trabajamos"))
     process_title = offer.get("process_title", ("Start with one useful conversation.", "Empecemos con una conversación útil."))
+    faq_title = offer.get("faq_title", ("Clear answers<br>before we build.", "Respuestas claras<br>antes de construir."))
     cta_label = offer.get("cta_label", ("Free lead-flow review", "Revisión gratuita del flujo"))
     cta_title = offer.get("cta_title", ("Let’s find your next practical step.", "Encontremos tu próximo paso."))
     title = html.escape(page_title, quote=True)
     meta = html.escape(description, quote=True)
+    title_es = html.escape(f'{offer.get("seo_title_es", offer["name_es"])} | Sosa Tech Solutions', quote=True)
+    meta_es = html.escape(offer.get("seo_description_es", offer["meta_es"]), quote=True)
     return f'''<!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en" data-title-es="{title_es}" data-description-es="{meta_es}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{meta}"><meta name="robots" content="index,follow">
 <link rel="canonical" href="{url}"><meta name="theme-color" content="#080A0F">
 <meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:title" content="{title}"><meta property="og:description" content="{meta}"><meta property="og:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{meta}"><meta name="twitter:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
-<link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/assets/service.css?v=20261013b">
+<link rel="icon" href="/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="{FONTS_HREF}"><link rel="stylesheet" href="{SERVICE_CSS_HREF}">
 <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False, separators=(',', ':'))}</script>
 <link rel="stylesheet" href="{NAV_CSS_HREF}"><link rel="stylesheet" href="{whatsapp_contact.CSS_HREF}">
 </head><body class="has-site-nav">
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#main">{both('Skip to content', 'Saltar al contenido')}</a>
 {render_navigation(offer['slug'], whatsapp)}
 <main id="main">
 <header class="{hero_class}"><div><div class="label">{both(offer['name'], offer['name_es'])}</div><h1>{both(offer['title'], offer['title_es'])}</h1><p class="hero-copy">{both(offer['meta'], offer['meta_es'])}</p><div class="actions">{actions}</div></div>{visual}</header>{reels}
 <section class="intro"><div><div class="label">{both(*intro_label)}</div><h2>{both(*intro_title)}</h2></div><div><p class="lead">{both(offer['intro'], offer['intro_es'])}</p><div class="outcomes">{outcomes}</div></div></section>
 <section class="process"><div><div class="label">{both(*process_label)}</div><h2>{both(*process_title)}</h2></div><div><p class="lead engagement">{both(offer.get("start", offer["intro"]), offer.get("start_es", offer["intro_es"]))}</p><div class="steps">{steps}</div></div></section>
 {example_section}
-<section class="faq"><div><div class="label">FAQ</div><h2>{both('Clear answers<br>before we build.','Respuestas claras<br>antes de construir.')}</h2></div><div class="faq-list">{faq}</div></section>
+<section class="faq"><div><div class="label">{both('FAQ', 'Preguntas frecuentes')}</div><h2>{both(*faq_title)}</h2></div><div class="faq-list">{faq}</div></section>
 <section class="cta"><div><div class="label">{both(*cta_label)}</div><h2>{both(*cta_title)}</h2></div>{cta_button}</section>
 <section class="more"><div class="label">{both('Explore capabilities','Explora capacidades')}</div><div class="more-grid">{more}</div></section>
 </main>
-<footer><span>© 2026 Sosa Tech Solutions · Miami, Florida</span><span><a href="/privacy-policy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/blog/">Blog</a></span></footer>
+<footer><span>© 2026 Sosa Tech Solutions · Miami, Florida</span><span><a href="/privacy-policy/">{both('Privacy', 'Privacidad')}</a> · <a href="/terms/">{both('Terms', 'Términos')}</a> · <a href="/blog/">Blog</a></span></footer>
 {whatsapp_contact.floating_button(whatsapp)}
-<script src="/assets/service.js?v=20261013b" defer></script><script src="{NAV_JS_SRC}" defer></script><script src="{whatsapp_contact.JS_SRC}" defer></script></body></html>'''
+<script src="{SERVICE_JS_SRC}" defer></script><script src="{NAV_JS_SRC}" defer></script><script src="{whatsapp_contact.JS_SRC}" defer></script></body></html>'''
 
 
 if __name__ == "__main__":

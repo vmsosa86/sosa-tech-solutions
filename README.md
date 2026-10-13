@@ -15,8 +15,8 @@ The site is static HTML/CSS/JavaScript with no build step. It includes:
 - Bilingual English/Spanish homepage and legal pages.
 - Six outcome-based offers and evidence-backed operational proof.
 - Free lead-flow review contact funnel and WhatsApp CTA.
-- WhatsApp on every page: floating button, mobile-menu item and page-aware prefill (`[web-<slug>]` tag, EN/ES).
-- AI spokesperson videos page (`/services/ai-spokesperson/`) with three example Reels from `assets/site/reels/` (web MP4 + ~100 KB poster each, `preload="none"`, never autoplay, every card labeled as AI). The homepage shows only its poster, lazily.
+- WhatsApp on every page: floating button (tucked away while it would cover a video's controls), mobile-menu item and page-aware prefill (`[web-<slug>]` tag, EN/ES). Visible buttons say "Message Victor on WhatsApp" / "Escribe a Victor por WhatsApp".
+- AI spokesperson videos page (`/services/ai-spokesperson/`) with three example Reels from `assets/site/reels/` (web MP4 + 540x960 WebP poster of ~45-55 KB each, `preload="none"`, never autoplay, every card labeled as AI). The homepage band shows one lazy 360x640 WebP thumbnail per language (English reel in EN, "¿Parezco real?" in ES). Posters and thumbnails are re-encoded on the Radio Mac Studio.
 - First-touch UTM capture in the contact form.
 - LocalBusiness, Organization, WebSite, and FAQ structured data.
 - Accessible colors, visible keyboard focus, and reduced-motion support.
@@ -38,7 +38,9 @@ python3 scripts/sync_whatsapp_contact.py   # homepage, blog and legal pages
 python3 scripts/validate_site.py
 ```
 
-The validator also checks every `<video>` poster and `<source>` file exists and rejects `autoplay`. It enforces the search snippet standard (titles <= 60 characters ending in `| Sosa Tech Solutions`, meta descriptions 140-155 characters), the full brand name, and that every service and blog page is listed in `sitemap.xml` and `llms.txt`. When adding a page, update both files. Service-page titles and descriptions live in the `SEO` map in `scripts/build_service_pages.py`.
+The validator also checks every `<video>` poster and `<source>` file exists and rejects `autoplay`. It enforces the search snippet standard (titles <= 60 characters ending in `| Sosa Tech Solutions`, meta descriptions 140-155 characters, in English and in the Spanish `data-title-es`/`data-description-es` of service pages), the full brand name in public HTML, `llms.txt` and `assets/*.js`, and that every service and blog page is listed in `sitemap.xml` and `llms.txt`. When adding a page, update both files. Service-page titles and descriptions live in the `SEO` and `SEO_ES` maps in `scripts/build_service_pages.py`.
+
+Every page stores the visitor's language under the `sosa-language` key and adds `?lang=` to internal page links; English is the default everywhere (the legal pages no longer follow the browser language).
 
 ## Brand system
 
@@ -105,7 +107,7 @@ sitemap.xml                      Public URL inventory
 
 ## Tracking status
 
-The homepage records `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, and the landing URL with each form inquiry. Meta Pixel is intentionally disabled because no verified Dataset/Pixel is currently assigned to the Sosa Tech business. Do not add a placeholder ID or reuse another client's data source.
+The homepage records `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, and the landing URL with each form inquiry. Meta Pixel is intentionally disabled because no verified Dataset/Pixel is currently assigned to the Sosa Tech Solutions business. Do not add a placeholder ID or reuse another client's data source.
 
 When the correct data source exists, validate PageView, Contact, Lead, and booked-review events before enabling paid traffic. The Meta ad account also requires an account-level review before spend.
 

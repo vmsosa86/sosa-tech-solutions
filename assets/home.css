@@ -420,18 +420,29 @@ html{scroll-padding-top:0}section{scroll-margin-top:6.5rem}.brand img{width:180p
 .spokesperson-band h3{font:400 clamp(1.9rem,3.2vw,2.8rem)/1.12 'DM Sans',sans-serif;letter-spacing:-.045em;margin:.9rem 0 .8rem}
 .spokesperson-band p{color:var(--muted);font-size:1.05rem;line-height:1.7;max-width:48ch}
 .spokesperson-link{display:inline-block;margin-top:1.4rem;color:var(--cyan);font-size:.95rem;text-underline-offset:5px}
-.spokesperson-thumb{display:block;width:9rem;text-decoration:none}
+.spokesperson-media{width:9rem}
+.spokesperson-thumb{display:block;text-decoration:none}
 .thumb-frame{position:relative;display:block}
 .thumb-frame img{width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;border:1px solid #ffffff20;border-radius:.4rem}
 .thumb-frame::after{content:"";position:absolute;left:50%;top:50%;width:2.8rem;height:2.8rem;margin:-1.4rem 0 0 -1.4rem;border-radius:50%;background:var(--cyan) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z' fill='%23080a0f'/%3E%3C/svg%3E") 58% 50%/45% no-repeat;box-shadow:0 6px 18px #0006;transition:transform .2s}
 .spokesperson-thumb:hover .thumb-frame::after{transform:scale(1.08)}
-.thumb-caption{display:block;margin-top:.65rem;font:400 .6rem/1.4 'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+/* The AI disclosure stays readable at every width (11.2px minimum) and outside the aria-hidden link. */
+.thumb-caption{display:block;margin-top:.65rem;font:400 .7rem/1.35 'DM Mono',monospace;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);text-wrap:balance}
 .specialist-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem}
 @media(max-width:1100px){.specialist-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:2.5rem}}
-@media(max-width:860px){.spokesperson-band{margin-top:2.5rem;gap:1.6rem;padding:1.8rem}.spokesperson-thumb{width:7rem}.specialist-grid{grid-template-columns:1fr;gap:2rem}}
-@media(max-width:540px){.spokesperson-band{grid-template-columns:minmax(0,1fr) 5.4rem;align-items:start;gap:1.1rem;padding:1.5rem 1.3rem}.spokesperson-band h3{font-size:1.65rem}.spokesperson-band p{font-size:.98rem}.spokesperson-thumb{width:5.4rem}.thumb-frame::after{width:2.2rem;height:2.2rem;margin:-1.1rem 0 0 -1.1rem}.thumb-caption{font-size:.52rem}}
+@media(max-width:860px){.spokesperson-band{margin-top:2.5rem;gap:1.6rem;padding:1.8rem}.spokesperson-media{width:7rem}.specialist-grid{grid-template-columns:1fr;gap:2rem}}
+@media(max-width:540px){.spokesperson-band{grid-template-columns:minmax(0,1fr) 6rem;align-items:start;gap:1.1rem;padding:1.5rem 1.3rem}.spokesperson-band h3{font-size:1.65rem}.spokesperson-band p{font-size:.98rem}.spokesperson-media{width:6rem}.thumb-frame::after{width:2.2rem;height:2.2rem;margin:-1.1rem 0 0 -1.1rem}}
 @media(prefers-reduced-motion:reduce){.thumb-frame::after{transition:none}.spokesperson-thumb:hover .thumb-frame::after{transform:none}}
 /* Header links never wrap; "AI spokesperson" (sixth link) hides only at 861-959px and stays in the mobile menu. */
 @media(min-width:861px){.primary-nav a{white-space:nowrap}}
 @media(min-width:861px) and (max-width:959px){.primary-nav a.nav-spokesperson{display:none}}
 @media(min-width:1051px) and (max-width:1100px){.primary-nav{gap:.7rem}}
+/* Wide screens: keep the copy and a larger poster together instead of pushing the poster to the far edge. */
+@media(min-width:1101px){.spokesperson-band{grid-template-columns:minmax(0,40rem) 11rem;justify-content:center;column-gap:clamp(4rem,8vw,9rem)}.spokesperson-media{width:11rem}}
+/* Room between the enlarged logo (with SOLUTIONS) and the tagline. */
+.brand span{margin-top:.4rem}
+@media(max-width:860px){.brand span{margin-top:.3rem}}
+/* The FAQ sits on a dark section: use the bright accent for its label (contrast). */
+.faq .kicker{color:var(--cyan)}
+/* Very small phones (< 360px): a smaller logo keeps the language switch and menu button inside the header. */
+@media(max-width:359px){.site-header{gap:.5rem;padding:0 .75rem}.brand img{width:130px}}

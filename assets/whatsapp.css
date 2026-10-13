@@ -1,7 +1,9 @@
 /* Shared WhatsApp contact: floating button on every page and the blog in-article CTA. */
-.floating-whatsapp{position:fixed;z-index:190;right:1.25rem;bottom:1.25rem;width:3.6rem;height:3.6rem;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 9px 30px rgba(37,211,102,.35);transition:transform .2s}
+.floating-whatsapp{position:fixed;z-index:190;right:1.25rem;bottom:1.25rem;width:3.6rem;height:3.6rem;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 9px 30px rgba(37,211,102,.35);transition:transform .2s,opacity .2s,visibility .2s}
 .floating-whatsapp:hover{transform:scale(1.06)}
-.floating-whatsapp:focus-visible{outline:3px solid #00e5c8;outline-offset:4px}
+.floating-whatsapp:focus-visible{outline:3px solid #00e5c8;outline-offset:3px;box-shadow:0 0 0 3px #080a0f,0 9px 30px rgba(37,211,102,.35)}
+/* whatsapp.js tucks the button away while it would cover a video's control bar. */
+.wa-float.is-tucked .floating-whatsapp{opacity:0;visibility:hidden}
 .floating-whatsapp svg{display:block;width:1.7rem;height:1.7rem;fill:#fff}
 
 /* Blog posts: a quieter companion to the existing cyan .cta block. */

@@ -3,8 +3,8 @@ from html import escape
 
 import whatsapp_contact
 
-NAV_CSS_HREF = "/assets/site-nav.css?v=3"
-NAV_JS_SRC = "/assets/site-nav.js?v=3"
+NAV_CSS_HREF = "/assets/site-nav.css?v=4"
+NAV_JS_SRC = "/assets/site-nav.js?v=4"
 
 
 def render_navigation(service=None, whatsapp="home"):

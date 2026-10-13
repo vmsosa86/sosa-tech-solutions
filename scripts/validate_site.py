@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate public Sosa Tech pages, local links, metadata, and structured data."""
+"""Validate public Sosa Tech Solutions pages, local links, metadata, and structured data."""
 
 import argparse
 import json
@@ -28,8 +28,14 @@ SITE = "https://sosatechsolutions.com"
 TITLE_SUFFIX = "| Sosa Tech Solutions"
 TITLE_MAX = 60
 DESCRIPTION_RANGE = (140, 155)
-# The brand is always "Sosa Tech Solutions" (domains and paths are lowercase, so they never match).
-SHORT_BRAND = re.compile(r"Sosa Tech(?! Solutions)|SosaTech")
+# The brand is always "Sosa Tech Solutions": no "Sosa Tech", "SosaTech", "SOSA TECH" or variants split by
+# spaces, line breaks or &nbsp;. Domains, paths and storage keys are lowercase, so they never match.
+_GAP = r"(?:\s|&nbsp;|&#160;)"
+SHORT_BRAND = re.compile(
+    rf"Sosa{_GAP}+Tech(?!{_GAP}+Solutions)|SosaTech|SOSA{_GAP}+TECH(?!{_GAP}+SOLUTIONS)|SOSATECH"
+)
+# Public scripts hold copy too (homepage dictionary, navigation and WhatsApp labels).
+PUBLIC_SCRIPTS = "assets/*.js"
 FORBIDDEN_SCHEMA_KEYS = {"aggregateRating", "review", "reviews"}
 SITE_URL = re.compile(r"https://sosatechsolutions\.com/[^\s)<>\"']*")
 
@@ -49,10 +55,13 @@ class PageParser(HTMLParser):
         self.whatsapp_links = []  # type: List[dict]
         self.floating_whatsapp = 0
         self.autoplay_videos = 0
-        self._in_whatsapp_aside = False
+        self._whatsapp_wrapper_depth = 0  # >0 while inside the .wa-float wrapper
+        self.html_attrs = {}  # type: dict
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
+        if tag == "html":
+            self.html_attrs = values
         if tag == "title":
             self._in_title = True
         elif tag == "h1":
@@ -65,6 +74,10 @@ class PageParser(HTMLParser):
             reference = values.get("href") or values.get("src")
             if reference:
                 self.links.append(reference)
+            # Language-specific image sources (swapped by the page script) must exist too.
+            for key in ("data-src-en", "data-src-es"):
+                if values.get(key):
+                    self.links.append(values[key])
         elif tag == "video":
             # Example videos: the poster and any direct src must exist; autoplay is never allowed.
             for reference in (values.get("poster"), values.get("src")):
@@ -72,19 +85,21 @@ class PageParser(HTMLParser):
                     self.links.append(reference)
             if "autoplay" in values:
                 self.autoplay_videos += 1
-        if tag == "aside" and "wa-float" in (values.get("class") or "").split():
-            self._in_whatsapp_aside = True
+        if self._whatsapp_wrapper_depth and tag == "div":
+            self._whatsapp_wrapper_depth += 1
+        elif tag == "div" and "wa-float" in (values.get("class") or "").split():
+            self._whatsapp_wrapper_depth = 1
         if tag == "a" and (values.get("href") or "").startswith(("https://wa.me/", "https://api.whatsapp.com/")):
             self.whatsapp_links.append(values)
-            if self._in_whatsapp_aside and "floating-whatsapp" in (values.get("class") or "").split():
+            if self._whatsapp_wrapper_depth and "floating-whatsapp" in (values.get("class") or "").split():
                 self.floating_whatsapp += 1
         if tag == "script" and values.get("type") == "application/ld+json":
             self._in_json_ld = True
             self._json_buffer = []
 
     def handle_endtag(self, tag):
-        if tag == "aside":
-            self._in_whatsapp_aside = False
+        if tag == "div" and self._whatsapp_wrapper_depth:
+            self._whatsapp_wrapper_depth -= 1
         if tag == "title":
             self._in_title = False
         elif tag == "script" and self._in_json_ld:
@@ -102,7 +117,7 @@ def whatsapp_errors(rel: Path, parser: PageParser) -> List[str]:
     """Every WhatsApp link must carry a well-formed, page-tagged prefill."""
     errors = []  # type: List[str]
     if parser.floating_whatsapp != 1:
-        errors.append(f"{rel}: expected 1 floating WhatsApp button in aside.wa-float, found {parser.floating_whatsapp}")
+        errors.append(f"{rel}: expected 1 floating WhatsApp button in div.wa-float, found {parser.floating_whatsapp}")
     for values in parser.whatsapp_links:
         href = values["href"]
         parsed = urlparse(href)
@@ -206,6 +221,15 @@ def main() -> int:
         low, high = DESCRIPTION_RANGE
         if not (low <= len(parser.description.strip()) <= high):
             errors.append(f"{rel}: description length {len(parser.description.strip())} (expected {low}-{high})")
+        # Service pages carry the Spanish snippet that assets/service.js applies; same standard.
+        title_es = (parser.html_attrs.get("data-title-es") or "").strip()
+        description_es = (parser.html_attrs.get("data-description-es") or "").strip()
+        if rel.parts[0] == "services" and not (title_es and description_es):
+            errors.append(f"{rel}: missing data-title-es / data-description-es on <html>")
+        if title_es and (len(title_es) > TITLE_MAX or not title_es.endswith(TITLE_SUFFIX)):
+            errors.append(f"{rel}: Spanish title must be <= {TITLE_MAX} chars ending '{TITLE_SUFFIX}': {title_es!r} ({len(title_es)})")
+        if description_es and not (low <= len(description_es) <= high):
+            errors.append(f"{rel}: Spanish description length {len(description_es)} (expected {low}-{high})")
         for match in SHORT_BRAND.finditer(source):
             errors.append(f"{rel}: short brand name {source[max(0, match.start() - 30):match.end() + 30]!r}")
         # Legal pages keep one H1 per language in the source and hide the inactive language.
@@ -273,6 +297,12 @@ def main() -> int:
         if re.match(re.escape(SITE) + r"/(services|blog)/[^/]+/$", canonical) and canonical not in llms_urls:
             errors.append(f"llms.txt: page not listed {canonical}")
 
+    scripts = sorted(root.glob(PUBLIC_SCRIPTS))
+    for script in scripts:
+        text = script.read_text(encoding="utf-8")
+        for match in SHORT_BRAND.finditer(text):
+            errors.append(f"{script.relative_to(root)}: short brand name {text[max(0, match.start() - 30):match.end() + 30]!r}")
+
     for note in notes:
         print(f"NOTE {note}")
     if errors:
@@ -280,7 +310,7 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print(f"SITE VALIDATION PASSED: {len(pages)} pages, {len(sitemap_urls)} sitemap URLs, {len(llms_urls)} llms.txt URLs")
+    print(f"SITE VALIDATION PASSED: {len(pages)} pages, {len(scripts)} scripts, {len(sitemap_urls)} sitemap URLs, {len(llms_urls)} llms.txt URLs")
     return 0
 
 

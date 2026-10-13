@@ -16,13 +16,14 @@ from urllib.parse import quote
 NUMBER = "13057415702"
 DISPLAY_NUMBER = "+1 (305) 741-5702"
 
-CSS_HREF = "/assets/whatsapp.css?v=1"
-JS_SRC = "/assets/whatsapp.js?v=1"
+CSS_HREF = "/assets/whatsapp.css?v=2"
+JS_SRC = "/assets/whatsapp.js?v=2"
 
 LABEL_EN = "Chat with Sosa Tech Solutions on WhatsApp"
 LABEL_ES = "Escríbele a Sosa Tech Solutions por WhatsApp"
-CTA_EN = "Message us on WhatsApp"
-CTA_ES = "Escríbenos por WhatsApp"
+# The site speaks as Victor, so every visible WhatsApp button uses his name (service pages too).
+CTA_EN = "Message Victor on WhatsApp"
+CTA_ES = "Escribe a Victor por WhatsApp"
 
 # Topic for the prefilled message, keyed by the slug in its [web-<slug>] tag.
 TOPICS = {
@@ -41,9 +42,9 @@ TOPICS = {
     "blog-por-que-tu-negocio-en-miami-necesita-un-sitio-web-rapido-y-movil": ("a faster website for my business", "una página web más rápida para mi negocio"),
     "blog-facebook-ads-vs-google-ads-para-negocios-locales": ("ads for my business", "anuncios para mi negocio"),
     "blog-que-es-n8n-y-como-puede-automatizar-tu-negocio": ("automating my business with n8n", "automatizar mi negocio con n8n"),
-    "privacy-policy": ("a privacy question", "una consulta de privacidad"),
-    "terms": ("the terms of service", "los términos de servicio"),
-    "data-deletion": ("a data deletion request", "una solicitud de eliminación de datos"),
+    "privacy-policy": ("privacy and my data", "la privacidad de mis datos"),
+    "terms": ("your terms of service", "sus términos de servicio"),
+    "data-deletion": ("deleting my data", "la eliminación de mis datos"),
 }
 
 # WhatsApp glyph, shared by the floating button, the nav item and the hero action.
@@ -87,8 +88,9 @@ def label_attributes() -> str:
 
 
 def floating_button(slug: str) -> str:
+    # A plain wrapper, not a landmark: the link carries the (localized) accessible name.
     return (
-        f'<aside class="wa-float" {label_attributes()}>'
+        '<div class="wa-float">'
         f'<a class="floating-whatsapp" {link_attributes(slug)} {label_attributes()}>{ICON}</a>'
-        "</aside>"
+        "</div>"
     )
