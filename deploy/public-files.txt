@@ -2,7 +2,7 @@
 index.html
 favicon.ico
 og-image.png
-og-image-2026-10.png
+og-image-2026-10b.png
 robots.txt
 llms.txt
 sitemap.xml

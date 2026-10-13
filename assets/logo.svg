@@ -1,37 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 8 216 55" width="216" height="55" role="img" aria-labelledby="logo-title">
+  <title id="logo-title">Sosa Tech Solutions</title>
   <defs>
     <style>
       .wordmark { font-family: 'Arial Black', 'Arial', sans-serif; font-weight: 900; letter-spacing: -0.03em; }
-      .sub { font-family: 'Courier New', monospace; letter-spacing: 0.18em; }
+      .sub { font-family: 'Courier New', monospace; font-weight: 700; }
     </style>
   </defs>
 
-  <!-- ── ICON MARK: circuit-path S ── -->
+  <!-- ── ICON MARK: circuit-path S (equal loops, 2026-10-13) ── -->
   <!-- Top bar -->
-  <rect x="4" y="14" width="26" height="5" rx="0" fill="#00e5c8"/>
+  <rect x="4" y="14" width="26" height="5" fill="#00e5c8"/>
   <!-- Top-right vertical -->
-  <rect x="25" y="14" width="5" height="18" fill="#00e5c8"/>
+  <rect x="25" y="14" width="5" height="21" fill="#00e5c8"/>
   <!-- Middle bar -->
-  <rect x="4" y="28" width="26" height="5" fill="#00e5c8"/>
+  <rect x="4" y="30" width="26" height="5" fill="#00e5c8"/>
   <!-- Bottom-left vertical -->
-  <rect x="4" y="32" width="5" height="18" fill="#00e5c8"/>
+  <rect x="4" y="30" width="5" height="20" fill="#00e5c8"/>
   <!-- Bottom bar -->
   <rect x="4" y="46" width="26" height="5" fill="#00e5c8"/>
 
   <!-- Corner dots (nodes) -->
   <circle cx="4" cy="14" r="3.5" fill="#00e5c8"/>
   <circle cx="30" cy="14" r="3.5" fill="#00e5c8"/>
-  <circle cx="30" cy="32" r="3.5" fill="#00e5c8"/>
-  <circle cx="4" cy="32" r="3.5" fill="#00e5c8"/>
+  <circle cx="30" cy="32.5" r="3.5" fill="#00e5c8"/>
+  <circle cx="4" cy="32.5" r="3.5" fill="#00e5c8"/>
   <circle cx="4" cy="51" r="3.5" fill="#00e5c8"/>
   <circle cx="30" cy="51" r="3.5" fill="#00e5c8"/>
 
-  <!-- ── WORDMARK ── -->
-  <!-- SOSATECH -->
-  <text x="48" y="42" class="wordmark" font-size="28" fill="#f0f4f8">SOSA<tspan fill="#00e5c8">TECH</tspan></text>
+  <!-- ── WORDMARK: Sosa Tech Solutions ── -->
+  <!-- textLength pins both lines to the same width when a fallback font is used. -->
+  <text x="48" y="42" class="wordmark" font-size="28" fill="#f0f4f8" textLength="164.4" lengthAdjust="spacingAndGlyphs">SOSA<tspan fill="#00e5c8">TECH</tspan></text>
 
-  <!-- SOLUTIONS -->
-  <text x="49" y="60" class="sub" font-size="12.5" font-weight="700" fill="#c9d4d8" letter-spacing="0.5em">SOLUTIONS</text>
+  <!-- SOLUTIONS: sized and lightened to stay legible (>= 10px, >= 4.5:1) at header widths. -->
+  <text x="48" y="60" class="sub" font-size="16" fill="#c9d4d8" textLength="164.1" lengthAdjust="spacing">SOLUTIONS</text>
 
   <!-- Vertical divider between icon and wordmark -->
   <line x1="42" y1="14" x2="42" y2="60" stroke="#1e2731" stroke-width="1"/>

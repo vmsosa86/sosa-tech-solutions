@@ -542,8 +542,8 @@ def render(offer: dict) -> str:
 <title>{title}</title>
 <meta name="description" content="{meta}"><meta name="robots" content="index,follow">
 <link rel="canonical" href="{url}"><meta name="theme-color" content="#080A0F">
-<meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:title" content="{title}"><meta property="og:description" content="{meta}"><meta property="og:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{meta}"><meta name="twitter:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
+<meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:title" content="{title}"><meta property="og:description" content="{meta}"><meta property="og:image" content="https://sosatechsolutions.com/og-image-2026-10b.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{meta}"><meta name="twitter:image" content="https://sosatechsolutions.com/og-image-2026-10b.png">
 <link rel="icon" href="/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS_HREF}"><link rel="stylesheet" href="{SERVICE_CSS_HREF}">
 <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False, separators=(',', ':'))}</script>
