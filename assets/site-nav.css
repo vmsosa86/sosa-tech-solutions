@@ -10,3 +10,7 @@ nav.site-nav{box-sizing:border-box;position:fixed;z-index:200;top:1rem;left:1.5r
 /* WhatsApp contact: shown as the last item of the mobile menu only. */
 .site-nav .site-nav-whatsapp{display:none}
 @media(max-width:860px){.site-nav-links a.site-nav-whatsapp{display:flex;align-items:center;justify-content:center;gap:.6rem;margin:.9rem 0 .6rem;padding:.85rem 1rem;border:1px solid #ffffff40;border-radius:2rem;color:#f0f4f8;font-weight:500}.site-nav-whatsapp svg{width:1.15rem;height:1.15rem;fill:#25d366;flex:none}}
+/* "AI spokesperson" is the sixth link: hidden only at 861-959px, where the bar has no room
+   (it stays in the mobile menu); a tighter gap keeps 1051-1100px clear. */
+@media(min-width:861px) and (max-width:959px){.site-nav-links a.site-nav-spokesperson{display:none}}
+@media(min-width:1051px) and (max-width:1100px){.site-nav-links{gap:.7rem}}

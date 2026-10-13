@@ -32,7 +32,7 @@ TOPICS = {
     "content": ("content creation and publishing", "la creación y publicación de contenido"),
     "ads": ("Facebook and Instagram ads", "anuncios en Facebook e Instagram"),
     "ai-agents": ("AI agents and integrations", "agentes de IA e integraciones"),
-    "ai-spokesperson": ("AI spokesperson videos", "videos con presentadores de IA"),
+    "ai-spokesperson": ("the AI spokesperson videos I saw on your website", "los videos con vocero de IA que vi en su página web"),
     "streaming": ("streaming and broadcasting", "streaming y transmisión"),
     "infrastructure": ("infrastructure and reliability", "infraestructura y confiabilidad"),
     "blog": ("my business", "mi negocio"),

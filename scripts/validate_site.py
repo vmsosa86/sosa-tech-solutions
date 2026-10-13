@@ -48,6 +48,7 @@ class PageParser(HTMLParser):
         self._json_buffer = []  # type: List[str]
         self.whatsapp_links = []  # type: List[dict]
         self.floating_whatsapp = 0
+        self.autoplay_videos = 0
         self._in_whatsapp_aside = False
 
     def handle_starttag(self, tag, attrs):
@@ -60,10 +61,17 @@ class PageParser(HTMLParser):
             self.description = values.get("content", "")
         elif tag == "link" and "canonical" in values.get("rel", "").split():
             self.canonical = values.get("href", "")
-        elif tag in {"a", "img", "script", "link"}:
+        elif tag in {"a", "img", "script", "link", "source"}:
             reference = values.get("href") or values.get("src")
             if reference:
                 self.links.append(reference)
+        elif tag == "video":
+            # Example videos: the poster and any direct src must exist; autoplay is never allowed.
+            for reference in (values.get("poster"), values.get("src")):
+                if reference:
+                    self.links.append(reference)
+            if "autoplay" in values:
+                self.autoplay_videos += 1
         if tag == "aside" and "wa-float" in (values.get("class") or "").split():
             self._in_whatsapp_aside = True
         if tag == "a" and (values.get("href") or "").startswith(("https://wa.me/", "https://api.whatsapp.com/")):
@@ -217,6 +225,8 @@ def main() -> int:
             if forbidden:
                 errors.append(f"{rel}: JSON-LD {index} uses {sorted(forbidden)}")
         errors.extend(whatsapp_errors(rel, parser))
+        if parser.autoplay_videos:
+            errors.append(f"{rel}: {parser.autoplay_videos} video(s) with autoplay")
         for reference in parser.links:
             target = resolve_local(reference, root)
             if target and not target.exists():

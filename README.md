@@ -16,6 +16,7 @@ The site is static HTML/CSS/JavaScript with no build step. It includes:
 - Six outcome-based offers and evidence-backed operational proof.
 - Free lead-flow review contact funnel and WhatsApp CTA.
 - WhatsApp on every page: floating button, mobile-menu item and page-aware prefill (`[web-<slug>]` tag, EN/ES).
+- AI spokesperson videos page (`/services/ai-spokesperson/`) with three example Reels from `assets/site/reels/` (web MP4 + ~100 KB poster each, `preload="none"`, never autoplay, every card labeled as AI). The homepage shows only its poster, lazily.
 - First-touch UTM capture in the contact form.
 - LocalBusiness, Organization, WebSite, and FAQ structured data.
 - Accessible colors, visible keyboard focus, and reduced-motion support.
@@ -37,7 +38,7 @@ python3 scripts/sync_whatsapp_contact.py   # homepage, blog and legal pages
 python3 scripts/validate_site.py
 ```
 
-The validator also enforces the search snippet standard (titles <= 60 characters ending in `| Sosa Tech Solutions`, meta descriptions 140-155 characters), the full brand name, and that every service and blog page is listed in `sitemap.xml` and `llms.txt`. When adding a page, update both files. Service-page titles and descriptions live in the `SEO` map in `scripts/build_service_pages.py`.
+The validator also checks every `<video>` poster and `<source>` file exists and rejects `autoplay`. It enforces the search snippet standard (titles <= 60 characters ending in `| Sosa Tech Solutions`, meta descriptions 140-155 characters), the full brand name, and that every service and blog page is listed in `sitemap.xml` and `llms.txt`. When adding a page, update both files. Service-page titles and descriptions live in the `SEO` map in `scripts/build_service_pages.py`.
 
 ## Brand system
 

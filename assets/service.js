@@ -41,6 +41,11 @@
 
   document.addEventListener('sosa:language', event => setLanguage(event.detail));
 
+  // Only one example video plays at a time.
+  document.addEventListener('play', event => {
+    if (event.target instanceof HTMLVideoElement) document.querySelectorAll('video').forEach(video => { if (video !== event.target) video.pause(); });
+  }, true);
+
   let saved = null;
   try { saved = localStorage.getItem('sosa-language') || localStorage.getItem('sosa-tech-language'); } catch {}
   setLanguage(params.get('lang') || saved || 'en');
