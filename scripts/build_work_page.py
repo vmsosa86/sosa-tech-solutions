@@ -128,8 +128,8 @@ def render() -> str:
 <title>{title}</title>
 <meta name="description" content="{description}"><meta name="robots" content="index,follow">
 <link rel="canonical" href="{URL}"><meta name="theme-color" content="#080A0F">
-<meta property="og:type" content="website"><meta property="og:url" content="{URL}"><meta property="og:title" content="{title}"><meta property="og:description" content="{description}"><meta property="og:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{description}"><meta name="twitter:image" content="https://sosatechsolutions.com/og-image-2026-10.png">
+<meta property="og:type" content="website"><meta property="og:url" content="{URL}"><meta property="og:title" content="{title}"><meta property="og:description" content="{description}"><meta property="og:image" content="https://sosatechsolutions.com/og-image-2026-10b.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{description}"><meta name="twitter:image" content="https://sosatechsolutions.com/og-image-2026-10b.png">
 <link rel="icon" href="/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS_HREF}"><link rel="stylesheet" href="{SERVICE_CSS_HREF}">
 <script type="application/ld+json">{json.dumps(schema(SEO[1]), ensure_ascii=False, separators=(',', ':'))}</script>

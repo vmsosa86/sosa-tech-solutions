@@ -7,23 +7,23 @@
     </style>
   </defs>
 
-  <!-- ── ICON MARK: circuit-path S ── -->
+  <!-- ── ICON MARK: circuit-path S (equal loops, 2026-10-13) ── -->
   <!-- Top bar -->
-  <rect x="4" y="14" width="26" height="5" rx="0" fill="#00e5c8"/>
+  <rect x="4" y="14" width="26" height="5" fill="#00e5c8"/>
   <!-- Top-right vertical -->
-  <rect x="25" y="14" width="5" height="18" fill="#00e5c8"/>
+  <rect x="25" y="14" width="5" height="21" fill="#00e5c8"/>
   <!-- Middle bar -->
-  <rect x="4" y="28" width="26" height="5" fill="#00e5c8"/>
+  <rect x="4" y="30" width="26" height="5" fill="#00e5c8"/>
   <!-- Bottom-left vertical -->
-  <rect x="4" y="32" width="5" height="18" fill="#00e5c8"/>
+  <rect x="4" y="30" width="5" height="20" fill="#00e5c8"/>
   <!-- Bottom bar -->
   <rect x="4" y="46" width="26" height="5" fill="#00e5c8"/>
 
   <!-- Corner dots (nodes) -->
   <circle cx="4" cy="14" r="3.5" fill="#00e5c8"/>
   <circle cx="30" cy="14" r="3.5" fill="#00e5c8"/>
-  <circle cx="30" cy="32" r="3.5" fill="#00e5c8"/>
-  <circle cx="4" cy="32" r="3.5" fill="#00e5c8"/>
+  <circle cx="30" cy="32.5" r="3.5" fill="#00e5c8"/>
+  <circle cx="4" cy="32.5" r="3.5" fill="#00e5c8"/>
   <circle cx="4" cy="51" r="3.5" fill="#00e5c8"/>
   <circle cx="30" cy="51" r="3.5" fill="#00e5c8"/>
 
