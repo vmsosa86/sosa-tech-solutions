@@ -1,0 +1,34 @@
+{
+  "en": {
+    "cta.btn": "Explore WhatsApp & follow-up automation →",
+    "cta.desc": "Learn how Sosa Tech Solutions maps intake, routing, follow-up, safeguards, and ownership before automating a business process.",
+    "cta.title": "See the automation system",
+    "eyebrow": "n8n · Processes · Automation",
+    "footer": "Sosa Tech Solutions · Miami, FL",
+    "lead": "n8n is an automation tool that lets you connect applications and build workflows without developing everything from scratch. For small businesses, it can be a flexible and cost-effective way to organize repetitive processes.",
+    "meta": "Sosa Tech Solutions",
+    "metaDesc": "What n8n is and how it can connect your forms, CRM, email, spreadsheets, WhatsApp and internal tools, so routine business tasks stop depending on copying.",
+    "metaTitle": "What Is n8n? Business Automation Guide | Sosa Tech Solutions",
+    "p1": "Imagine someone fills out a form on your website. Without automation, you might receive an email, copy the information into a spreadsheet, notify your team, and remember to follow up. With n8n, that same event can trigger a workflow: save the lead, send an automatic reply, create a task, notify you through Telegram or WhatsApp, and update your CRM.",
+    "p2": "The advantage of n8n is that it can adapt to many types of businesses. You can automate reports, sync contacts, process forms, send reminders, connect payments, move files, generate documents, or integrate tools like Google Sheets, Gmail, Airtable, WordPress, APIs, CRMs, and internal systems. The goal is not automation for trendiness; it is reducing manual work where it repeats the most.",
+    "p3": "Another reason n8n is attractive is control. Depending on the case, it can be installed on your own server or VPS, which can help with cost and privacy. For businesses that do not want to depend on too many separate subscriptions, a well-built system can be more efficient and easier to maintain.",
+    "p4": "The best starting point is choosing one simple process that consumes time every week. For example: capturing leads from your website, sending appointment confirmations, creating reports, moving data between sheets, or alerting you when an important request comes in. Once that workflow works, you can keep building automations that make your operation faster and more organized.",
+    "title": "What is n8n and how can it automate your business?"
+  },
+  "es": {
+    "cta.btn": "Ver WhatsApp y seguimiento automatizado →",
+    "cta.desc": "Descubre cómo Sosa Tech Solutions mapea la entrada, asignación, seguimiento, controles y responsabilidad antes de automatizar un proceso.",
+    "cta.title": "Conoce el sistema de automatización",
+    "eyebrow": "n8n · Procesos · Automatización",
+    "footer": "Sosa Tech Solutions · Miami, FL",
+    "lead": "n8n es una herramienta de automatización que permite conectar aplicaciones y crear flujos de trabajo sin tener que desarrollar todo desde cero. Para pequeñas empresas, puede ser una forma flexible y económica de ordenar procesos repetitivos.",
+    "meta": "Sosa Tech Solutions",
+    "metaDesc": "Qué es n8n y cómo puede conectar tus formularios, CRM, correo, hojas de cálculo, WhatsApp y sistemas internos para que tu negocio deje de copiar datos.",
+    "metaTitle": "¿Qué es n8n? Guía de automatización | Sosa Tech Solutions",
+    "p1": "Imagina que alguien llena un formulario en tu sitio web. Sin automatización, tal vez recibes un email, copias la información en una hoja de cálculo, avisas al equipo y recuerdas hacer seguimiento. Con n8n, ese mismo evento puede activar un flujo: guardar el lead, enviar una respuesta automática, crear una tarea, notificar por Telegram o WhatsApp y actualizar tu CRM.",
+    "p2": "La ventaja de n8n es que se puede adaptar a muchos tipos de negocios. Puedes automatizar reportes, sincronizar contactos, procesar formularios, enviar recordatorios, conectar pagos, mover archivos, generar documentos o integrar herramientas como Google Sheets, Gmail, Airtable, WordPress, APIs, CRMs y sistemas internos. No se trata de automatizar por moda, sino de reducir trabajo manual donde más se repite.",
+    "p3": "Otra razón por la que n8n es atractivo es el control. Dependiendo del caso, puede instalarse en un servidor propio o VPS, lo que ayuda a manejar costos y privacidad. Para negocios que no quieren depender de demasiadas suscripciones separadas, un sistema bien armado puede ser más eficiente y más fácil de mantener.",
+    "p4": "El mejor punto de partida es escoger un proceso simple que consuma tiempo cada semana. Por ejemplo: capturar leads del sitio web, enviar confirmaciones de citas, crear reportes, mover datos entre hojas, o avisar cuando llega una solicitud importante. Una vez que ese flujo funciona, puedes seguir construyendo automatizaciones que hagan tu operación más rápida y organizada.",
+    "title": "Qué es n8n y cómo puede automatizar tu negocio"
+  }
+}

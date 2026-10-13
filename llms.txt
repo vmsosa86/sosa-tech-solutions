@@ -3,7 +3,7 @@
 > Bilingual English/Spanish technology and marketing partner for small businesses in Miami, founded by Victor Sosa. Based in Miami-Dade, Florida.
 > Contact: WhatsApp +1 305-741-5702 (https://wa.me/13057415702) or email info@sosatechsolutions.com. Website: https://sosatechsolutions.com/
 
-Sosa Tech Solutions builds websites, WhatsApp and follow-up automation, social media content, Facebook and Instagram ads, AI agents, AI spokesperson videos, streaming and the infrastructure behind them. Clients work directly with Victor, in English or Spanish, from the first conversation through implementation and support. Every page has an English (default) and Spanish version through the site's language toggle. En español: socio de tecnología y marketing bilingüe para pequeños negocios en Miami.
+Sosa Tech Solutions builds websites, WhatsApp and follow-up automation, social media content, Facebook and Instagram ads, AI agents, AI spokesperson videos, streaming and the infrastructure behind them. Clients work directly with Victor, in English or Spanish, from the first conversation through implementation and support. Every page has an English version (the default, at the URLs below) and a Spanish version at the same path under /es/ (for example https://sosatechsolutions.com/es/), listed under "En español". En español: socio de tecnología y marketing bilingüe para pequeños negocios en Miami.
 
 ## Services
 
@@ -37,6 +37,30 @@ Sosa Tech Solutions builds websites, WhatsApp and follow-up automation, social m
 - [Why your Miami business needs a fast, mobile-friendly website](https://sosatechsolutions.com/blog/por-que-tu-negocio-en-miami-necesita-un-sitio-web-rapido-y-movil/): Spanish: Por qué tu negocio en Miami necesita un sitio web rápido y optimizado para móvil.
 - [Facebook Ads vs Google Ads: which works better for local businesses](https://sosatechsolutions.com/blog/facebook-ads-vs-google-ads-para-negocios-locales/): Spanish: Facebook Ads vs Google Ads: cuál funciona mejor para negocios locales.
 - [What is n8n and how can it automate your business?](https://sosatechsolutions.com/blog/que-es-n8n-y-como-puede-automatizar-tu-negocio/): Spanish: Qué es n8n y cómo puede automatizar tu negocio.
+
+## En español
+
+Cada página tiene su versión en español bajo /es/, con el mismo contenido que la versión en inglés (el idioma predeterminado, en las URL sin /es/).
+
+- [Inicio](https://sosatechsolutions.com/es/): Creo tu web, tu seguimiento por WhatsApp, contenido, anuncios y videos con vocero de IA, en español o inglés, para que tu negocio responda rápido.
+- [Páginas web](https://sosatechsolutions.com/es/services/websites/): Una página web clara y pensada para el móvil, centrada en tu oferta, con WhatsApp y formularios que facilitan el contacto. En español, inglés o ambos.
+- [WhatsApp y seguimiento automatizado](https://sosatechsolutions.com/es/services/automation/): Conecta formularios, WhatsApp, alertas y recordatorios para que cada consulta llegue a la persona indicada con un siguiente paso claro, sin copiar datos.
+- [Creación y publicación de contenido](https://sosatechsolutions.com/es/services/content-engine/): Posts, carruseles, Reels e imágenes con IA alineados con tu marca y aprobados por ti antes de programar cualquier publicación en Facebook e Instagram.
+- [Anuncios en Facebook e Instagram](https://sosatechsolutions.com/es/services/marketing/): Anuncios en Facebook e Instagram con una oferta clara, una página de destino o WhatsApp y un plan de seguimiento, midiendo de dónde llegan las consultas.
+- [Infraestructura y confiabilidad](https://sosatechsolutions.com/es/services/infrastructure/): Mantén funcionando los servidores y sistemas de tu negocio con monitoreo, alertas, respaldos cifrados y recuperación probada, con un responsable claro.
+- [Streaming y transmisión](https://sosatechsolutions.com/es/services/streaming/): Radio por internet, reproductores web y transmisiones de audio o video en vivo, configurados y monitoreados para tu emisora o negocio, con soporte técnico.
+- [Agentes de IA e integraciones](https://sosatechsolutions.com/es/services/agents/): Asistentes de IA a medida, conectados a tu información y herramientas aprobadas, para responder preguntas, organizar consultas y reducir trabajo manual.
+- [Videos con vocero de IA](https://sosatechsolutions.com/es/services/ai-spokesperson/): Videos semanales en los que un presentador realista con IA, identificado como IA, explica tus servicios en español o inglés. Tú apruebas cada guion.
+- [Proyectos de clientes](https://sosatechsolutions.com/es/work/): Páginas web y sistemas que creé para negocios de Miami y radios en línea: un med spa, agencias de viajes, una fundación y más, y lo que dicen mis clientes.
+- [Blog](https://sosatechsolutions.com/es/blog/): Guías prácticas sobre páginas web, automatización de WhatsApp, IA, anuncios y las herramientas de un negocio conectado, para dueños de negocios en Miami.
+- [Automatización de WhatsApp para negocios en Miami: cómo captar más clientes](https://sosatechsolutions.com/es/blog/automatizacion-de-whatsapp-para-negocios-en-miami/): Automatiza WhatsApp para que tu negocio en Miami responda más rápido, organice cada contacto y dé seguimiento a tiempo, sin perder el tono humano.
+- [Cómo la inteligencia artificial puede automatizar tu negocio en Miami](https://sosatechsolutions.com/es/blog/como-la-inteligencia-artificial-puede-automatizar-tu-negocio-en-miami/): Descubre cómo la IA puede quitarte trabajo repetitivo en tu negocio en Miami: atención al cliente, marketing, ventas, procesos internos y seguimiento.
+- [Facebook Ads vs Google Ads: cuál funciona mejor para negocios locales](https://sosatechsolutions.com/es/blog/facebook-ads-vs-google-ads-para-negocios-locales/): ¿Facebook Ads o Google Ads? Compara intención de búsqueda, demanda, presupuesto, creatividad y seguimiento para elegir el canal adecuado para tu negocio.
+- [Por qué tu negocio en Miami necesita un sitio web rápido y optimizado para móvil](https://sosatechsolutions.com/es/blog/por-que-tu-negocio-en-miami-necesita-un-sitio-web-rapido-y-movil/): Descubre cómo una web rápida, clara y adaptada al móvil puede generar confianza, apoyar el SEO local y facilitar que tus clientes en Miami te contacten.
+- [Qué es n8n y cómo puede automatizar tu negocio](https://sosatechsolutions.com/es/blog/que-es-n8n-y-como-puede-automatizar-tu-negocio/): Qué es n8n y cómo puede conectar tus formularios, CRM, correo, hojas de cálculo, WhatsApp y sistemas internos para que tu negocio deje de copiar datos.
+- [Política de Privacidad](https://sosatechsolutions.com/es/privacy-policy/)
+- [Términos de Servicio](https://sosatechsolutions.com/es/terms/)
+- [Instrucciones para Eliminar Datos](https://sosatechsolutions.com/es/data-deletion/)
 
 ## Contact
 

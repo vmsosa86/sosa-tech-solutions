@@ -10,6 +10,10 @@ case "$output_dir" in
   *) echo "Refusing unsafe output directory: $output_dir" >&2; exit 1 ;;
 esac
 
+# The Spanish pages, sitemap.xml and llms.txt are generated and committed; refuse to publish
+# them stale (an English edit without its regenerated /es/ twin).
+python3 "$repo_root/scripts/build_language_pages.py" --check
+
 rm -rf "$output_dir"
 mkdir -p "$output_dir"
 

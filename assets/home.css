@@ -40,8 +40,9 @@ button{color:inherit}
 .primary-nav a:hover,.footer-links a:hover,.footer-social a:hover{color:var(--cyan)}
 .header-actions{display:flex;align-items:center;gap:1rem}
 .lang-switch{display:flex;border:1px solid var(--line)}
-.lang-btn{border:0;background:transparent;font:500 .68rem/1 'DM Mono',monospace;padding:.68rem .75rem;cursor:pointer;color:var(--muted)}
-.lang-btn.active{background:var(--cyan);color:var(--ink)}
+/* EN/ES are links to the other language's URL; the current one has aria-current. */
+.lang-btn{display:inline-flex;align-items:center;justify-content:center;border:0;background:transparent;font:500 .68rem/1 'DM Mono',monospace;padding:.68rem .75rem;cursor:pointer;color:var(--muted);text-decoration:none}
+.lang-btn.active,.lang-btn[aria-current=true]{background:var(--cyan);color:var(--ink)}
 .menu-toggle{display:none;width:2.8rem;height:2.8rem;border:1px solid var(--line);background:transparent;align-items:center;justify-content:center;flex-direction:column;gap:.3rem;cursor:pointer}
 .menu-toggle span{display:block;width:1.2rem;height:1px;background:var(--white);transition:transform .2s,opacity .2s}
 .menu-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(5px) rotate(45deg)}
@@ -366,7 +367,7 @@ body::before,.page-progress{display:none}
 .site-header{top:1rem;left:1.5rem;right:1.5rem;max-width:1440px;margin:auto;height:4.75rem;padding:0 1.5rem;border:1px solid #ffffff20;border-radius:1rem;background:rgba(13,17,23,.92);gap:1.5rem}
 .site-header.scrolled{background:rgba(13,17,23,.96);box-shadow:0 8px 24px #0002}
 .primary-nav{gap:clamp(.8rem,1.5vw,1.75rem)}.primary-nav a{font:400 .875rem/1.4 'DM Sans',sans-serif;letter-spacing:0;text-transform:none;color:#c6ced6}
-.brand span{font-size:.6rem;letter-spacing:.06em}.lang-switch{border:0;gap:.1rem}.lang-btn{border-radius:50%;min-width:40px;min-height:40px}.lang-btn.active{background:#ffffff12;color:var(--white)}
+.brand span{font-size:.6rem;letter-spacing:.06em}.lang-switch{border:0;gap:.1rem}.lang-btn{border-radius:50%;min-width:40px;min-height:40px}.lang-btn.active,.lang-btn[aria-current=true]{background:#ffffff12;color:var(--white)}
 .button{border-radius:2rem;font-weight:500;padding:1rem 1.6rem}.button-small{padding:.75rem 1.2rem}.button:hover{transform:none}.button-cyan:hover{box-shadow:none;background:#5bf0dc}.text-link{font-weight:400}
 .hero{display:block;max-width:1440px;padding:11rem var(--pad) 5rem;margin:auto;isolation:isolate}
 .hero-copy{max-width:none}.hero .eyebrow{color:#a9b6c2;font-weight:400;font-size:.9rem;letter-spacing:0}

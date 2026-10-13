@@ -1,0 +1,34 @@
+{
+  "en": {
+    "nav": "Legal page navigation",
+    "home": "Sosa Tech Solutions home",
+    "homeLink": "Home",
+    "language": "Language",
+    "footerNav": "Legal links",
+    "privacy": "Privacy",
+    "deletion": "Data Deletion",
+    "terms": "Terms",
+    "privacy-policy.title": "Privacy Policy | Sosa Tech Solutions",
+    "privacy-policy.description": "How Sosa Tech Solutions collects, uses, shares and protects information from this website, client services and authorized integrations such as Meta.",
+    "terms.title": "Terms of Service | Sosa Tech Solutions",
+    "terms.description": "The terms for using the Sosa Tech Solutions website and requesting our technology, web, automation, advertising, streaming and infrastructure services.",
+    "data-deletion.title": "Data Deletion Instructions | Sosa Tech Solutions",
+    "data-deletion.description": "How to ask Sosa Tech Solutions to delete personal information under our control, including data from Facebook, Instagram and other authorized integrations."
+  },
+  "es": {
+    "nav": "Navegación de páginas legales",
+    "home": "Inicio de Sosa Tech Solutions",
+    "homeLink": "Inicio",
+    "language": "Idioma",
+    "footerNav": "Enlaces legales",
+    "privacy": "Privacidad",
+    "deletion": "Eliminar datos",
+    "terms": "Términos",
+    "privacy-policy.title": "Política de Privacidad | Sosa Tech Solutions",
+    "privacy-policy.description": "Cómo Sosa Tech Solutions recopila, utiliza, comparte y protege la información de este sitio web, los servicios a clientes y las integraciones como Meta.",
+    "terms.title": "Términos de Servicio | Sosa Tech Solutions",
+    "terms.description": "Los términos para usar el sitio web de Sosa Tech Solutions y solicitar nuestros servicios de tecnología, web, automatización, publicidad e infraestructura.",
+    "data-deletion.title": "Instrucciones para Eliminar Datos | Sosa Tech Solutions",
+    "data-deletion.description": "Cómo pedir a Sosa Tech Solutions que elimine información personal bajo nuestro control, incluidos datos de Facebook, Instagram y otras integraciones."
+  }
+}

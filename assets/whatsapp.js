@@ -1,30 +1,36 @@
-/* Page-aware WhatsApp links. The prefilled message follows the page language.
-   Keep the templates and encoding identical to scripts/whatsapp_contact.py. */
+/* Loaded on every public page.
+   1. EN/ES language links ([data-lang-link]): each page exists in English (current URL) and
+      Spanish (/es/ + path). The links are real hrefs to the counterpart page; this adds the
+      current ?query (minus any legacy lang=) and #hash and remembers the choice. Nothing
+      redirects automatically: English stays the default at every English URL.
+   2. The floating WhatsApp button (its prefilled message is rendered in the page language). */
 (() => {
   'use strict';
-  const number = '13057415702';
-  const templates = {
-    en: (topic, slug) => `Hi Sosa Tech Solutions, I'd like to talk about ${topic}. [web-${slug}]`,
-    es: (topic, slug) => `Hola Sosa Tech Solutions, quiero hablar sobre ${topic}. [web-${slug}]`
-  };
-  const encode = (text) => encodeURIComponent(text).replace(/[!'()*]/g, (character) => `%${character.charCodeAt(0).toString(16).toUpperCase()}`);
-  const pageLanguage = () => ((document.documentElement.lang || '').toLowerCase().startsWith('es') ? 'es' : 'en');
+  const legacyKeys = ['sosa-tech-language', 'sosatech-language', 'sosaLang'];
 
-  function update(requested) {
-    const language = requested === 'es' || requested === 'en' ? requested : pageLanguage();
-    const suffix = language === 'es' ? 'Es' : 'En';
-    document.querySelectorAll('a[data-wa-slug]').forEach((link) => {
-      const topic = link.dataset[`waTopic${suffix}`];
-      if (topic) link.href = `https://wa.me/${number}?text=${encode(templates[language](topic, link.dataset.waSlug))}`;
-    });
-    document.querySelectorAll('[data-wa-label-en]').forEach((element) => {
-      element.setAttribute('aria-label', element.dataset[`waLabel${suffix}`] || element.dataset.waLabelEn);
+  function updateLanguageLinks() {
+    const current = new URLSearchParams(location.search);
+    document.querySelectorAll('a[data-lang-link]').forEach((link) => {
+      // Keep what the link already carries (e.g. utm_* added by service.js), then the current query.
+      const target = new URL(link.getAttribute('href'), location.origin);
+      current.forEach((value, key) => target.searchParams.set(key, value));
+      target.searchParams.delete('lang');
+      const search = target.searchParams.toString();
+      link.href = `${target.pathname}${search ? `?${search}` : ''}${location.hash}`;
     });
   }
 
-  window.sosaWhatsApp = { update };
-  new MutationObserver(() => update()).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
-  update();
+  document.querySelectorAll('a[data-lang-link]').forEach((link) => {
+    link.addEventListener('click', () => {
+      updateLanguageLinks();
+      try {
+        localStorage.setItem('sosa-language', link.dataset.langLink);
+        legacyKeys.forEach((key) => localStorage.removeItem(key));
+      } catch (_) { /* storage may be unavailable */ }
+    });
+  });
+  window.addEventListener('hashchange', updateLanguageLinks);
+  updateLanguageLinks();
 
   // Keep the floating button off a video's native control bar (e.g. full-width Reels on a phone).
   const float = document.querySelector('.wa-float');

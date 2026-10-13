@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
-"""Generate bilingual, SEO-focused service pages from one controlled template."""
+"""Generate the English and Spanish service pages from one controlled template.
+
+Each offer holds its copy as (English, Spanish) pairs; render(offer, lang) writes one
+language per page: /services/<slug>/ in English (the default) and /es/services/<slug>/
+in Spanish, linked with hreflang. build_work_page.py (/work/) runs from here too.
+"""
 
 from __future__ import annotations
 
 import json
 import html
 import whatsapp_contact
+from site_i18n import BUSINESS_ID, LANGUAGES, SITE, counterpart, en_paths, es_path, localize_links, set_head_i18n
 from site_navigation import NAV_CSS_HREF, NAV_JS_SRC, render_navigation
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SERVICE_CSS_HREF = "/assets/service.css?v=20261013f"
-SERVICE_JS_SRC = "/assets/service.js?v=20261013c"
+SERVICE_JS_SRC = "/assets/service.js?v=20261013d"
 FONTS_HREF = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600&amp;family=Syne:wght@700;800&amp;display=swap"
 
 OFFERS = [
@@ -130,6 +136,7 @@ OFFERS = [
         "intro": "Reliable operations require more than a running server. Services need health checks, alerts, protected backups, tested recovery, and a person who owns the response.",
         "intro_es": "Una operación confiable requiere más que un servidor encendido. Necesita controles de salud, alertas, respaldos protegidos, recuperación probada y un responsable.",
         "signal": "OBSERVE -> PROTECT -> RECOVER",
+        "signal_es": "OBSERVAR -> PROTEGER -> RECUPERAR",
         "outcomes": [
             ("Visible health", "Monitor the external service and the internal dependencies that customers actually need.", "Salud visible", "Monitoreamos el servicio externo y las dependencias internas que el cliente realmente necesita."),
             ("Protected data", "Use encrypted off-site backups, defined retention, verification, and access controls.", "Datos protegidos", "Usamos respaldos externos cifrados, retención definida, verificación y controles de acceso."),
@@ -156,6 +163,7 @@ OFFERS = [
         "intro": "We build and support the path from ingest to processing to delivery, with clear health checks, operational handoff, and recovery for live-media systems.",
         "intro_es": "Construimos y apoyamos la ruta desde la entrada hasta el procesamiento y entrega, con controles de salud, operación clara y recuperación para medios en vivo.",
         "signal": "INGEST -> PROCESS -> DELIVER",
+        "signal_es": "RECIBIR -> PROCESAR -> ENTREGAR",
         "outcomes": [
             ("Stable ingest", "Define source, authentication, format, expected availability, and fallback behavior.", "Entrada estable", "Definimos fuente, autenticación, formato, disponibilidad esperada y alternativas."),
             ("Controlled processing", "Use FFmpeg and media services with bounded resources, health checks, and readable logs.", "Procesamiento controlado", "Usamos FFmpeg y servicios de medios con recursos limitados, controles de salud y registros claros."),
@@ -359,8 +367,7 @@ SEO = {
         "Weekly videos where a realistic AI presenter, labeled as AI, explains your services in English or Spanish. You approve every script. No cameras needed.",
     ),
 }
-# Spanish snippet, same limits; assets/service.js swaps document.title and the meta
-# description when the visitor switches the page to Spanish.
+# Spanish snippet for /es/services/<slug>/, same limits.
 SEO_ES = {
     "websites": (
         "Páginas web bilingües en Miami",
@@ -421,10 +428,34 @@ STEPS = [
 ]
 
 
-def both(en: str, es: str, tag: str = "span") -> str:
-    en = en.replace("&", "&amp;")
-    es = es.replace("&", "&amp;")
-    return f'<{tag} data-lang="en">{en}</{tag}><{tag} data-lang="es" hidden>{es}</{tag}>'
+# Language of the page being rendered; render() and build_work_page.render() set it.
+LANG = "en"
+
+
+def set_language(lang: str) -> None:
+    global LANG
+    if lang not in LANGUAGES:
+        raise ValueError(lang)
+    LANG = lang
+
+
+def pick(en, es):
+    return es if LANG == "es" else en
+
+
+def both(en: str, es: str) -> str:
+    """The copy of the page language (the pair keeps both languages side by side in the source)."""
+    return pick(en, es).replace("&", "&amp;")
+
+
+def link_pages() -> set:
+    """English page paths that have a Spanish twin, for localize_links()."""
+    return set(en_paths(ROOT)) | {f"/services/{offer['slug']}/" for offer in OFFERS} | {"/work/"}
+
+
+def finish(page: str, path: str) -> str:
+    """Head hreflang/og:locale (and the EN legacy ?lang=es redirect), then page-language links."""
+    return localize_links(set_head_i18n(page, counterpart(path, LANG), LANG), LANG, link_pages())
 
 
 def render_reels(offer: dict) -> str:
@@ -454,7 +485,7 @@ def render_notes(offer: dict, whatsapp: str) -> str:
         f'<article class="proof-card"><b>0{i}</b><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></article>'
         for i, (en_t, en_d, es_t, es_d) in enumerate(offer["notes"], 1)
     )
-    link = f'<a class="example-link" {whatsapp_contact.link_attributes(whatsapp)}>{both("Ask for a quote on WhatsApp →", "Pide una cotización por WhatsApp →")}</a>'
+    link = f'<a class="example-link" {whatsapp_contact.link_attributes(whatsapp, LANG)}>{both("Ask for a quote on WhatsApp →", "Pide una cotización por WhatsApp →")}</a>'
     label_en, label_es = offer["notes_label"]
     title_en, title_es = offer["notes_title"]
     return f'<section class="proof notes"><div class="label">{both(label_en, label_es)}</div><h2>{both(title_en, title_es)}</h2><div class="proof-grid">{cards}</div>{link}</section>'
@@ -473,24 +504,32 @@ def render_related(offer: dict) -> str:
     return f'<section class="example related"><div><div class="label">{both(label_en, label_es)}</div><h2>{both(title_en, title_es)}</h2></div><div class="related-list">{"".join(items)}</div></section>'
 
 
-def render(offer: dict) -> str:
-    url = f"https://sosatechsolutions.com/services/{offer['slug']}/"
+def render(offer: dict, lang: str = "en") -> str:
+    set_language(lang)
+    path = counterpart(f"/services/{offer['slug']}/", lang)
+    url = SITE + path
+    home = SITE + counterpart("/", lang)
     faq_entities = []
-    for en_q, en_a, _, _ in offer["faq"]:
-        faq_entities.append({"@type": "Question", "name": en_q, "acceptedAnswer": {"@type": "Answer", "text": en_a}})
-    description = offer.get("seo_description", offer["meta"])
-    page_title = f'{offer.get("seo_title", offer["name"])} | Sosa Tech Solutions'
+    for en_q, en_a, es_q, es_a in offer["faq"]:
+        faq_entities.append({"@type": "Question", "name": pick(en_q, es_q), "acceptedAnswer": {"@type": "Answer", "text": pick(en_a, es_a)}})
+    if lang == "es":
+        description = offer.get("seo_description_es", offer["meta_es"])
+        page_title = f'{offer.get("seo_title_es", offer["name_es"])} | Sosa Tech Solutions'
+    else:
+        description = offer.get("seo_description", offer["meta"])
+        page_title = f'{offer.get("seo_title", offer["name"])} | Sosa Tech Solutions'
+    name = pick(offer["name"], offer["name_es"])
     schema = {
         "@context": "https://schema.org",
         "@graph": [
-            {"@type": "Service", "name": offer["name"], "description": description, "url": url, "areaServed": "Miami and South Florida", "provider": {"@type": "LocalBusiness", "@id": "https://sosatechsolutions.com/#business", "name": "Sosa Tech Solutions", "url": "https://sosatechsolutions.com/"}},
-            {"@type": "FAQPage", "mainEntity": faq_entities},
-            {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sosatechsolutions.com/"}, {"@type": "ListItem", "position": 2, "name": offer["name"], "item": url}]},
+            {"@type": "Service", "name": name, "description": description, "url": url, "inLanguage": lang, "areaServed": pick("Miami and South Florida", "Miami y el sur de la Florida"), "provider": {"@type": "LocalBusiness", "@id": BUSINESS_ID, "name": "Sosa Tech Solutions", "url": f"{SITE}/"}},
+            {"@type": "FAQPage", "inLanguage": lang, "mainEntity": faq_entities},
+            {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": pick("Home", "Inicio"), "item": home}, {"@type": "ListItem", "position": 2, "name": name, "item": url}]},
         ],
     }
     outcomes = "".join(f'<article class="outcome"><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer["outcomes"], 1))
     steps = "".join(f'<article class="step"><b>0{i}</b><div><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></div></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer.get("steps", STEPS), 1))
-    proof = "".join(f'<article class="proof-card"><b>{"OPERATING PROOF" if i == 1 else "BUILD PRINCIPLE"}</b><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer.get("proof", []), 1))
+    proof = "".join(f'<article class="proof-card"><b>{both("OPERATING PROOF", "PRUEBA OPERATIVA") if i == 1 else both("BUILD PRINCIPLE", "PRINCIPIO DE CONSTRUCCIÓN")}</b><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer.get("proof", []), 1))
     faq = "".join(f'<details><summary>{both(en_q, es_q)}</summary><p>{both(en_a, es_a)}</p></details>' for en_q, en_a, es_q, es_a in offer["faq"])
     more_links = []
     for item in OFFERS:
@@ -500,9 +539,10 @@ def render(offer: dict) -> str:
     if offer.get("hero_layout") == "single":
         visual = ""
     elif offer.get("image"):
-        visual = f'<figure class="service-visual"><img src="{offer["image"]}" alt="{offer["image_alt"]}" data-alt-en="{offer["image_alt"]}" data-alt-es="{offer["image_alt_es"]}" width="1902" height="815"><figcaption>{both(offer["example_title"], offer["example_title_es"])}</figcaption></figure>'
+        visual = f'<figure class="service-visual"><img src="{offer["image"]}" alt="{html.escape(pick(offer["image_alt"], offer["image_alt_es"]), quote=True)}" width="1902" height="815"><figcaption>{both(offer["example_title"], offer["example_title_es"])}</figcaption></figure>'
     else:
-        stages = offer.get("stages", [(part.strip(), part.strip()) for part in offer["signal"].split("->")])
+        signal_es = offer.get("signal_es", offer["signal"])
+        stages = offer.get("stages", list(zip((part.strip() for part in offer["signal"].split("->")), (part.strip() for part in signal_es.split("->")))))
         visual = '<ol class="service-journey">' + ''.join(f'<li><span class="stage-number" aria-hidden="true">0{i}</span><div>{both(en, es)}</div></li>' for i, (en, es) in enumerate(stages, 1)) + '</ol>'
     whatsapp = WHATSAPP_SLUGS[offer["slug"]]
     if offer.get("notes"):
@@ -513,7 +553,7 @@ def render(offer: dict) -> str:
     else:
         example_section = f'<section class="proof"><h2>{both("Built for day-to-day operations.", "Para la operación diaria.")}</h2><div class="proof-grid">{proof}</div></section>'
     review = f'href="/?service={offer["slug"]}#contact"'
-    whatsapp_link = whatsapp_contact.link_attributes(whatsapp)
+    whatsapp_link = whatsapp_contact.link_attributes(whatsapp, lang)
     if offer.get("primary_cta") == "whatsapp":
         actions = (f'<a class="primary whatsapp-action" {whatsapp_link}>{whatsapp_contact.ICON}{both("Message Victor on WhatsApp", "Escribe a Victor por WhatsApp")}</a>'
                    f'<a class="secondary" {review}>{both("Request a free review", "Solicitar revisión gratuita")}</a>')
@@ -534,10 +574,8 @@ def render(offer: dict) -> str:
     price_note = f'<p class="price-note">{both(*offer["price_note"])}</p>' if offer.get("price_note") else ""
     title = html.escape(page_title, quote=True)
     meta = html.escape(description, quote=True)
-    title_es = html.escape(f'{offer.get("seo_title_es", offer["name_es"])} | Sosa Tech Solutions', quote=True)
-    meta_es = html.escape(offer.get("seo_description_es", offer["meta_es"]), quote=True)
-    return f'''<!DOCTYPE html>
-<html lang="en" data-title-es="{title_es}" data-description-es="{meta_es}"><head>
+    page = f'''<!DOCTYPE html>
+<html lang="{lang}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{meta}"><meta name="robots" content="index,follow">
@@ -550,7 +588,7 @@ def render(offer: dict) -> str:
 <link rel="stylesheet" href="{NAV_CSS_HREF}"><link rel="stylesheet" href="{whatsapp_contact.CSS_HREF}">
 </head><body class="has-site-nav">
 <a class="skip" href="#main">{both('Skip to content', 'Saltar al contenido')}</a>
-{render_navigation(offer['slug'], whatsapp)}
+{render_navigation(offer['slug'], whatsapp, lang=lang)}
 <main id="main">
 <header class="{hero_class}"><div><div class="label">{both(offer['name'], offer['name_es'])}</div><h1>{both(offer['title'], offer['title_es'])}</h1><p class="hero-copy">{both(offer['meta'], offer['meta_es'])}</p><div class="actions">{actions}</div></div>{visual}</header>{reels}
 <section class="intro"><div><div class="label">{both(*intro_label)}</div><h2>{both(*intro_title)}</h2></div><div><p class="lead">{both(offer['intro'], offer['intro_es'])}</p><div class="outcomes">{outcomes}</div></div></section>
@@ -561,16 +599,34 @@ def render(offer: dict) -> str:
 <section class="more"><div class="label">{both('Explore capabilities','Explora capacidades')}</div><div class="more-grid">{more}</div></section>
 </main>
 <footer><span>© 2026 Sosa Tech Solutions · Miami, Florida</span><span><a href="/privacy-policy/">{both('Privacy', 'Privacidad')}</a> · <a href="/terms/">{both('Terms', 'Términos')}</a> · <a href="/blog/">Blog</a></span></footer>
-{whatsapp_contact.floating_button(whatsapp)}
+{whatsapp_contact.floating_button(whatsapp, lang)}
 <script src="{SERVICE_JS_SRC}" defer></script><script src="{NAV_JS_SRC}" defer></script><script src="{whatsapp_contact.JS_SRC}" defer></script></body></html>'''
+    return finish(page, path)
+
+
+def outputs() -> dict:
+    """Every generated page (services and /work/, both languages): repository path -> HTML."""
+    import build_work_page
+    pages = {}
+    for lang in LANGUAGES:
+        for item in OFFERS:
+            pages[(es_path(f"/services/{item['slug']}/") if lang == "es" else f"/services/{item['slug']}/").strip("/") + "/index.html"] = render(item, lang)
+        # /work/ shares this stylesheet, script and navigation, so it is rebuilt with the services.
+        pages[("es/work" if lang == "es" else "work") + "/index.html"] = build_work_page.render(lang)
+    set_language("en")
+    return pages
+
+
+def write(root: Path = ROOT) -> list:
+    written = []
+    for rel, text in outputs().items():
+        target = root / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(text, encoding="utf-8")
+        written.append(rel)
+    return written
 
 
 if __name__ == "__main__":
-    for item in OFFERS:
-        target = ROOT / "services" / item["slug"] / "index.html"
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(render(item), encoding="utf-8")
-        print(target.relative_to(ROOT))
-    # /work/ shares this stylesheet, script and navigation, so it is rebuilt with the services.
-    import build_work_page
-    print(build_work_page.write().relative_to(ROOT))
+    for rel in write():
+        print(rel)

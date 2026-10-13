@@ -73,7 +73,11 @@ a:hover { color: #7ff5e6; }
   background: var(--page);
 }
 
-.lang-switch button {
+.lang-switch a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   min-width: 42px;
   height: 36px;
   padding: 0;
@@ -86,7 +90,7 @@ a:hover { color: #7ff5e6; }
   cursor: pointer;
 }
 
-.lang-switch button[aria-pressed="true"] {
+.lang-switch a[aria-current="true"] {
   background: var(--cyan);
   color: #03110f;
 }
@@ -187,8 +191,6 @@ li { margin: 8px 0; color: #d4dee4; }
 }
 
 .legal-footer a { color: var(--muted); }
-
-[data-language][hidden] { display: none !important; }
 
 @media (max-width: 680px) {
   .legal-nav {

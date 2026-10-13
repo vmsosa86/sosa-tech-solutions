@@ -5,9 +5,10 @@ arrives as, for example:
 
     Hi Sosa Tech Solutions, I'd like to talk about a website for my business. [web-websites]
 
-The static href always carries the English message (the default language).
-assets/whatsapp.js rebuilds the same message from the data-wa-* attributes
-whenever the page language changes, so both encoders must stay identical.
+Each page is in one language (English at its URL, Spanish under /es/), so the
+static href carries the message in the page language and nothing is rebuilt in
+the browser. data-wa-slug lets sync_whatsapp_contact.py find and refresh links
+in the hand-authored pages.
 """
 
 from html import escape
@@ -17,7 +18,7 @@ NUMBER = "13057415702"
 DISPLAY_NUMBER = "+1 (305) 741-5702"
 
 CSS_HREF = "/assets/whatsapp.css?v=2"
-JS_SRC = "/assets/whatsapp.js?v=2"
+JS_SRC = "/assets/whatsapp.js?v=3"
 
 LABEL_EN = "Chat with Sosa Tech Solutions on WhatsApp"
 LABEL_ES = "Escríbele a Sosa Tech Solutions por WhatsApp"
@@ -57,6 +58,10 @@ ICON = (
 )
 
 
+LABELS = {"en": LABEL_EN, "es": LABEL_ES}
+CTAS = {"en": CTA_EN, "es": CTA_ES}
+
+
 def message(language: str, topic: str, slug: str) -> str:
     if language == "es":
         return f"Hola Sosa Tech Solutions, quiero hablar sobre {topic}. [web-{slug}]"
@@ -64,7 +69,7 @@ def message(language: str, topic: str, slug: str) -> str:
 
 
 def url(language: str, topic: str, slug: str) -> str:
-    # Matches encodeURIComponent plus RFC 3986 escaping of !'()* in whatsapp.js.
+    # encodeURIComponent plus RFC 3986 escaping of !'()* (scripts/validate_site.py checks it).
     return f"https://wa.me/{NUMBER}?text={quote(message(language, topic, slug), safe='')}"
 
 
@@ -74,24 +79,31 @@ def topics_for(slug: str) -> tuple:
     return TOPICS[slug]
 
 
-def link_attributes(slug: str) -> str:
-    """href plus the data the browser needs to rebuild the message per language."""
+def topic(slug: str, language: str) -> str:
     topic_en, topic_es = topics_for(slug)
+    return topic_es if language == "es" else topic_en
+
+
+def page_url(slug: str, language: str) -> str:
+    return url(language, topic(slug, language), slug)
+
+
+def link_attributes(slug: str, language: str = "en") -> str:
+    """href with the prefilled message in the page language, plus the page tag."""
     return (
-        f'href="{escape(url("en", topic_en, slug))}" data-wa-slug="{escape(slug)}" '
-        f'data-wa-topic-en="{escape(topic_en)}" data-wa-topic-es="{escape(topic_es)}" '
+        f'href="{escape(page_url(slug, language))}" data-wa-slug="{escape(slug)}" '
         'target="_blank" rel="noopener noreferrer"'
     )
 
 
-def label_attributes() -> str:
-    return f'aria-label="{LABEL_EN}" data-wa-label-en="{LABEL_EN}" data-wa-label-es="{LABEL_ES}"'
+def label_attributes(language: str = "en") -> str:
+    return f'aria-label="{LABELS[language]}"'
 
 
-def floating_button(slug: str) -> str:
-    # A plain wrapper, not a landmark: the link carries the (localized) accessible name.
+def floating_button(slug: str, language: str = "en") -> str:
+    # A plain wrapper, not a landmark: the link carries the accessible name.
     return (
         '<div class="wa-float">'
-        f'<a class="floating-whatsapp" {link_attributes(slug)} {label_attributes()}>{ICON}</a>'
+        f'<a class="floating-whatsapp" {link_attributes(slug, language)} {label_attributes(language)}>{ICON}</a>'
         "</div>"
     )

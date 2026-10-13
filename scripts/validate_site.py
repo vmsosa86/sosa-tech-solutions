@@ -11,6 +11,8 @@ from urllib.parse import parse_qs, quote, unquote, urlparse
 import xml.etree.ElementTree as ET
 
 import client_work
+import language_checks
+import whatsapp_contact
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_PATTERNS = [
@@ -23,6 +25,8 @@ PUBLIC_PATTERNS = [
     "services/*/index.html",
     "work/index.html",
 ]
+# Every English page has a Spanish twin at "/es" + its path (scripts/build_language_pages.py).
+PUBLIC_PATTERNS += ["es/" + pattern for pattern in PUBLIC_PATTERNS]
 WHATSAPP_MESSAGE = re.compile(
     r"^(?:Hi Sosa Tech Solutions, I'd like to talk about (?P<en>.+)"
     r"|Hola Sosa Tech Solutions, quiero hablar sobre (?P<es>.+))\. \[web-(?P<slug>[a-z0-9-]+)\]$"
@@ -81,7 +85,7 @@ class PageParser(HTMLParser):
                 self.primary_navs += 1
         if tag == "a":
             self.anchors.append(values)
-            if self._primary_nav_depth and urlparse(values.get("href") or "").path == WORK_PATH:
+            if self._primary_nav_depth and urlparse(values.get("href") or "").path in {WORK_PATH, "/es" + WORK_PATH}:
                 self.nav_work_links += 1
         if tag == "html":
             self.html_attrs = values
@@ -163,12 +167,18 @@ def whatsapp_errors(rel: Path, parser: PageParser) -> List[str]:
             continue
         if parsed.query != "text=" + quote(text, safe=""):
             errors.append(f"{rel}: WhatsApp prefill not encoded like assets/whatsapp.js {href}")
+        # The prefill is in the page language, with that language's topic for the page tag.
+        lang = language_checks.page_language(rel)
+        if match.group(lang) is None:
+            errors.append(f"{rel}: WhatsApp prefill is not in the page language ({lang}) {text!r}")
+            continue
         slug = values.get("data-wa-slug")
         if slug is not None:
-            if match.group("slug") != slug or match.group("en") != values.get("data-wa-topic-en"):
-                errors.append(f"{rel}: WhatsApp href does not match its data-wa-* attributes {href}")
-            if not values.get("data-wa-topic-es"):
-                errors.append(f"{rel}: WhatsApp link {slug} has no Spanish topic")
+            topic_en, topic_es = whatsapp_contact.topics_for(slug)
+            if match.group("slug") != slug or match.group(lang) != (topic_es if lang == "es" else topic_en):
+                errors.append(f"{rel}: WhatsApp href does not match the {lang} topic of [web-{slug}] {href}")
+        if "floating-whatsapp" in (values.get("class") or "").split() and values.get("aria-label") != whatsapp_contact.LABELS[lang]:
+            errors.append(f"{rel}: floating WhatsApp label must be {whatsapp_contact.LABELS[lang]!r}")
     return errors
 
 
@@ -237,27 +247,32 @@ def client_work_errors(root: Path) -> List[str]:
     """Approved testimonials appear verbatim (EN and ES) and every listed client site is linked."""
     errors = []  # type: List[str]
     sources = {}
-    for name in ("work/index.html", "index.html", "assets/home.js"):
+    for name in ("work/index.html", "es/work/index.html", "index.html", "es/index.html"):
         path = root / name
         sources[name] = path.read_text(encoding="utf-8") if path.exists() else ""
-    work, home, home_js = sources["work/index.html"], sources["index.html"], sources["assets/home.js"]
+    home_copy = json.loads((language_checks.I18N_DIR / "home.json").read_text(encoding="utf-8"))
+    # English quotes on the English pages, Spanish quotes on the Spanish twins, never the other one.
+    pages = {"EN": ("work/index.html", "index.html"), "ES": ("es/work/index.html", "es/index.html")}
     for item in client_work.TESTIMONIALS:
-        quote_en, quote_es = item["quote"]
-        for language, text in (("EN", quote_en), ("ES", quote_es)):
-            if text not in work:
-                errors.append(f"work/index.html: {language} testimonial from {item['name']} is missing or not verbatim")
-        if item["name"] in client_work.HOMEPAGE_QUOTES:
-            if quote_en not in home:
-                errors.append(f"index.html: EN testimonial from {item['name']} is missing or not verbatim")
-            for language, text in (("EN", quote_en), ("ES", quote_es)):
-                if text not in home_js:
-                    errors.append(f"assets/home.js: {language} testimonial from {item['name']} is missing or not verbatim")
-    for client in client_work.CLIENTS:
-        if f'href="https://{client["domain"]}/"' not in work:
-            errors.append(f"work/index.html: no link to {client['domain']}")
-    for domain in client_work.HOMEPAGE_SITES:
-        if f'href="https://{domain}/"' not in home:
-            errors.append(f"index.html: no link to featured client {domain}")
+        quote = dict(zip(("EN", "ES"), item["quote"]))
+        for language, (work, home) in pages.items():
+            other = quote["ES" if language == "EN" else "EN"]
+            if quote[language] not in sources[work]:
+                errors.append(f"{work}: {language} testimonial from {item['name']} is missing or not verbatim")
+            if other != quote[language] and (other in sources[work] or other in sources[home]):
+                errors.append(f"{work}/{home}: testimonial from {item['name']} shown in the wrong language")
+            if item["name"] in client_work.HOMEPAGE_QUOTES and quote[language] not in sources[home]:
+                errors.append(f"{home}: {language} testimonial from {item['name']} is missing or not verbatim")
+            if item["name"] in client_work.HOMEPAGE_QUOTES and quote[language] not in home_copy[language.lower()].values():
+                errors.append(f"content/i18n/home.json: {language} testimonial from {item['name']} is missing or not verbatim")
+    for work in ("work/index.html", "es/work/index.html"):
+        for client in client_work.CLIENTS:
+            if f'href="https://{client["domain"]}/"' not in sources[work]:
+                errors.append(f"{work}: no link to {client['domain']}")
+    for home in ("index.html", "es/index.html"):
+        for domain in client_work.HOMEPAGE_SITES:
+            if f'href="https://{domain}/"' not in sources[home]:
+                errors.append(f"{home}: no link to featured client {domain}")
     return errors
 
 
@@ -341,23 +356,14 @@ def main() -> int:
         low, high = DESCRIPTION_RANGE
         if not (low <= len(parser.description.strip()) <= high):
             errors.append(f"{rel}: description length {len(parser.description.strip())} (expected {low}-{high})")
-        # Service pages carry the Spanish snippet that assets/service.js applies; same standard.
-        title_es = (parser.html_attrs.get("data-title-es") or "").strip()
-        description_es = (parser.html_attrs.get("data-description-es") or "").strip()
-        if rel.parts[0] == "services" and not (title_es and description_es):
-            errors.append(f"{rel}: missing data-title-es / data-description-es on <html>")
-        if title_es and (len(title_es) > TITLE_MAX or not title_es.endswith(TITLE_SUFFIX)):
-            errors.append(f"{rel}: Spanish title must be <= {TITLE_MAX} chars ending '{TITLE_SUFFIX}': {title_es!r} ({len(title_es)})")
-        if description_es and not (low <= len(description_es) <= high):
-            errors.append(f"{rel}: Spanish description length {len(description_es)} (expected {low}-{high})")
         for match in SHORT_BRAND.finditer(source):
             errors.append(f"{rel}: short brand name {source[max(0, match.start() - 30):match.end() + 30]!r}")
-        # Legal pages keep one H1 per language in the source and hide the inactive language.
-        if parser.h1 not in {1, 2}:
-            errors.append(f"{rel}: expected 1 visible-language h1, found {parser.h1}")
-        if not parser.canonical.startswith("https://sosatechsolutions.com/"):
-            errors.append(f"{rel}: missing/invalid canonical")
-        else:
+        # One language per page, so exactly one h1 (no hidden second-language copy).
+        if parser.h1 != 1:
+            errors.append(f"{rel}: expected exactly 1 h1, found {parser.h1}")
+        if parser.canonical != SITE + language_checks.url_path(rel):
+            errors.append(f"{rel}: canonical must be the page's own URL {SITE + language_checks.url_path(rel)}, found {parser.canonical!r}")
+        if parser.canonical.startswith("https://sosatechsolutions.com/"):
             expected_canonicals.add(parser.canonical)
         for index, block in enumerate(parser.json_ld, 1):
             try:
@@ -372,6 +378,7 @@ def main() -> int:
             if forbidden_types:
                 errors.append(f"{rel}: JSON-LD {index} has @type {sorted(forbidden_types)}")
         errors.extend(whatsapp_errors(rel, parser))
+        errors.extend(language_checks.page_errors(rel, source, root))
         errors.extend(work_image_errors(rel, parser))
         errors.extend(navigation_errors(rel, parser))
         errors.extend(client_link_errors(rel, parser))
@@ -399,6 +406,9 @@ def main() -> int:
         if "#" in url:
             errors.append(f"sitemap.xml: fragment URL {url}")
         check_site_url("sitemap.xml", url, root, pending, errors, notes)
+        errors.extend(language_checks.sitemap_alternate_errors(url, node))
+    if 'xmlns:xhtml="http://www.w3.org/1999/xhtml"' not in (root / "sitemap.xml").read_text(encoding="utf-8"):
+        errors.append("sitemap.xml: missing xmlns:xhtml namespace for hreflang alternates")
     for canonical in expected_canonicals:
         if canonical not in sitemap_urls:
             errors.append(f"sitemap.xml: canonical not listed {canonical}")
@@ -422,14 +432,21 @@ def main() -> int:
     for canonical in sorted(expected_canonicals):
         if re.match(re.escape(SITE) + r"/(?:(?:services|blog)/[^/]+|work)/$", canonical) and canonical not in llms_urls:
             errors.append(f"llms.txt: page not listed {canonical}")
+        # The "## En español" section lists every Spanish page.
+        if canonical.startswith(SITE + "/es/") and canonical not in llms_urls:
+            errors.append(f"llms.txt: Spanish page not listed {canonical}")
+    if "## En español" not in llms:
+        errors.append("llms.txt: missing '## En español' section")
 
     errors.extend(client_work_errors(root))
+    errors.extend(language_checks.site_errors(root, pages))
 
     scripts = sorted(root.glob(PUBLIC_SCRIPTS))
     for script in scripts:
         text = script.read_text(encoding="utf-8")
         for match in SHORT_BRAND.finditer(text):
             errors.append(f"{script.relative_to(root)}: short brand name {text[max(0, match.start() - 30):match.end() + 30]!r}")
+        errors.extend(language_checks.script_errors(script.relative_to(root), text))
 
     for note in notes:
         print(f"NOTE {note}")
