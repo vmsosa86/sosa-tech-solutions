@@ -10,7 +10,7 @@ from site_navigation import NAV_CSS_HREF, NAV_JS_SRC, render_navigation
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SERVICE_CSS_HREF = "/assets/service.css?v=20261013c"
+SERVICE_CSS_HREF = "/assets/service.css?v=20261013d"
 SERVICE_JS_SRC = "/assets/service.js?v=20261013c"
 FONTS_HREF = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600&amp;family=Syne:wght@700;800&amp;display=swap"
 
@@ -210,7 +210,9 @@ PRIMARY = {
         "example_es": "Una web de servicios que reúne información de tratamientos y opciones para solicitar una consulta. Visita la página para ver el diseño y el contenido en contexto.",
         "image": "/assets/site/project-mocasa-website.jpg", "image_alt": "Mocasa Hair Transplant website", "image_alt_es": "Página web de Mocasa Hair Transplant", "url": "https://mocasahairtransplant.com/",
         "start": "Share your current website, or the offer you want to launch. We identify the pages, content and contact flow you need, then agree on scope and cost.",
-        "start_es": "Comparte tu web actual o la oferta que quieres lanzar. Identificamos las páginas, el contenido y la forma de contacto que necesitas; después acordamos alcance y costo."
+        "start_es": "Comparte tu web actual o la oferta que quieres lanzar. Identificamos las páginas, el contenido y la forma de contacto que necesitas; después acordamos alcance y costo.",
+        # Approved starting price (2026-10-13); shown next to the closing call to action only.
+        "price_note": ("Websites from $1,500", "Páginas web desde $1,500"),
     },
     "marketing": {
         "name": "Facebook & Instagram ads", "name_es": "Anuncios en Facebook e Instagram",
@@ -529,6 +531,7 @@ def render(offer: dict) -> str:
     faq_title = offer.get("faq_title", ("Clear answers<br>before we build.", "Respuestas claras<br>antes de construir."))
     cta_label = offer.get("cta_label", ("Free lead-flow review", "Revisión gratuita del flujo"))
     cta_title = offer.get("cta_title", ("Let’s find your next practical step.", "Encontremos tu próximo paso."))
+    price_note = f'<p class="price-note">{both(*offer["price_note"])}</p>' if offer.get("price_note") else ""
     title = html.escape(page_title, quote=True)
     meta = html.escape(description, quote=True)
     title_es = html.escape(f'{offer.get("seo_title_es", offer["name_es"])} | Sosa Tech Solutions', quote=True)
@@ -554,7 +557,7 @@ def render(offer: dict) -> str:
 <section class="process"><div><div class="label">{both(*process_label)}</div><h2>{both(*process_title)}</h2></div><div><p class="lead engagement">{both(offer.get("start", offer["intro"]), offer.get("start_es", offer["intro_es"]))}</p><div class="steps">{steps}</div></div></section>
 {example_section}
 <section class="faq"><div><div class="label">{both('FAQ', 'Preguntas frecuentes')}</div><h2>{both(*faq_title)}</h2></div><div class="faq-list">{faq}</div></section>
-<section class="cta"><div><div class="label">{both(*cta_label)}</div><h2>{both(*cta_title)}</h2></div>{cta_button}</section>
+<section class="cta"><div><div class="label">{both(*cta_label)}</div><h2>{both(*cta_title)}</h2>{price_note}</div>{cta_button}</section>
 <section class="more"><div class="label">{both('Explore capabilities','Explora capacidades')}</div><div class="more-grid">{more}</div></section>
 </main>
 <footer><span>© 2026 Sosa Tech Solutions · Miami, Florida</span><span><a href="/privacy-policy/">{both('Privacy', 'Privacidad')}</a> · <a href="/terms/">{both('Terms', 'Términos')}</a> · <a href="/blog/">Blog</a></span></footer>

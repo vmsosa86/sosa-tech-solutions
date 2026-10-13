@@ -446,3 +446,6 @@ html{scroll-padding-top:0}section{scroll-margin-top:6.5rem}.brand img{width:180p
 .faq .kicker{color:var(--cyan)}
 /* Very small phones (< 360px): a smaller logo keeps the language switch and menu button inside the header. */
 @media(max-width:359px){.site-header{gap:.5rem;padding:0 .75rem}.brand img{width:130px}}
+/* Approved starting prices: one quiet line under the main services. */
+.price-anchors{max-width:var(--max);margin:1.6rem auto 0;font:400 .95rem/1.6 'DM Sans',sans-serif;color:var(--dark-muted)}
+.price-anchors a{color:var(--cyan-dark);text-underline-offset:4px}

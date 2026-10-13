@@ -17,6 +17,7 @@ The site is static HTML/CSS/JavaScript with no build step. It includes:
 - Free lead-flow review contact funnel and WhatsApp CTA.
 - WhatsApp on every page: floating button (tucked away while it would cover a video's controls), mobile-menu item and page-aware prefill (`[web-<slug>]` tag, EN/ES). Visible buttons say "Message Victor on WhatsApp" / "Escribe a Victor por WhatsApp".
 - AI spokesperson videos page (`/services/ai-spokesperson/`) with three example Reels from `assets/site/reels/` (web MP4 + 540x960 WebP poster of ~45-55 KB each, `preload="none"`, never autoplay, every card labeled as AI). The homepage band shows one lazy 360x640 WebP thumbnail per language (English reel in EN, "¿Parezco real?" in ES). Posters and thumbnails are re-encoded on the Radio Mac Studio.
+- Approved starting prices (2026-10-13), published in exactly two places: one line under the homepage services ("Monthly plans from $500/mo · Websites from $1,500") and "Websites from $1,500" by the closing call to action on `/services/websites/`. No other page shows prices, and none are in structured data.
 - First-touch UTM capture in the contact form.
 - LocalBusiness, Organization, WebSite, and FAQ structured data.
 - Accessible colors, visible keyboard focus, and reduced-motion support.
