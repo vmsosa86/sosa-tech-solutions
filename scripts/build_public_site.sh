@@ -10,9 +10,24 @@ case "$output_dir" in
   *) echo "Refusing unsafe output directory: $output_dir" >&2; exit 1 ;;
 esac
 
+# The build scripts need Python 3.8+. Hostinger's default python3 is 3.6, so prefer a newer
+# interpreter when one exists (override with PYTHON_BIN=/path/to/python3).
+if [[ -z "${PYTHON_BIN:-}" ]]; then
+  for candidate in python3.13 python3.12 python3.11 /opt/alt/python311/bin/python3 python3.10 python3.9 python3.8 python3; do
+    if command -v "$candidate" >/dev/null 2>&1 && "$candidate" -c 'import sys; sys.exit(0 if sys.version_info >= (3, 8) else 1)' 2>/dev/null; then
+      PYTHON_BIN="$candidate"
+      break
+    fi
+  done
+fi
+if [[ -z "${PYTHON_BIN:-}" ]]; then
+  echo "Python 3.8 or newer is required to build the site." >&2
+  exit 1
+fi
+
 # The Spanish pages, sitemap.xml and llms.txt are generated and committed; refuse to publish
 # them stale (an English edit without its regenerated /es/ twin).
-python3 "$repo_root/scripts/build_language_pages.py" --check
+"$PYTHON_BIN" "$repo_root/scripts/build_language_pages.py" --check
 
 rm -rf "$output_dir"
 mkdir -p "$output_dir"
@@ -32,5 +47,5 @@ done
 
 # Extra arguments go to the validator, e.g. --allow-missing /services/new-page/ while a
 # page is still being built. deploy_hostinger.sh passes none, so deploys stay strict.
-python3 "$repo_root/scripts/validate_site.py" --root "$output_dir" "$@"
+"$PYTHON_BIN" "$repo_root/scripts/validate_site.py" --root "$output_dir" "$@"
 echo "Public site built at $output_dir"
