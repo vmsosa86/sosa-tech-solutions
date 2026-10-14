@@ -16,7 +16,7 @@ from site_navigation import NAV_CSS_HREF, NAV_JS_SRC, render_navigation
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SERVICE_CSS_HREF = "/assets/service.css?v=20261013f"
+SERVICE_CSS_HREF = "/assets/service.css?v=20261013g"
 SERVICE_JS_SRC = "/assets/service.js?v=20261013d"
 FONTS_HREF = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600&amp;family=Syne:wght@700;800&amp;display=swap"
 
@@ -182,7 +182,114 @@ OFFERS = [
 ]
 
 
-OFFERS.append({'slug': 'agents', 'name': 'AI agents & integrations', 'name_es': 'Agentes de IA e integraciones', 'title': 'Useful help, connected to your business.', 'title_es': 'Ayuda útil, conectada a tu negocio.', 'meta': 'Custom AI assistants and integrations for business questions, inquiry organization and repetitive work, with clear access and human review.', 'meta_es': 'Asistentes de IA e integraciones a medida para consultas, organización de contactos y tareas repetitivas, con acceso definido y revisión humana.', 'intro': 'Start with a task your team repeats. I can connect an assistant to approved business information and tools, define what it can do, and build the handoff to a person when needed.', 'intro_es': 'Empecemos con una tarea que tu equipo repite. Puedo conectar un asistente a información y herramientas aprobadas, definir qué puede hacer y preparar el paso a una persona cuando sea necesario.', 'signal': 'QUESTION -> CONTEXT -> REVIEW -> ACTION', 'stages': [('A question or task', 'Una pregunta o tarea'), ('Approved information', 'Información aprobada'), ('A useful response', 'Una respuesta útil'), ('Human review when needed', 'Revisión humana cuando haga falta')], 'outcomes': [('Business assistants', 'Help staff find information, summarize material and draft responses using the sources you approve.', 'Asistentes para tu equipo', 'Ayuda a encontrar información, resumir material y preparar respuestas con las fuentes que apruebes.'), ('Inquiry organization', 'Classify incoming requests, capture relevant details and route them to the right person.', 'Organización de consultas', 'Clasifica solicitudes, recopila datos relevantes y envíalos a la persona indicada.'), ('Custom integrations', 'Connect forms, databases and business tools to reduce copying and repeated manual work.', 'Integraciones a medida', 'Conecta formularios, bases de datos y herramientas para reducir copias y trabajo manual repetitivo.')], 'proof': [], 'example_title': 'An assistant that prepares the next step.', 'example_title_es': 'Un asistente que prepara el siguiente paso.', 'example': 'Example workflow: an inquiry arrives, an assistant identifies the topic and prepares a draft using approved service information. Your team reviews it before sending. We test the workflow against real scenarios before agreeing on any greater autonomy.', 'example_es': 'Ejemplo: llega una consulta, un asistente identifica el tema y prepara un borrador con información aprobada de tus servicios. Tu equipo lo revisa antes de enviarlo. Probamos situaciones reales antes de acordar mayor autonomía.', 'start': 'Bring one repetitive task and the tools involved. We review the available information, agree on permissions and costs, then scope a small first implementation.', 'start_es': 'Trae una tarea repetitiva y las herramientas que utilizas. Revisamos la información disponible, acordamos permisos y costos, y definimos una primera implementación concreta.', 'faq': [('Can the agent take actions automatically?', 'Where appropriate, yes. We define the permitted actions and review steps first. Messages, record changes and other consequential actions need an agreed approval process.', '¿El agente puede actuar automáticamente?', 'Sí, cuando sea adecuado. Primero definimos las acciones permitidas y la revisión. Los mensajes, cambios de registros y otras acciones importantes necesitan un proceso de aprobación acordado.'), ('Is this a CRM product?', 'No. This is a custom assistant or integration built around a specific task. If you already use a CRM, we can assess whether it can be connected.', '¿Es un producto CRM?', 'No. Es un asistente o integración a medida para una tarea concreta. Si ya usas un CRM, podemos evaluar su conexión.'), ('What happens if the assistant is unsure?', 'We define when it should ask for clarification or hand off to a person. The scope includes testing, access limits and ongoing platform costs.', '¿Qué pasa si el asistente no está seguro?', 'Definimos cuándo pedir aclaraciones o pasar la consulta a una persona. El alcance incluye pruebas, límites de acceso y costos recurrentes.')]})
+# Two different AI agents (approved by Victor 2026-10-13): the 24/7 inquiry agent answers
+# customers with approved information and hands off to a person; the content agent drafts
+# posts and videos that the owner approves before anything is published.
+OFFERS.append({
+    "slug": "agents",
+    "name": "AI agents & integrations", "name_es": "Agentes de IA e integraciones",
+    "title": "Two AI agents for your business: one answers, one creates.",
+    "title_es": "Dos agentes de IA para tu negocio: uno responde, otro crea.",
+    "meta": "The inquiry agent answers your customers on WhatsApp, Instagram, Facebook and your website, day and night, and hands you the details. The content agent drafts your posts and videos, and nothing is published until you approve it.",
+    "meta_es": "El agente de consultas responde a tus clientes por WhatsApp, Instagram, Facebook y tu página web, de día y de noche, y te pasa los datos. El agente de contenido prepara tus publicaciones y videos, y nada se publica hasta que lo apruebes.",
+    # Hero visual: the two agents, named in one line each.
+    "stages": [("Inquiry agent: answers 24/7", "Agente de consultas: responde 24/7"), ("Content agent: creates, you approve", "Agente de contenido: crea, tú apruebas")],
+    "agents_label": ("Two agents, two jobs", "Dos agentes, dos trabajos"),
+    "agents_title": ("One answers your customers. One creates your content.", "Uno responde a tus clientes. Otro crea tu contenido."),
+    "intro": "They do different jobs, so each one is set up on its own, with its own rules. You decide what each agent can do and what comes back to you.",
+    "intro_es": "Hacen trabajos distintos, así que cada uno se configura por separado, con sus propias reglas. Tú decides qué puede hacer cada agente y qué te llega a ti.",
+    "agents": [
+        {
+            "kicker": ("Agent 01 · Customer inquiries", "Agente 01 · Consultas de clientes"),
+            "name": ("The 24/7 inquiry agent", "El agente de consultas 24/7"),
+            "summary": ("Answers your customers on WhatsApp, Instagram and Facebook messages and your website, at any hour, with the information you approve.",
+                        "Responde a tus clientes por WhatsApp, por mensajes de Instagram y Facebook y en tu página web, a cualquier hora, con la información que apruebas."),
+            "lists": [
+                {"title": ("What it does", "Qué hace"), "items": [
+                    ("Answers customer questions using only the information you approve.", "Responde las preguntas de tus clientes solo con la información que apruebas."),
+                    ("Collects the customer’s details: name, what they need, and the date or estimate they’re asking for.", "Recopila los datos del cliente: nombre, qué necesita y la fecha o el presupuesto que pide."),
+                    ("Qualifies and organizes each inquiry, so you know what it’s about before you reply.", "Califica y organiza cada consulta, para que sepas de qué se trata antes de responder."),
+                ]},
+                {"title": ("What it hands to you", "Qué te entrega"), "items": [
+                    ("An organized inquiry with the customer’s details and request.", "Una consulta organizada con los datos y la solicitud del cliente."),
+                    ("An alert when a conversation needs a person, so you or your team take over.", "Un aviso cuando una conversación necesita a una persona, para que tú o tu equipo la continúen."),
+                ]},
+            ],
+        },
+        {
+            "kicker": ("Agent 02 · Social media content", "Agente 02 · Contenido para redes"),
+            "name": ("The content agent", "El agente de contenido"),
+            "summary": ("Drafts posts, captions and AI-presenter videos for your business, so your Facebook and Instagram keep showing up.",
+                        "Prepara publicaciones, textos y videos con presentador de IA para tu negocio, para que tu Facebook e Instagram sigan activos."),
+            "lists": [
+                {"title": ("What it does", "Qué hace"), "items": [
+                    ("Drafts posts and captions about your services, offers and news.", "Prepara publicaciones y textos sobre tus servicios, ofertas y novedades."),
+                    ("Prepares AI-presenter videos, labeled as AI.", "Prepara videos con presentador de IA, identificados como IA."),
+                    ("Schedules what you approve on Facebook and Instagram and confirms when it’s live.", "Programa lo que apruebas en Facebook e Instagram y te confirma cuando está publicado."),
+                ]},
+                {"title": ("What you approve", "Qué apruebas tú"), "items": [
+                    ("Every post, caption and video, before anything is published.", "Cada publicación, texto y video, antes de que se publique."),
+                    ("Any changes: ask for edits, and nothing moves forward without your OK.", "Cualquier cambio: pides ajustes y nada avanza sin tu aprobación."),
+                ]},
+            ],
+        },
+    ],
+    "process_label": ("How it works", "Cómo funciona"),
+    "process_title": ("Two clear flows, with you in charge.", "Dos flujos claros, contigo al mando."),
+    "start": "Both agents start the same way: a free review of the questions your customers ask and the content you want to publish. I set up each agent, test it with real examples from your business and adjust it with you before it goes live.",
+    "start_es": "Los dos agentes empiezan igual: una revisión gratuita de las preguntas que te hacen tus clientes y del contenido que quieres publicar. Configuro cada agente, lo pruebo con ejemplos reales de tu negocio y lo ajusto contigo antes de activarlo.",
+    "step_groups": [
+        {"title": ("The inquiry agent", "El agente de consultas"), "steps": [
+            ("A customer writes", "At any hour, on WhatsApp, Instagram, Facebook or your website.", "Un cliente escribe", "A cualquier hora, por WhatsApp, Instagram, Facebook o tu página web."),
+            ("The agent answers", "With the information you approved, and it asks for the details you need.", "El agente responde", "Con la información que aprobaste, y pide los datos que necesitas."),
+            ("The inquiry is organized", "Name, what they need and the date or estimate they asked for, in one place.", "La consulta queda organizada", "Nombre, qué necesita y la fecha o el presupuesto que pidió, en un solo lugar."),
+            ("A person takes over", "When it needs a human, you get an alert with the details already collected.", "Una persona continúa", "Cuando hace falta una persona, te llega un aviso con los datos ya recopilados."),
+        ]},
+        {"title": ("The content agent", "El agente de contenido"), "steps": [
+            ("You share the topic", "A service, an offer or a question your customers keep asking.", "Compartes el tema", "Un servicio, una oferta o una pregunta que tus clientes repiten."),
+            ("The agent drafts", "Posts, captions and AI-presenter videos for your business.", "El agente prepara", "Publicaciones, textos y videos con presentador de IA para tu negocio."),
+            ("You approve", "You review every piece and ask for changes. Nothing is published without your OK.", "Tú apruebas", "Revisas cada pieza y pides cambios. Nada se publica sin tu aprobación."),
+            ("Scheduled and confirmed", "What you approve is scheduled on Facebook and Instagram, and I confirm when it’s live.", "Programado y confirmado", "Lo que apruebas se programa en Facebook e Instagram y te confirmo cuando está publicado."),
+        ]},
+    ],
+    "notes_label": ("Honest notes", "Notas claras"),
+    "notes_title": ("What you should know first.", "Lo que debes saber primero."),
+    "notes": [
+        ("Only information you approve", "The inquiry agent answers with the information you give it and approve. When a question isn’t covered, it’s set up to pass the conversation to a person instead of guessing.",
+         "Solo información que apruebas", "El agente de consultas responde con la información que tú le das y apruebas. Cuando una pregunta no está cubierta, está configurado para pasarle la conversación a una persona en lugar de adivinar."),
+        ("A person when it’s needed", "You decide which conversations come to you or your team. The agent alerts you with the details it already collected.",
+         "Una persona cuando hace falta", "Tú decides qué conversaciones llegan a ti o a tu equipo. El agente te avisa con los datos que ya recopiló."),
+        ("Your accounts stay yours", "Your business owns its WhatsApp, Instagram, Facebook and website accounts. I only use the access needed to set up and support the agents.",
+         "Tus cuentas siguen siendo tuyas", "Tu negocio es dueño de sus cuentas de WhatsApp, Instagram y Facebook y de su página web. Solo uso el acceso necesario para configurar y mantener los agentes."),
+        ("AI is disclosed", "The presenters in your videos are labeled as AI on screen and in the caption, and the inquiry agent doesn’t pretend to be a person.",
+         "La IA se identifica", "Los presentadores de tus videos se identifican como IA en pantalla y en el texto de la publicación, y el agente de consultas no se hace pasar por una persona."),
+    ],
+    "related_label": ("Works well with", "Funciona bien con"),
+    "related_title": ("Connect the agents to the rest of your business.", "Conecta los agentes con el resto de tu negocio."),
+    "related": [
+        ("ai-spokesperson", "Explore AI spokesperson videos →", "Ver videos con vocero de IA →",
+         "See the AI-presenter videos the content agent prepares: weekly Reels, labeled as AI, with every script approved by you.",
+         "Mira los videos con presentador de IA que prepara el agente de contenido: Reels semanales, identificados como IA, con cada guion aprobado por ti."),
+        ("automation", "Explore WhatsApp & follow-up automation →", "Ver WhatsApp y seguimiento automatizado →",
+         "Want each inquiry to reach your forms, alerts and reminders too? I connect the tools you already use, so nobody copies details by hand.",
+         "¿Quieres que cada consulta llegue también a tus formularios, alertas y recordatorios? Conecto las herramientas que ya usas, para que nadie copie datos a mano."),
+    ],
+    "cta_title": ("Tell me what your customers ask most. We’ll start there.", "Cuéntame qué te preguntan más tus clientes. Empezamos por ahí."),
+    "faq": [
+        ("Can it answer at 2 a.m.?", "Yes. The inquiry agent answers at any hour with the information you approved and collects the customer’s details. If the conversation needs a person, you get an alert and pick it up when you’re available.",
+         "¿Puede responder a las 2 de la mañana?", "Sí. El agente de consultas responde a cualquier hora con la información que aprobaste y recopila los datos del cliente. Si la conversación necesita a una persona, te llega un aviso y la retomas cuando estés disponible."),
+        ("What happens when it doesn’t know?", "We agree on that before launch: when it should ask the customer for more details and when it should pass the conversation to you or your team, with what it already collected. I test it with real questions from your business before it goes live.",
+         "¿Qué pasa cuando no sabe la respuesta?", "Lo acordamos antes de lanzarlo: cuándo debe pedirle más datos al cliente y cuándo debe pasarte la conversación a ti o a tu equipo, con lo que ya recopiló. Lo pruebo con preguntas reales de tu negocio antes de activarlo."),
+        ("Do I approve the content?", "Yes, always. The content agent prepares drafts. You review every post, caption and video, ask for changes, and nothing is published until you approve it.",
+         "¿Yo apruebo el contenido?", "Sí, siempre. El agente de contenido prepara borradores. Tú revisas cada publicación, texto y video, pides cambios, y nada se publica hasta que lo apruebes."),
+        ("Do I keep my WhatsApp number?", "The agent can work with your business’s existing WhatsApp where the provider allows it. Every setup is different, so we confirm it during the review, before anything changes.",
+         "¿Mantengo mi número de WhatsApp?", "El agente puede trabajar con el WhatsApp que ya usa tu negocio cuando el proveedor lo permite. Cada caso es distinto, así que lo confirmamos durante la revisión, antes de cambiar nada."),
+        ("Is this a CRM product?", "No. Each agent is set up around specific tasks for your business. If you already use a CRM, we can assess whether it can be connected.",
+         "¿Es un producto CRM?", "No. Cada agente se configura para tareas concretas de tu negocio. Si ya usas un CRM, podemos evaluar su conexión."),
+        ("How much does it cost?", "Every business needs a different setup, so I quote each one after the review. The proposal includes any ongoing platform costs before we start.",
+         "¿Cuánto cuesta?", "Cada negocio necesita una configuración distinta, así que cotizo cada caso después de la revisión. La propuesta incluye cualquier costo recurrente de plataformas antes de empezar."),
+    ],
+})
 
 # Primary offers use the approved homepage positioning.
 PRIMARY = {
@@ -351,8 +458,8 @@ SEO = {
         "Facebook and Instagram ads tied to a clear offer, a landing page or WhatsApp and a follow-up plan, with tracking that shows where inquiries come from.",
     ),
     "agents": (
-        "AI Agents & Integrations in Miami",
-        "Custom AI assistants connected to your approved information and tools to answer questions, organize inquiries and cut repetitive work, with human review.",
+        "AI Inquiry & Content Agents in Miami",
+        "One AI agent answers your customers 24/7 on WhatsApp, Instagram, Facebook and your site; another drafts posts and videos you approve before publishing.",
     ),
     "infrastructure": (
         "Server Management & Backups in Miami",
@@ -386,8 +493,8 @@ SEO_ES = {
         "Anuncios en Facebook e Instagram con una oferta clara, una página de destino o WhatsApp y un plan de seguimiento, midiendo de dónde llegan las consultas.",
     ),
     "agents": (
-        "Agentes de IA e integraciones en Miami",
-        "Asistentes de IA a medida, conectados a tu información y herramientas aprobadas, para responder preguntas, organizar consultas y reducir trabajo manual.",
+        "Agentes de IA: consultas y contenido",
+        "Un agente de IA atiende a tus clientes 24/7 por WhatsApp, Instagram, Facebook y tu web; otro prepara publicaciones y videos que apruebas antes de publicar.",
     ),
     "infrastructure": (
         "Administración de servidores en Miami",
@@ -480,6 +587,48 @@ def render_reels(offer: dict) -> str:
     )
 
 
+def render_agents(offer: dict) -> str:
+    """Side-by-side agent cards: what each agent does and what reaches the owner."""
+    cards = []
+    for i, agent in enumerate(offer["agents"], 1):
+        lists = "".join(
+            f'<div class="agent-list{" agent-handoff" if j == len(agent["lists"]) else ""}"><h4>{both(*block["title"])}</h4>'
+            f'<ul>{"".join(f"<li>{both(en, es)}</li>" for en, es in block["items"])}</ul></div>'
+            for j, block in enumerate(agent["lists"], 1)
+        )
+        cards.append(
+            f'<article class="agent-card" id="agent-{i}"><p class="agent-kicker">{both(*agent["kicker"])}</p><h3>{both(*agent["name"])}</h3>'
+            f'<p class="agent-summary">{both(*agent["summary"])}</p>{lists}</article>'
+        )
+    return (
+        f'<section class="agents-pair" id="two-agents"><div class="agents-intro"><div><div class="label">{both(*offer["agents_label"])}</div><h2>{both(*offer["agents_title"])}</h2></div>'
+        f'<p class="lead">{both(offer["intro"], offer["intro_es"])}</p></div><div class="agent-grid">{"".join(cards)}</div></section>'
+    )
+
+
+def render_step_groups(offer: dict) -> str:
+    """One numbered list of steps per agent, under the agent's name."""
+    groups = []
+    for group in offer["step_groups"]:
+        steps = "".join(
+            f'<article class="step"><b>0{i}</b><div><h4>{both(en_t, es_t)}</h4><p>{both(en_d, es_d)}</p></div></article>'
+            for i, (en_t, en_d, es_t, es_d) in enumerate(group["steps"], 1)
+        )
+        groups.append(f'<div class="step-group"><h3>{both(*group["title"])}</h3><div class="steps">{steps}</div></div>')
+    return f'<div class="step-groups">{"".join(groups)}</div>'
+
+
+def service_catalog(offer: dict) -> dict:
+    """The agents as two Services of one catalog, in the page language (no prices)."""
+    return {
+        "@type": "OfferCatalog", "name": pick(offer["agents_title"][0], offer["agents_title"][1]),
+        "itemListElement": [
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": pick(*agent["name"]), "description": pick(*agent["summary"])}}
+            for agent in offer["agents"]
+        ],
+    }
+
+
 def render_notes(offer: dict, whatsapp: str) -> str:
     cards = "".join(
         f'<article class="proof-card"><b>0{i}</b><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></article>'
@@ -488,7 +637,8 @@ def render_notes(offer: dict, whatsapp: str) -> str:
     link = f'<a class="example-link" {whatsapp_contact.link_attributes(whatsapp, LANG)}>{both("Ask for a quote on WhatsApp →", "Pide una cotización por WhatsApp →")}</a>'
     label_en, label_es = offer["notes_label"]
     title_en, title_es = offer["notes_title"]
-    return f'<section class="proof notes"><div class="label">{both(label_en, label_es)}</div><h2>{both(title_en, title_es)}</h2><div class="proof-grid">{cards}</div>{link}</section>'
+    grid = " notes-4" if len(offer["notes"]) == 4 else ""
+    return f'<section class="proof notes{grid}"><div class="label">{both(label_en, label_es)}</div><h2>{both(title_en, title_es)}</h2><div class="proof-grid">{cards}</div>{link}</section>'
 
 
 def render_related(offer: dict) -> str:
@@ -519,16 +669,22 @@ def render(offer: dict, lang: str = "en") -> str:
         description = offer.get("seo_description", offer["meta"])
         page_title = f'{offer.get("seo_title", offer["name"])} | Sosa Tech Solutions'
     name = pick(offer["name"], offer["name_es"])
+    service = {"@type": "Service", "name": name, "description": description, "url": url, "inLanguage": lang, "areaServed": pick("Miami and South Florida", "Miami y el sur de la Florida"), "provider": {"@type": "LocalBusiness", "@id": BUSINESS_ID, "name": "Sosa Tech Solutions", "url": f"{SITE}/"}}
+    if offer.get("agents"):
+        service["hasOfferCatalog"] = service_catalog(offer)
     schema = {
         "@context": "https://schema.org",
         "@graph": [
-            {"@type": "Service", "name": name, "description": description, "url": url, "inLanguage": lang, "areaServed": pick("Miami and South Florida", "Miami y el sur de la Florida"), "provider": {"@type": "LocalBusiness", "@id": BUSINESS_ID, "name": "Sosa Tech Solutions", "url": f"{SITE}/"}},
+            service,
             {"@type": "FAQPage", "inLanguage": lang, "mainEntity": faq_entities},
             {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": pick("Home", "Inicio"), "item": home}, {"@type": "ListItem", "position": 2, "name": name, "item": url}]},
         ],
     }
-    outcomes = "".join(f'<article class="outcome"><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer["outcomes"], 1))
-    steps = "".join(f'<article class="step"><b>0{i}</b><div><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></div></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer.get("steps", STEPS), 1))
+    outcomes = "".join(f'<article class="outcome"><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer.get("outcomes", []), 1))
+    if offer.get("step_groups"):
+        steps = render_step_groups(offer)
+    else:
+        steps = '<div class="steps">' + "".join(f'<article class="step"><b>0{i}</b><div><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></div></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer.get("steps", STEPS), 1)) + '</div>'
     proof = "".join(f'<article class="proof-card"><b>{both("OPERATING PROOF", "PRUEBA OPERATIVA") if i == 1 else both("BUILD PRINCIPLE", "PRINCIPIO DE CONSTRUCCIÓN")}</b><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer.get("proof", []), 1))
     faq = "".join(f'<details><summary>{both(en_q, es_q)}</summary><p>{both(en_a, es_a)}</p></details>' for en_q, en_a, es_q, es_a in offer["faq"])
     more_links = []
@@ -541,8 +697,10 @@ def render(offer: dict, lang: str = "en") -> str:
     elif offer.get("image"):
         visual = f'<figure class="service-visual"><img src="{offer["image"]}" alt="{html.escape(pick(offer["image_alt"], offer["image_alt_es"]), quote=True)}" width="1902" height="815"><figcaption>{both(offer["example_title"], offer["example_title_es"])}</figcaption></figure>'
     else:
-        signal_es = offer.get("signal_es", offer["signal"])
-        stages = offer.get("stages", list(zip((part.strip() for part in offer["signal"].split("->")), (part.strip() for part in signal_es.split("->")))))
+        stages = offer.get("stages")
+        if stages is None:
+            signal_es = offer.get("signal_es", offer["signal"])
+            stages = list(zip((part.strip() for part in offer["signal"].split("->")), (part.strip() for part in signal_es.split("->"))))
         visual = '<ol class="service-journey">' + ''.join(f'<li><span class="stage-number" aria-hidden="true">0{i}</span><div>{both(en, es)}</div></li>' for i, (en, es) in enumerate(stages, 1)) + '</ol>'
     whatsapp = WHATSAPP_SLUGS[offer["slug"]]
     if offer.get("notes"):
@@ -571,6 +729,10 @@ def render(offer: dict, lang: str = "en") -> str:
     faq_title = offer.get("faq_title", ("Clear answers<br>before we build.", "Respuestas claras<br>antes de construir."))
     cta_label = offer.get("cta_label", ("Free lead-flow review", "Revisión gratuita del flujo"))
     cta_title = offer.get("cta_title", ("Let’s find your next practical step.", "Encontremos tu próximo paso."))
+    if offer.get("agents"):
+        intro_section = render_agents(offer)
+    else:
+        intro_section = f'<section class="intro"><div><div class="label">{both(*intro_label)}</div><h2>{both(*intro_title)}</h2></div><div><p class="lead">{both(offer["intro"], offer["intro_es"])}</p><div class="outcomes">{outcomes}</div></div></section>'
     price_note = f'<p class="price-note">{both(*offer["price_note"])}</p>' if offer.get("price_note") else ""
     title = html.escape(page_title, quote=True)
     meta = html.escape(description, quote=True)
@@ -591,8 +753,8 @@ def render(offer: dict, lang: str = "en") -> str:
 {render_navigation(offer['slug'], whatsapp, lang=lang)}
 <main id="main">
 <header class="{hero_class}"><div><div class="label">{both(offer['name'], offer['name_es'])}</div><h1>{both(offer['title'], offer['title_es'])}</h1><p class="hero-copy">{both(offer['meta'], offer['meta_es'])}</p><div class="actions">{actions}</div></div>{visual}</header>{reels}
-<section class="intro"><div><div class="label">{both(*intro_label)}</div><h2>{both(*intro_title)}</h2></div><div><p class="lead">{both(offer['intro'], offer['intro_es'])}</p><div class="outcomes">{outcomes}</div></div></section>
-<section class="process"><div><div class="label">{both(*process_label)}</div><h2>{both(*process_title)}</h2></div><div><p class="lead engagement">{both(offer.get("start", offer["intro"]), offer.get("start_es", offer["intro_es"]))}</p><div class="steps">{steps}</div></div></section>
+{intro_section}
+<section class="process"><div><div class="label">{both(*process_label)}</div><h2>{both(*process_title)}</h2></div><div><p class="lead engagement">{both(offer.get("start", offer["intro"]), offer.get("start_es", offer["intro_es"]))}</p>{steps}</div></section>
 {example_section}
 <section class="faq"><div><div class="label">{both('FAQ', 'Preguntas frecuentes')}</div><h2>{both(*faq_title)}</h2></div><div class="faq-list">{faq}</div></section>
 <section class="cta"><div><div class="label">{both(*cta_label)}</div><h2>{both(*cta_title)}</h2>{price_note}</div>{cta_button}</section>

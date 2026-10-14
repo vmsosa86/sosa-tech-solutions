@@ -92,3 +92,19 @@ h1,h2,h3{font-family:'DM Sans',sans-serif;font-weight:400}h1{font-size:clamp(2.8
 @media(max-width:900px){.work-intro{grid-template-columns:1fr;gap:1rem;margin-bottom:2.5rem}.cta-actions{justify-content:flex-start}}
 @media(max-width:640px){.work-grid,.quote-grid{grid-template-columns:minmax(0,1fr)}.work-grid{gap:3rem}.quote-card{padding:1.6rem}.cta-actions{flex-direction:column;align-items:stretch;width:100%}}
 @media(prefers-reduced-motion:reduce){.work-shot img{transition:none}.work-card:hover .work-shot img{transform:none}}
+/* AI agents page: two agents side by side (what each does / what reaches the owner), steps per agent. */
+.agents-pair{background:var(--white);color:var(--black)}.agents-pair .label{color:#00796b}.agents-pair .lead{color:#455463}
+.agents-intro{display:grid;grid-template-columns:.85fr 1.15fr;gap:6vw;align-items:end;margin-bottom:3rem}
+.agent-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem}
+.agent-card{display:flex;flex-direction:column;gap:1.3rem;padding:2.2rem;background:#fff;border:1px solid #cad3da;border-radius:.6rem}
+.agent-kicker{font:500 .7rem/1.4 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#00796b}
+.agent-card h3{font-size:clamp(1.5rem,2.2vw,1.9rem);font-weight:500;line-height:1.2;letter-spacing:-.03em}
+.agent-summary{font-size:1.05rem;line-height:1.65;color:#455463}
+.agent-list{border-top:1px solid #cad3da;padding-top:1.2rem}.agent-list h4{font-size:1rem;font-weight:600;margin-bottom:.75rem}
+.agent-list ul{list-style:none;display:grid;gap:.65rem}.agent-list li{position:relative;padding-left:1.35rem;line-height:1.55;color:#2c3a46}
+.agent-list li::before{content:"";position:absolute;left:0;top:.6em;width:.45rem;height:.45rem;border-radius:50%;background:#00796b}
+.agent-list.agent-handoff{margin-top:auto;padding:1.3rem 1.4rem;border:0;border-radius:.45rem;background:#e6f2f0}
+.step-group+.step-group{margin-top:2.75rem}@media(min-width:1100px){.step-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.5rem}.step-group+.step-group{margin-top:0}}.step-group h3{font-size:1.15rem;font-weight:500;color:var(--teal);margin-bottom:.9rem}.step h4{font-size:1rem;font-weight:500;margin-bottom:.25rem}.step-groups .step{grid-template-columns:2rem 1fr}
+.notes.notes-4 .proof-grid{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.agents-intro{grid-template-columns:1fr;gap:1rem;margin-bottom:2.5rem}.agent-grid,.notes.notes-4 .proof-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.agent-card{padding:1.5rem}.agent-list.agent-handoff{padding:1.1rem}}

@@ -276,6 +276,35 @@ def client_work_errors(root: Path) -> List[str]:
     return errors
 
 
+# /services/agents/ presents two different agents (approved 2026-10-13). Inquiry replies are not
+# reviewed by the team before sending; only the content agent's work is approved before publishing.
+AGENT_PAGES = {"services/agents/index.html": "", "es/services/agents/index.html": "/es"}
+AGENT_RELATED = ("/services/ai-spokesperson/", "/services/automation/")
+RETIRED_AGENT_CLAIMS = ("Your team reviews it before sending", "Tu equipo lo revisa antes de enviarlo")
+
+
+def agents_page_errors(root: Path) -> List[str]:
+    errors = []  # type: List[str]
+    for rel, prefix in AGENT_PAGES.items():
+        path = root / rel
+        if not path.exists():
+            continue  # reported as a missing page/twin
+        source = path.read_text(encoding="utf-8")
+        cards = re.findall(r'<article class="agent-card"[\s\S]*?</article>', source)
+        if len(cards) != 2:
+            errors.append(f"{rel}: expected 2 agent cards (inquiry agent, content agent), found {len(cards)}")
+        for index, card in enumerate(cards, 1):
+            if card.count('class="agent-list') != 2:
+                errors.append(f"{rel}: agent card {index} needs what it does and what reaches the owner")
+        for target in AGENT_RELATED:
+            if f'href="{prefix}{target}"' not in source:
+                errors.append(f"{rel}: missing link to {prefix}{target}")
+        for claim in RETIRED_AGENT_CLAIMS:
+            if claim in source:
+                errors.append(f"{rel}: retired claim {claim!r} (inquiry replies are not reviewed before sending)")
+    return errors
+
+
 def public_pages(root: Path) -> List[Path]:
     pages = set()  # type: Set[Path]
     for pattern in PUBLIC_PATTERNS:
@@ -439,6 +468,7 @@ def main() -> int:
         errors.append("llms.txt: missing '## En español' section")
 
     errors.extend(client_work_errors(root))
+    errors.extend(agents_page_errors(root))
     errors.extend(language_checks.site_errors(root, pages))
 
     scripts = sorted(root.glob(PUBLIC_SCRIPTS))
