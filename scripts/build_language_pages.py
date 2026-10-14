@@ -141,7 +141,9 @@ def blog_schema(name: str, copy: Dict[str, str], lang: str, path: str) -> dict:
         "@context": "https://schema.org", "@type": "BlogPosting", "headline": i18n.text_of(copy["title"]), "description": copy["metaDesc"],
         "image": f"{SITE}/og-image-2026-10b.png", "author": {"@type": "Organization", "name": "Sosa Tech Solutions"},
         "publisher": {**publisher, "logo": {"@type": "ImageObject", "url": f"{SITE}/assets/logo-light.png"}},
-        "mainEntityOfPage": {"@type": "WebPage", "@id": url}, "inLanguage": lang, "about": BLOG_ABOUT[lang],
+        "mainEntityOfPage": {"@type": "WebPage", "@id": url}, "inLanguage": lang,
+        # A post can name its own topics in its JSON: "schemaAbout": "topic; topic; ...".
+        "about": [t.strip() for t in copy["schemaAbout"].split(";")] if copy.get("schemaAbout") else BLOG_ABOUT[lang],
     }
     if "faq.1.q" not in copy:
         return posting

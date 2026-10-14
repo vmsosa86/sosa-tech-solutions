@@ -24,7 +24,7 @@ The site is static HTML/CSS/JavaScript with no build step. It includes:
 - First-touch UTM capture in the contact form.
 - LocalBusiness, Organization, WebSite, and FAQ structured data.
 - Accessible colors, visible keyboard focus, and reduced-motion support.
-- Blog index and seven bilingual long-form articles. The two newest (2026-10-14: `agente-de-ia-para-whatsapp-en-miami`, `vocero-con-ia-para-negocios`) are long guides with lists, a comparison table, a cited Sources list, a visible FAQ (keys `faq.N.q` / `faq.N.a`, which also become a FAQPage node next to the BlogPosting in both languages), related links and, on the AI spokesperson post, one AI-labeled example Reel embedded like on `/services/ai-spokesperson/`.
+- Blog index and seven bilingual long-form articles. The two newest (2026-10-14: `agente-de-ia-para-whatsapp-en-miami`, `vocero-con-ia-para-negocios`) are long guides with lists, a cited Sources list (`sources.N`), a visible FAQ (keys `faq.N.q` / `faq.N.a`, which also become a FAQPage node next to the BlogPosting in both languages), related links, a comparison table on the WhatsApp post and, on the AI spokesperson post, one AI-labeled example Reel embedded like on `/services/ai-spokesperson/`. A post can set its own BlogPosting `about` topics with an optional `schemaAbout` string in its JSON (`"topic; topic"`); otherwise the site-wide default applies. Meta's WhatsApp pricing changes quarterly (Jan 1, Apr 1, Jul 1, Oct 1): re-check the cost section of the WhatsApp post against https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing after each change.
 
 Run a local preview from the repository root:
 

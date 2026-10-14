@@ -14,7 +14,10 @@ nav.site-nav{box-sizing:border-box;position:fixed;z-index:200;top:1rem;left:1.5r
    (it stays in the mobile menu); a tighter gap keeps 1051-1100px clear. */
 @media(min-width:861px) and (max-width:959px){.site-nav-links a.site-nav-spokesperson{display:none}}
 @media(min-width:1051px) and (max-width:1100px){.site-nav-links{gap:.7rem}}
-/* Long Spanish words in blog headings (e.g. "Automatización") must not widen the page on small phones. */
-@media(max-width:420px){body.blog-page h1{font-size:2.15rem}body.blog-page h2{font-size:1.65rem}body.blog-page .cta{padding:1.5rem 1.25rem}body.blog-page h1,body.blog-page h2{overflow-wrap:break-word;hyphens:auto}}
+/* Long Spanish words in blog headings (e.g. "Automatización") must not widen the page on small phones:
+   they may break, but without hyphenating ordinary words. */
+@media(max-width:420px){body.blog-page h1{font-size:2.15rem}body.blog-page h2{font-size:1.65rem}body.blog-page .cta{padding:1.5rem 1.25rem}body.blog-page h1,body.blog-page h2{overflow-wrap:break-word}}
+/* Keep phone numbers in blog copy on one line. */
+body.blog-page .nowrap{white-space:nowrap}
 /* Very small phones (< 360px): a smaller logo keeps the language switch and menu button inside the bar. */
 @media(max-width:359px){nav.site-nav{gap:.5rem;padding:0 .75rem}.site-nav-brand img{width:130px}}

@@ -4,7 +4,7 @@ from html import escape
 import whatsapp_contact
 from site_i18n import en_path, localize_href, switch_links
 
-NAV_CSS_HREF = "/assets/site-nav.css?v=5"
+NAV_CSS_HREF = "/assets/site-nav.css?v=6"
 NAV_JS_SRC = "/assets/site-nav.js?v=6"
 
 # The only copy of the navigation labels (the pages are rendered per language).
