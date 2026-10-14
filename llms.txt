@@ -38,6 +38,12 @@ Sosa Tech Solutions builds websites, WhatsApp and follow-up automation, social m
 - [Facebook Ads vs Google Ads: which works better for local businesses](https://sosatechsolutions.com/blog/facebook-ads-vs-google-ads-para-negocios-locales/): Spanish: Facebook Ads vs Google Ads: cuál funciona mejor para negocios locales.
 - [What is n8n and how can it automate your business?](https://sosatechsolutions.com/blog/que-es-n8n-y-como-puede-automatizar-tu-negocio/): Spanish: Qué es n8n y cómo puede automatizar tu negocio.
 
+## Legal
+
+- [Privacy Policy](https://sosatechsolutions.com/privacy-policy/)
+- [Terms of Service](https://sosatechsolutions.com/terms/)
+- [Data Deletion Instructions](https://sosatechsolutions.com/data-deletion/)
+
 ## En español
 
 Cada página tiene su versión en español bajo /es/, con el mismo contenido que la versión en inglés (el idioma predeterminado, en las URL sin /es/).
@@ -58,9 +64,9 @@ Cada página tiene su versión en español bajo /es/, con el mismo contenido que
 - [Facebook Ads vs Google Ads: cuál funciona mejor para negocios locales](https://sosatechsolutions.com/es/blog/facebook-ads-vs-google-ads-para-negocios-locales/): ¿Facebook Ads o Google Ads? Compara intención de búsqueda, demanda, presupuesto, creatividad y seguimiento para elegir el canal adecuado para tu negocio.
 - [Por qué tu negocio en Miami necesita un sitio web rápido y optimizado para móvil](https://sosatechsolutions.com/es/blog/por-que-tu-negocio-en-miami-necesita-un-sitio-web-rapido-y-movil/): Descubre cómo una web rápida, clara y adaptada al móvil puede generar confianza, apoyar el SEO local y facilitar que tus clientes en Miami te contacten.
 - [Qué es n8n y cómo puede automatizar tu negocio](https://sosatechsolutions.com/es/blog/que-es-n8n-y-como-puede-automatizar-tu-negocio/): Qué es n8n y cómo puede conectar tus formularios, CRM, correo, hojas de cálculo, WhatsApp y sistemas internos para que tu negocio deje de copiar datos.
-- [Política de Privacidad](https://sosatechsolutions.com/es/privacy-policy/)
-- [Términos de Servicio](https://sosatechsolutions.com/es/terms/)
-- [Instrucciones para Eliminar Datos](https://sosatechsolutions.com/es/data-deletion/)
+- [Política de privacidad](https://sosatechsolutions.com/es/privacy-policy/)
+- [Términos de servicio](https://sosatechsolutions.com/es/terms/)
+- [Instrucciones para eliminar datos](https://sosatechsolutions.com/es/data-deletion/)
 
 ## Contact
 

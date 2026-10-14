@@ -7,9 +7,13 @@
 - no hidden second-language copy or browser-side translation is left (data-lang, setLang ...);
 - data-i18n copy equals content/i18n (EN page = "en", ES page = "es");
 - no English UI strings from the dictionaries are visible on Spanish pages;
-- internal page links stay in the page language, except the EN/ES switch;
-- JSON-LD inLanguage matches the page, the business @id is unchanged, FAQ names match the
-  visible questions;
+- internal page links stay in the page language, except the EN/ES switch (absolute
+  https://sosatechsolutions.com/... links count as internal), and none carries ?lang=;
+- no text, title or description looks like the other language (stop-word heuristic), and
+  no Spanish slot in the sources is left identical to an English sentence;
+- the English tagline on Spanish pages is marked lang="en";
+- JSON-LD inLanguage matches the page, the business @id is unchanged, FAQ questions and
+  answers match the visible <details>;
 - the legacy ?lang=es redirect is on every English page; the contact form says its language;
 - starting prices appear only on the two approved pages per language.
 """
@@ -23,7 +27,7 @@ import re
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Dict, Iterable, List, Set, Tuple
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 
 import build_service_pages
 import build_work_page
@@ -53,6 +57,15 @@ ENGLISH_UI = [
     "Request my free review", "Message Victor on WhatsApp", "Chat with Sosa Tech Solutions on WhatsApp",
     "you@yourbusiness.com", "Blog posts", "Language selector", "OPERATING PROOF", "BUILD PRINCIPLE",
 ]
+TAGLINE = "We build. You grow."
+# Stop words that exist in only one of the two languages. Proper names (brand, tagline, client
+# businesses such as "Radio To Be" or "Miami Travel y Más") are removed before counting.
+EN_WORDS = set("""the and your you with for to of is are we our that this what how it on from by be or can when
+who before after every each will my i they their an into at get do does need not yes have has which more""".split())
+ES_WORDS = set("""el la los las de del que y en para con por tu tus un una es su sus lo se al mi más cómo qué sin
+cada también te nuestro nuestra sí o antes después puedes tienes necesitas tú ya cuando quién""".split())
+SITE_ORIGINS = ("https://sosatechsolutions.com", "https://www.sosatechsolutions.com",
+                "http://sosatechsolutions.com", "http://www.sosatechsolutions.com")
 # Approved starting prices (2026-10-13): only these pages show them.
 PRICE = re.compile(r"\$500/m|\$1,500")
 PRICE_PAGES = {"index.html", "services/websites/index.html", "es/index.html", "es/services/websites/index.html"}
@@ -101,6 +114,8 @@ class LanguageParser(HTMLParser):
         self.inputs = []  # type: List[dict]
         self.forms = []  # type: List[dict]
         self.summaries = []  # type: List[str]
+        self.answers = []  # type: List[str]  # visible <details> text after its <summary>
+        self._details = None
         self._skip = 0
         self._summary = None
         self.title = ""
@@ -126,6 +141,8 @@ class LanguageParser(HTMLParser):
             self.forms.append(values)
         elif tag == "summary":
             self._summary = []
+        elif tag == "details":
+            self._details = []
         elif tag == "title":
             self._in_title = True
         if tag in {"script", "style", "svg", "noscript"}:
@@ -140,6 +157,9 @@ class LanguageParser(HTMLParser):
         elif tag == "summary" and self._summary is not None:
             self.summaries.append(norm("".join(self._summary)))
             self._summary = None
+        elif tag == "details" and self._details is not None:
+            self.answers.append(norm(" ".join(self._details)))
+            self._details = None
         elif tag == "title":
             self._in_title = False
 
@@ -153,6 +173,8 @@ class LanguageParser(HTMLParser):
         self.texts.append(data)
         if self._summary is not None:
             self._summary.append(data)
+        elif self._details is not None:
+            self._details.append(data)
 
 
 # --- dictionaries --------------------------------------------------------------------------
@@ -255,9 +277,60 @@ def english_strings() -> List[Tuple[str, int]]:
     return _ENGLISH_CACHE
 
 
+# --- language heuristic --------------------------------------------------------------------
+
+_NAMES = []  # type: List[str]
+
+
+def proper_names() -> List[str]:
+    if not _NAMES:
+        names = set(ALLOWED_ENGLISH) | {c["name"] for c in client_work.CLIENTS}
+        names |= {t["business"] for t in client_work.TESTIMONIALS} | {t["name"] for t in client_work.TESTIMONIALS}
+        _NAMES.extend(sorted(names, key=len, reverse=True))
+    return _NAMES
+
+
+def language_votes(text: str) -> Tuple[int, int]:
+    """(English, Spanish) stop-word counts of a text, proper names removed."""
+    for name in proper_names():
+        text = text.replace(name, " ")
+    words = re.findall(r"[a-záéíóúñü]+", text.lower())
+    return sum(w in EN_WORDS for w in words), sum(w in ES_WORDS for w in words)
+
+
+def looks_like(text: str, lang: str) -> bool:
+    """True when `text` reads as `lang` (at least two of its stop words, more than the other's)."""
+    en, es = language_votes(text)
+    return (en >= 2 and en > es) if lang == "en" else (es >= 2 and es > en)
+
+
+def source_errors() -> List[str]:
+    """A Spanish slot that still holds the English sentence (the pair is identical)."""
+    errors = []  # type: List[str]
+    seen = set()
+    for en, es in translation_pairs():
+        text = site_i18n.text_of(en)
+        if text and text == site_i18n.text_of(es) and text not in seen and looks_like(text, "en"):
+            seen.add(text)
+            errors.append(f"sources: Spanish copy is still the English text: {text[:90]!r}")
+    return errors
+
+
 # --- per page ------------------------------------------------------------------------------
 
+def site_relative(href: str) -> str:
+    """https://sosatechsolutions.com/x/?q#h -> /x/?q#h; other URLs are returned unchanged."""
+    for origin in SITE_ORIGINS:
+        if href == origin:
+            return "/"
+        if href.startswith(origin) and href[len(origin)] in "/?#":
+            rest = href[len(origin):]
+            return rest if rest.startswith("/") else "/" + rest
+    return href
+
+
 def is_page_link(href: str) -> bool:
+    href = site_relative(href)
     if not href.startswith("/") or href.startswith("//"):
         return False
     path = urlsplit(href).path
@@ -371,8 +444,18 @@ def page_errors(rel: Path, source: str, root: Path) -> List[str]:
         href = anchor.get("href") or ""
         if anchor.get("data-lang-link") or not is_page_link(href):
             continue
-        if site_i18n.is_es(urlsplit(href).path) != (lang == "es"):
+        if site_i18n.is_es(urlsplit(site_relative(href)).path) != (lang == "es"):
             errors.append(f"{rel}: internal link {href} is not a {lang.upper()} page")
+        if "lang" in parse_qs(urlsplit(href).query):
+            errors.append(f"{rel}: internal link {href} carries the legacy ?lang= parameter")
+
+    # Nothing visible (text, alt/aria/title attributes, <title>, descriptions) reads as the other language.
+    for text in {norm(t) for t in parser.texts if norm(t)}:
+        if looks_like(text, other):
+            errors.append(f"{rel}: {'English' if other == 'en' else 'Spanish'}-looking text on a {lang.upper()} page: {text[:90]!r}")
+    # The English tagline keeps lang="en" on Spanish pages (screen readers, language detection).
+    if lang == "es" and source.count(f">{TAGLINE}<") != source.count(f' lang="en">{TAGLINE}<'):
+        errors.append(f"{rel}: the tagline {TAGLINE!r} needs lang=\"en\" on a Spanish page")
 
     # No English UI strings on Spanish pages.
     if lang == "es":
@@ -407,6 +490,14 @@ def page_errors(rel: Path, source: str, root: Path) -> List[str]:
             names = [norm(q.get("name", "")) for q in node.get("mainEntity", [])]
             if names != parser.summaries:
                 errors.append(f"{rel}: FAQPage questions differ from the visible questions")
+            answers = [norm((q.get("acceptedAnswer") or {}).get("text", "")) for q in node.get("mainEntity", [])]
+            if len(answers) != len(parser.answers):
+                errors.append(f"{rel}: FAQPage has {len(answers)} answers, the page shows {len(parser.answers)}")
+            for index, (answer, visible) in enumerate(zip(answers, parser.answers), 1):
+                if answer != visible:
+                    errors.append(f"{rel}: FAQPage answer {index} differs from the visible answer: {answer[:60]!r}")
+            if node.get("inLanguage") != lang:
+                errors.append(f"{rel}: FAQPage needs inLanguage {lang!r}")
 
     # Contact form: same endpoint, and a hidden field with the page language.
     if kind == "home":

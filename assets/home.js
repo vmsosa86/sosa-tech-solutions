@@ -101,9 +101,15 @@
       if (describedBy.length) field.setAttribute('aria-describedby', describedBy.join(' '));
       else field.removeAttribute('aria-describedby');
     }
+    // Beyond the browser's checks: a required field needs more than spaces, and a phone
+    // number needs at least 7 digits (so Victor can always reach the lead).
     function isValid(field) {
       field.setCustomValidity('');
-      return field.checkValidity();
+      if (!field.checkValidity()) return false;
+      const value = field.value.trim();
+      if (field.required && !value) return false;
+      if (field.type === 'tel' && value && (value.match(/\d/g) || []).length < 7) return false;
+      return true;
     }
     fields.forEach((field) => {
       const recheck = () => {
@@ -119,7 +125,7 @@
       if (submitting) return;
 
       const honeypot = form.elements.namedItem('botcheck');
-      if ((honeypot && honeypot.checked) || Date.now() - formStartedAt < 3000) return;
+      if (honeypot && honeypot.checked) return;
 
       const invalid = fields.filter((field) => {
         const bad = !isValid(field);
@@ -139,6 +145,11 @@
         submitButton.disabled = true;
         submitButton.textContent = form.dataset.msgSending;
       }
+
+      // Anti-bot timing: a valid form sent within 3 s of loading (autofill makes that easy)
+      // waits out the rest in the "Sending…" state instead of being dropped silently.
+      const remaining = 3000 - (Date.now() - formStartedAt);
+      if (remaining > 0) await new Promise((resolve) => setTimeout(resolve, remaining));
 
       // The email goes to Victor with every field, including "phone"; an empty optional
       // email is left out so it is never used as an empty reply-to address.

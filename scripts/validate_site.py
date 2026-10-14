@@ -2,6 +2,7 @@
 """Validate public Sosa Tech Solutions pages, local links, metadata, and structured data."""
 
 import argparse
+import html
 import json
 import re
 from html.parser import HTMLParser
@@ -283,6 +284,10 @@ CONTACT_HIDDEN = ("access_key", "subject", "from_name", "landing_page", "utm_sou
                   "utm_campaign", "utm_content", "language")
 CONTACT_FIELDS = {"name", "phone", "service_interest", "message", "email"}
 CONTACT_REQUIRED = {"name", "phone"}
+ACCESS_KEY = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+# The phone pattern must require digits: Victor has to be able to reach the lead.
+PHONE_ACCEPTED = ("(305) 741-5702", "+1 305 741 5702", "305.741.5702")
+PHONE_REJECTED = ("       ", "-------", "(((( ))))", "+1 305")
 
 
 class ContactFormParser(HTMLParser):
@@ -323,6 +328,7 @@ class ContactFormParser(HTMLParser):
 
 def contact_form_errors(root: Path) -> List[str]:
     errors = []  # type: List[str]
+    access_keys = set()  # type: Set[str]
     for rel in CONTACT_PAGES:
         path = root / rel
         if not path.exists():
@@ -330,6 +336,11 @@ def contact_form_errors(root: Path) -> List[str]:
         parser = ContactFormParser()
         parser.feed(path.read_text(encoding="utf-8"))
         hidden = [c.get("name") for c in parser.controls if c.get("type") == "hidden"]
+        for control in parser.controls:
+            if control.get("name") == "access_key":
+                access_keys.add(control.get("value") or "")
+                if not ACCESS_KEY.match(control.get("value") or ""):
+                    errors.append(f"{rel}: contact form access_key must be the Web3Forms key (UUID)")
         for name in CONTACT_HIDDEN:
             if hidden.count(name) != 1:
                 errors.append(f"{rel}: contact form needs exactly one hidden {name!r} field")
@@ -346,6 +357,13 @@ def contact_form_errors(root: Path) -> List[str]:
         phone = by_name.get("phone", {})
         if (phone.get("type"), phone.get("autocomplete"), phone.get("inputmode")) != ("tel", "tel", "tel"):
             errors.append(f"{rel}: phone field needs type=tel autocomplete=tel inputmode=tel")
+        try:
+            phone_pattern = re.compile(phone.get("pattern") or "")
+        except re.error:
+            phone_pattern = re.compile("")
+            errors.append(f"{rel}: phone pattern is not a valid regular expression")
+        if not phone.get("pattern") or any(not phone_pattern.fullmatch(v) for v in PHONE_ACCEPTED) or any(phone_pattern.fullmatch(v) for v in PHONE_REJECTED):
+            errors.append(f"{rel}: phone pattern must accept {PHONE_ACCEPTED} and reject {PHONE_REJECTED} (at least 7 digits)")
         if by_name.get("email", {}).get("type") != "email":
             errors.append(f"{rel}: email field needs type=email")
         for control in visible:
@@ -356,6 +374,8 @@ def contact_form_errors(root: Path) -> List[str]:
                 errors.append(f"{rel}: contact field {control.get('name')!r} needs a hidden p.field-error#{identifier}-error")
         if not any(link.get("data-wa-slug") for link in parser.success_whatsapp):
             errors.append(f"{rel}: the form success panel needs the page-aware WhatsApp button")
+    if len(access_keys) > 1:
+        errors.append(f"{', '.join(CONTACT_PAGES)}: contact forms must use the same access_key")
     return errors
 
 
@@ -385,6 +405,66 @@ def agents_page_errors(root: Path) -> List[str]:
         for claim in RETIRED_AGENT_CLAIMS:
             if claim in source:
                 errors.append(f"{rel}: retired claim {claim!r} (inquiry replies are not reviewed before sending)")
+    return errors
+
+
+# Search engines must reach every page in both languages; only the AI-training group may block "/".
+SEARCH_AGENTS = {"*", "googlebot", "bingbot"}
+
+
+def robots_rule_blocks(rule: str, path: str) -> bool:
+    if rule.endswith("$"):
+        return re.fullmatch(re.escape(rule[:-1]).replace(r"\*", ".*"), path) is not None
+    return re.match(re.escape(rule).replace(r"\*", ".*"), path) is not None
+
+
+def robots_errors(robots: str, paths: List[str]) -> List[str]:
+    groups = []  # type: List[tuple]
+    agents = None  # type: Optional[List[str]]
+    for raw in robots.splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if ":" not in line:
+            continue
+        key, value = (part.strip() for part in line.split(":", 1))
+        key = key.lower()
+        if key == "user-agent":
+            if agents is None:
+                agents = []
+                groups.append((agents, []))
+            agents.append(value.lower())
+            continue
+        if groups and key in {"allow", "disallow"}:
+            groups[-1][1].append((key, value))
+        agents = None
+    errors = []  # type: List[str]
+    for group_agents, rules in groups:
+        if not SEARCH_AGENTS & set(group_agents):
+            continue
+        for key, value in rules:
+            if key != "disallow" or not value:
+                continue
+            blocked = [path for path in paths if robots_rule_blocks(value, path)]
+            if blocked:
+                errors.append(f"robots.txt: 'Disallow: {value}' for {', '.join(group_agents)} blocks {blocked[0]}")
+    return errors
+
+
+# The inquiry agent's replies are not reviewed by a team before sending; reworded versions of the
+# retired claim are caught too (agents pages and llms.txt).
+RETIRED_AGENT_CLAIM = re.compile(
+    r"(?i)\b(?:team|equipo)\b.{0,40}\b(?:review|revis)\w*.{0,40}\b(?:send|sent|enviar|envi|enví)\w*")
+
+
+def retired_claim_errors(root: Path, llms: str) -> List[str]:
+    errors = []  # type: List[str]
+    sources = {"llms.txt": llms}
+    for rel in AGENT_PAGES:
+        path = root / rel
+        if path.exists():
+            sources[rel] = " ".join(html.unescape(re.sub(r"<[^>]+>", " ", path.read_text(encoding="utf-8"))).split())
+    for name, text in sources.items():
+        for match in RETIRED_AGENT_CLAIM.finditer(text):
+            errors.append(f"{name}: retired claim that the team reviews inquiry replies before sending: {match.group(0)[:90]!r}")
     return errors
 
 
@@ -497,14 +577,18 @@ def main() -> int:
         if parser.autoplay_videos:
             errors.append(f"{rel}: {parser.autoplay_videos} video(s) with autoplay")
         for reference in parser.links:
-            target = resolve_local(reference, root)
+            target = resolve_local(language_checks.site_relative(reference), root)
             if target and not target.exists():
                 errors.append(f"{rel}: missing local target {reference}")
 
-    sitemap = ET.parse(root / "sitemap.xml")
     namespace = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     sitemap_urls = set()  # type: Set[str]
-    for node in sitemap.findall("s:url", namespace):
+    try:
+        sitemap_nodes = ET.parse(root / "sitemap.xml").findall("s:url", namespace)
+    except (ET.ParseError, OSError) as exc:
+        errors.append(f"sitemap.xml: missing or invalid XML ({exc})")
+        sitemap_nodes = []
+    for node in sitemap_nodes:
         url = (node.findtext("s:loc", "", namespace) or "").strip()
         lastmod = (node.findtext("s:lastmod", "", namespace) or "").strip()
         if not url.startswith(SITE + "/"):
@@ -519,7 +603,8 @@ def main() -> int:
             errors.append(f"sitemap.xml: fragment URL {url}")
         check_site_url("sitemap.xml", url, root, pending, errors, notes)
         errors.extend(language_checks.sitemap_alternate_errors(url, node))
-    if 'xmlns:xhtml="http://www.w3.org/1999/xhtml"' not in (root / "sitemap.xml").read_text(encoding="utf-8"):
+    sitemap_path = root / "sitemap.xml"
+    if 'xmlns:xhtml="http://www.w3.org/1999/xhtml"' not in (sitemap_path.read_text(encoding="utf-8") if sitemap_path.exists() else ""):
         errors.append("sitemap.xml: missing xmlns:xhtml namespace for hreflang alternates")
     for canonical in expected_canonicals:
         if canonical not in sitemap_urls:
@@ -531,6 +616,7 @@ def main() -> int:
         errors.append("robots.txt: must open with 'User-agent: *' / 'Allow: /'")
     if f"Sitemap: {SITE}/sitemap.xml" not in robots.splitlines():
         errors.append("robots.txt: missing Sitemap line")
+    errors.extend(robots_errors(robots, ["/", "/es/"] + sorted(site_path(url) for url in sitemap_urls)))
 
     llms_path = root / "llms.txt"
     llms = llms_path.read_text(encoding="utf-8") if llms_path.exists() else ""
@@ -547,10 +633,14 @@ def main() -> int:
         # The "## En español" section lists every Spanish page.
         if canonical.startswith(SITE + "/es/") and canonical not in llms_urls:
             errors.append(f"llms.txt: Spanish page not listed {canonical}")
+    for url in sorted(sitemap_urls - llms_urls):
+        errors.append(f"llms.txt: sitemap URL not listed {url}")
     if "## En español" not in llms:
         errors.append("llms.txt: missing '## En español' section")
 
     errors.extend(client_work_errors(root))
+    errors.extend(language_checks.source_errors())
+    errors.extend(retired_claim_errors(root, llms))
     errors.extend(agents_page_errors(root))
     errors.extend(contact_form_errors(root))
     errors.extend(language_checks.site_errors(root, pages))

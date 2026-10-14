@@ -69,22 +69,43 @@ def set_switch(text: str, container: str, path: str, lang: str, attrs: str = "")
 
 # --- homepage ------------------------------------------------------------------------------
 
-def home_schema(copy: Dict[str, str]) -> dict:
-    """Spanish homepage: the WebPage and its FAQ in Spanish. The business itself is the
-    #business node of the English homepage, referenced by @id."""
-    url = SITE + "/es/"
+def home_faq(copy: Dict[str, str], lang: str) -> dict:
+    """FAQPage from the visible questions and answers (faq.N.q / faq.N.a), so the markup
+    always matches the page in both languages."""
     faq = []
     index = 1
     while f"faq.{index}.q" in copy:
         faq.append({"@type": "Question", "name": i18n.text_of(copy[f"faq.{index}.q"]),
                     "acceptedAnswer": {"@type": "Answer", "text": i18n.text_of(copy[f"faq.{index}.a"])}})
         index += 1
+    return {"@type": "FAQPage", "inLanguage": lang, "mainEntity": faq}
+
+
+def set_english_home_faq(text: str, copy: Dict[str, str]) -> str:
+    """English homepage: keep its hand-written business graph, regenerate only the FAQPage node."""
+    match = re.search(r'(<script type="application/ld\+json">\n)([\s\S]*?)(\n  </script>)', text)
+    if not match:
+        raise SystemExit("index.html: JSON-LD block not found")
+    data = json.loads(match.group(2))
+    graph = data["@graph"]
+    positions = [i for i, node in enumerate(graph) if node.get("@type") == "FAQPage"]
+    if len(positions) != 1:
+        raise SystemExit("index.html: expected one FAQPage node in the JSON-LD @graph")
+    graph[positions[0]] = home_faq(copy, "en")
+    payload = "\n".join("  " + line for line in json.dumps(data, ensure_ascii=False, indent=2).splitlines())
+    return text[:match.start(2)] + payload + text[match.end(2):]
+
+
+def home_schema(copy: Dict[str, str]) -> dict:
+    """Spanish homepage: the WebPage and its FAQ in Spanish. The business itself is the
+    #business node of the English homepage, referenced by @id."""
+    url = SITE + "/es/"
     return {
         "@context": "https://schema.org",
         "@graph": [
             {"@type": "WebPage", "@id": f"{url}#webpage", "url": url, "name": copy["seo.title"], "description": copy["seo.description"],
              "inLanguage": "es", "isPartOf": {"@id": WEBSITE_ID}, "about": {"@id": BUSINESS_ID}},
-            {"@type": "FAQPage", "inLanguage": "es", "mainEntity": faq},
+            home_faq(copy, "es"),
         ],
     }
 
@@ -99,6 +120,8 @@ def render_home(text: str, lang: str) -> str:
     if lang == "es":
         text = drop_keywords(text)
         text = i18n.set_json_ld(text, home_schema(copy))
+    else:
+        text = set_english_home_faq(text, copy)
     return finish(text, counterpart("/", lang), lang)
 
 

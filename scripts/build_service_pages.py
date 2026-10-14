@@ -16,7 +16,7 @@ from site_navigation import NAV_CSS_HREF, NAV_JS_SRC, render_navigation
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SERVICE_CSS_HREF = "/assets/service.css?v=20261013g"
+SERVICE_CSS_HREF = "/assets/service.css?v=20261013i"
 SERVICE_JS_SRC = "/assets/service.js?v=20261013d"
 FONTS_HREF = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600&amp;family=Syne:wght@700;800&amp;display=swap"
 
@@ -143,7 +143,7 @@ OFFERS = [
             ("Tested recovery", "Document and exercise the restoration path instead of assuming a backup can be used.", "Recuperación probada", "Documentamos y ejercitamos la restauración en lugar de asumir que el respaldo funciona."),
         ],
         "proof": [
-            ("Operational discipline", "Containerized services, controlled secrets, monitoring, change checkpoints, and documented ownership.", "Disciplina operativa", "Servicios en contenedores, secretos controlados, monitoreo, checkpoints y responsabilidad documentada."),
+            ("Operational discipline", "Containerized services, controlled secrets, monitoring, change checkpoints, and documented ownership.", "Disciplina operativa", "Servicios en contenedores, secretos controlados, monitoreo, puntos de control y responsabilidad documentada."),
             ("Recovery lifecycle", "Encrypt, transfer off-site, retain, verify, restore-test, and record the result.", "Ciclo de recuperación", "Cifrar, transferir, retener, verificar, probar restauración y registrar el resultado."),
         ],
         "faq": [
@@ -207,7 +207,7 @@ OFFERS.append({
             "lists": [
                 {"title": ("What it does", "Qué hace"), "items": [
                     ("Answers customer questions using only the information you approve.", "Responde las preguntas de tus clientes solo con la información que apruebas."),
-                    ("Collects the customer’s details: name, what they need, and the date or estimate they’re asking for.", "Recopila los datos del cliente: nombre, qué necesita y la fecha o el presupuesto que pide."),
+                    ("Collects the customer’s details: name, what they need, and the date or estimate they’re asking for.", "Recopila los datos del cliente: nombre, qué necesita y la fecha o la cotización que pide."),
                     ("Qualifies and organizes each inquiry, so you know what it’s about before you reply.", "Califica y organiza cada consulta, para que sepas de qué se trata antes de responder."),
                 ]},
                 {"title": ("What it hands to you", "Qué te entrega"), "items": [
@@ -225,7 +225,7 @@ OFFERS.append({
                 {"title": ("What it does", "Qué hace"), "items": [
                     ("Drafts posts and captions about your services, offers and news.", "Prepara publicaciones y textos sobre tus servicios, ofertas y novedades."),
                     ("Prepares AI-presenter videos, labeled as AI.", "Prepara videos con presentador de IA, identificados como IA."),
-                    ("Schedules what you approve on Facebook and Instagram and confirms when it’s live.", "Programa lo que apruebas en Facebook e Instagram y te confirma cuando está publicado."),
+                    ("Schedules what you approve on Facebook and Instagram, and you get a confirmation when it’s live.", "Programa lo que apruebas en Facebook e Instagram, y recibes la confirmación cuando está publicado."),
                 ]},
                 {"title": ("What you approve", "Qué apruebas tú"), "items": [
                     ("Every post, caption and video, before anything is published.", "Cada publicación, texto y video, antes de que se publique."),
@@ -242,7 +242,7 @@ OFFERS.append({
         {"title": ("The inquiry agent", "El agente de consultas"), "steps": [
             ("A customer writes", "At any hour, on WhatsApp, Instagram, Facebook or your website.", "Un cliente escribe", "A cualquier hora, por WhatsApp, Instagram, Facebook o tu página web."),
             ("The agent answers", "With the information you approved, and it asks for the details you need.", "El agente responde", "Con la información que aprobaste, y pide los datos que necesitas."),
-            ("The inquiry is organized", "Name, what they need and the date or estimate they asked for, in one place.", "La consulta queda organizada", "Nombre, qué necesita y la fecha o el presupuesto que pidió, en un solo lugar."),
+            ("The inquiry is organized", "Name, what they need and the date or estimate they asked for, in one place.", "La consulta queda organizada", "Nombre, qué necesita y la fecha o la cotización que pidió, en un solo lugar."),
             ("A person takes over", "When it needs a human, you get an alert with the details already collected.", "Una persona continúa", "Cuando hace falta una persona, te llega un aviso con los datos ya recopilados."),
         ]},
         {"title": ("The content agent", "El agente de contenido"), "steps": [
@@ -685,7 +685,7 @@ def render(offer: dict, lang: str = "en") -> str:
         steps = render_step_groups(offer)
     else:
         steps = '<div class="steps">' + "".join(f'<article class="step"><b>0{i}</b><div><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></div></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer.get("steps", STEPS), 1)) + '</div>'
-    proof = "".join(f'<article class="proof-card"><b>{both("OPERATING PROOF", "PRUEBA OPERATIVA") if i == 1 else both("BUILD PRINCIPLE", "PRINCIPIO DE CONSTRUCCIÓN")}</b><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer.get("proof", []), 1))
+    proof = "".join(f'<article class="proof-card"><b>{both("OPERATING PROOF", "EVIDENCIA OPERATIVA") if i == 1 else both("BUILD PRINCIPLE", "PRINCIPIO DE CONSTRUCCIÓN")}</b><h3>{both(en_t, es_t)}</h3><p>{both(en_d, es_d)}</p></article>' for i, (en_t, en_d, es_t, es_d) in enumerate(offer.get("proof", []), 1))
     faq = "".join(f'<details><summary>{both(en_q, es_q)}</summary><p>{both(en_a, es_a)}</p></details>' for en_q, en_a, es_q, es_a in offer["faq"])
     more_links = []
     for item in OFFERS:
@@ -701,7 +701,9 @@ def render(offer: dict, lang: str = "en") -> str:
         if stages is None:
             signal_es = offer.get("signal_es", offer["signal"])
             stages = list(zip((part.strip() for part in offer["signal"].split("->")), (part.strip() for part in signal_es.split("->"))))
-        visual = '<ol class="service-journey">' + ''.join(f'<li><span class="stage-number" aria-hidden="true">0{i}</span><div>{both(en, es)}</div></li>' for i, (en, es) in enumerate(stages, 1)) + '</ol>'
+        # Equal items (no highlighted last step) when the stages are peers, like the two agents.
+        journey_class = "service-journey service-journey--equal" if offer.get("agents_label") else "service-journey"
+        visual = f'<ol class="{journey_class}">' + ''.join(f'<li><span class="stage-number" aria-hidden="true">0{i}</span><div>{both(en, es)}</div></li>' for i, (en, es) in enumerate(stages, 1)) + '</ol>'
     whatsapp = WHATSAPP_SLUGS[offer["slug"]]
     if offer.get("notes"):
         example_section = render_notes(offer, whatsapp) + render_related(offer)

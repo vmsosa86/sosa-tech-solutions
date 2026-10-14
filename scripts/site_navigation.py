@@ -44,7 +44,7 @@ def render_navigation(service=None, whatsapp="home", current=None, lang="en", pa
               f'<span>{whatsapp_contact.CTAS[lang]}</span></a>')
     home = localize_href("/", lang, pages)
     return f'''<nav class="site-nav" aria-label="{labels['nav']}">
-<a class="site-nav-brand" href="{home}" aria-label="{labels['home']}"><img src="/assets/logo.svg?v=20261013b" width="180" height="46" alt="Sosa Tech Solutions"><span>We build. You grow.</span></a>
+<a class="site-nav-brand" href="{home}" aria-label="{labels['home']}"><img src="/assets/logo.svg?v=20261013b" width="180" height="46" alt="Sosa Tech Solutions"><span lang="en">We build. You grow.</span></a>
 <div class="site-nav-links" id="site-nav-links">{items}</div>
 <div class="site-nav-actions"><div class="site-nav-language" role="group" aria-label="{labels['language']}">{switch_links(page_path, lang)}</div><a class="site-nav-cta" href="{contact}">{escape(labels['contact'])}</a></div>
 <button class="site-nav-toggle" type="button" aria-controls="site-nav-links" aria-expanded="false" aria-label="{labels['open']}" data-label-open="{labels['open']}" data-label-close="{labels['close']}"><span></span><span></span><span></span></button>
