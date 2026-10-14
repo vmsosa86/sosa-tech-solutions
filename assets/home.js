@@ -77,6 +77,42 @@
     const landingPage = form.elements.namedItem('landing_page');
     if (landingPage) landingPage.value = window.location.href;
 
+    // Per-field validation: the error text is rendered in the page language next to each field
+    // (p.field-error, hidden until needed) and also feeds the browser's own validation bubble.
+    const fields = [...form.querySelectorAll('input:not([type="hidden"]):not(.honeypot), select, textarea')];
+    function errorFor(field) {
+      return document.getElementById(`${field.id}-error`);
+    }
+    function markField(field, invalid) {
+      const error = errorFor(field);
+      const describedBy = (field.getAttribute('aria-describedby') || '').split(' ').filter((id) => id && (!error || id !== error.id));
+      if (invalid) {
+        field.setAttribute('aria-invalid', 'true');
+        if (error) {
+          error.hidden = false;
+          describedBy.push(error.id);
+          field.setCustomValidity(error.textContent.trim());
+        }
+      } else {
+        field.removeAttribute('aria-invalid');
+        field.setCustomValidity('');
+        if (error) error.hidden = true;
+      }
+      if (describedBy.length) field.setAttribute('aria-describedby', describedBy.join(' '));
+      else field.removeAttribute('aria-describedby');
+    }
+    function isValid(field) {
+      field.setCustomValidity('');
+      return field.checkValidity();
+    }
+    fields.forEach((field) => {
+      const recheck = () => {
+        if (field.getAttribute('aria-invalid') === 'true' && isValid(field)) markField(field, false);
+      };
+      field.addEventListener('input', recheck);
+      field.addEventListener('change', recheck);
+    });
+
     let submitting = false;
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
@@ -85,12 +121,14 @@
       const honeypot = form.elements.namedItem('botcheck');
       if ((honeypot && honeypot.checked) || Date.now() - formStartedAt < 3000) return;
 
-      const requiredFields = [...form.querySelectorAll('[required]')];
-      requiredFields.forEach((field) => field.removeAttribute('aria-invalid'));
-      const invalid = requiredFields.filter((field) => !field.checkValidity());
+      const invalid = fields.filter((field) => {
+        const bad = !isValid(field);
+        markField(field, bad);
+        return bad;
+      });
       if (invalid.length) {
-        invalid.forEach((field) => field.setAttribute('aria-invalid', 'true'));
         invalid[0].focus();
+        invalid[0].reportValidity();
         return;
       }
 
@@ -102,18 +140,27 @@
         submitButton.textContent = form.dataset.msgSending;
       }
 
+      // The email goes to Victor with every field, including "phone"; an empty optional
+      // email is left out so it is never used as an empty reply-to address.
+      const payload = Object.fromEntries(new FormData(form));
+      if (!String(payload.email || '').trim()) delete payload.email;
+
       try {
         const response = await fetch(form.action, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+          body: JSON.stringify(payload)
         });
         const result = await response.json();
         if (!response.ok || !result.success) throw new Error('Submission failed');
 
         form.hidden = true;
         const success = document.getElementById('form-success');
-        if (success) success.classList.add('show');
+        if (success) {
+          success.classList.add('show');
+          const title = document.getElementById('success-title');
+          if (title) title.focus();
+        }
         if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
       } catch (_) {
         const error = document.createElement('p');

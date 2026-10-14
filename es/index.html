@@ -49,7 +49,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap"/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
   <noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/></noscript>
-  <link rel="stylesheet" href="/assets/home.css?v=20261013g"/>
+  <link rel="stylesheet" href="/assets/home.css?v=20261013h"/>
   <link rel="stylesheet" href="/assets/whatsapp.css?v=2"/>
 
   <!-- Meta Pixel stays disabled until a verified Sosa Tech Solutions Dataset/Pixel is assigned. -->
@@ -247,14 +247,10 @@
           <input class="honeypot" type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true"/>
 
           <div class="field-row">
-            <label><span data-i18n="form.name">Tu nombre</span><input id="f-name" name="name" type="text" autocomplete="name" required data-i18n-placeholder="form.namePh" placeholder="María Rodríguez"/></label>
-            <label><span data-i18n="form.email">Correo electrónico</span><input id="f-email" name="email" type="email" autocomplete="email" required data-i18n-placeholder="form.emailPh" placeholder="tu@tunegocio.com"/></label>
+            <div class="field"><label for="f-name" data-i18n="form.name">Tu nombre</label><input id="f-name" name="name" type="text" autocomplete="name" required data-i18n-placeholder="form.namePh" placeholder="María Rodríguez"/><p class="field-error" id="f-name-error" hidden data-i18n="form.nameError">Escribe tu nombre.</p></div>
+            <div class="field"><label for="f-phone" data-i18n="form.phone">WhatsApp o teléfono</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+\(\)\-. ]{7,24}" data-i18n-placeholder="form.phonePh" placeholder="(305) 555-0123"/><p class="field-error" id="f-phone-error" hidden data-i18n="form.phoneError">Escribe un número de WhatsApp o de teléfono.</p></div>
           </div>
-          <div class="field-row">
-            <label><span data-i18n="form.business">Negocio / industria</span><input id="f-service" name="service" type="text" data-i18n-placeholder="form.businessPh" placeholder="Salón, agencia de viajes, contratista…"/></label>
-            <label><span data-i18n="form.stage">Etapa actual</span><input id="f-budget" name="budget" type="text" data-i18n-placeholder="form.stagePh" placeholder="Explorando, listo para mejorar, no estoy seguro…"/></label>
-          </div>
-          <label><span data-i18n="form.interest">¿En qué puedo ayudarte?</span><select id="f-interest" name="service_interest">
+          <div class="field"><label for="f-interest" data-i18n="form.interest">¿Qué necesitas?</label><select id="f-interest" name="service_interest">
             <option value="" data-i18n="interest.unsure">Todavía no estoy seguro</option>
             <option value="websites" data-i18n="interest.websites">Páginas web</option>
             <option value="marketing" data-i18n="interest.marketing">Anuncios en Facebook e Instagram</option>
@@ -264,13 +260,15 @@
             <option value="agents" data-i18n="interest.agents">Agentes de IA e integraciones a medida</option>
             <option value="ai-spokesperson" data-i18n="interest.ai-spokesperson">Videos con vocero de IA</option>
             <option value="streaming" data-i18n="interest.streaming">Streaming y transmisión</option>
-          </select></label>
-          <label><span data-i18n="form.message">¿Dónde se atasca el proceso?</span><textarea id="f-message" name="message" rows="5" required data-i18n-placeholder="form.messagePh" placeholder="Las consultas llegan por Instagram y WhatsApp, pero el seguimiento es manual…"></textarea></label>
+          </select></div>
+          <div class="field"><label for="f-message" data-i18n="form.message">Mensaje (opcional)</label><textarea id="f-message" name="message" rows="3" data-i18n-placeholder="form.messagePh" placeholder="Tu negocio y en qué parte se atasca el proceso…"></textarea></div>
+          <div class="field field-secondary"><label for="f-email" data-i18n="form.email">Correo (opcional)</label><input id="f-email" name="email" type="email" autocomplete="email" data-i18n-placeholder="form.emailPh" placeholder="tu@tunegocio.com"/><p class="field-error" id="f-email-error" hidden data-i18n="form.emailError">Revisa el correo o déjalo en blanco.</p></div>
           <button class="button button-dark form-submit" id="contact-submit" type="submit" data-i18n="form.submit">Solicitar mi revisión gratuita</button>
           <p class="form-privacy" data-i18n="form.privacy">Al enviar, aceptas nuestra <a href="/es/privacy-policy/">Política de Privacidad</a> y nuestros <a href="/es/terms/">Términos</a>.</p>
         </form>
         <div class="form-success" id="form-success" role="status" aria-live="polite">
-          <span>✓</span><h3 id="success-title" data-i18n="form.successTitle">Mensaje enviado.</h3><p id="success-message" data-i18n="form.successMessage">Responderemos dentro de un día laborable.</p>
+          <span>✓</span><h3 id="success-title" tabindex="-1" data-i18n="form.successTitle">Mensaje enviado.</h3><p id="success-message" data-i18n="form.successMessage">Te responderé en un día laborable.</p>
+          <a class="button button-dark success-whatsapp" href="https://wa.me/13057415702?text=Hola%20Sosa%20Tech%20Solutions%2C%20quiero%20hablar%20sobre%20mi%20negocio.%20%5Bweb-home%5D" data-wa-slug="home" target="_blank" rel="noopener noreferrer"><span data-i18n="form.successWhatsapp">¿Prefieres WhatsApp? Escríbele a Victor ahora</span></a>
         </div>
       </div>
     </section>
@@ -285,7 +283,7 @@
 
   <div class="wa-float"><a class="floating-whatsapp" href="https://wa.me/13057415702?text=Hola%20Sosa%20Tech%20Solutions%2C%20quiero%20hablar%20sobre%20mi%20negocio.%20%5Bweb-home%5D" data-wa-slug="home" target="_blank" rel="noopener noreferrer" aria-label="Escríbele a Sosa Tech Solutions por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.486a.5.5 0 00.619.599l5.79-1.516A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.728 9.728 0 01-4.962-1.357l-.355-.212-3.685.965.983-3.596-.232-.37A9.711 9.711 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg></a></div>
 
-  <script src="/assets/home.js?v=20261013i" defer></script>
+  <script src="/assets/home.js?v=20261013j" defer></script>
   <script src="/assets/whatsapp.js?v=3" defer></script>
 </body>
 </html>

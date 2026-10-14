@@ -276,6 +276,89 @@ def client_work_errors(root: Path) -> List[str]:
     return errors
 
 
+# Homepage contact form (short form, approved 2026-10-13): posts to Web3Forms, which emails Victor
+# every field. Required: name and WhatsApp/phone; email and message are optional.
+CONTACT_PAGES = ("index.html", "es/index.html")
+CONTACT_HIDDEN = ("access_key", "subject", "from_name", "landing_page", "utm_source", "utm_medium",
+                  "utm_campaign", "utm_content", "language")
+CONTACT_FIELDS = {"name", "phone", "service_interest", "message", "email"}
+CONTACT_REQUIRED = {"name", "phone"}
+
+
+class ContactFormParser(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.in_form = False
+        self.success_depth = 0
+        self.controls = []  # type: List[dict]
+        self.label_for = set()  # type: Set[str]
+        self.errors = {}  # type: dict
+        self.success_whatsapp = []  # type: List[dict]
+
+    def handle_starttag(self, tag, attrs):
+        values = dict(attrs)
+        if tag == "form" and values.get("id") == "contact-form":
+            self.in_form = True
+        if self.success_depth and tag == "div":
+            self.success_depth += 1
+        elif tag == "div" and values.get("id") == "form-success":
+            self.success_depth = 1
+        if self.success_depth and tag == "a" and (values.get("href") or "").startswith("https://wa.me/"):
+            self.success_whatsapp.append(values)
+        if not self.in_form:
+            return
+        if tag in {"input", "select", "textarea"}:
+            self.controls.append({"tag": tag, **values})
+        elif tag == "label" and values.get("for"):
+            self.label_for.add(values["for"])
+        elif tag == "p" and "field-error" in (values.get("class") or "").split():
+            self.errors[values.get("id") or ""] = values
+
+    def handle_endtag(self, tag):
+        if tag == "form":
+            self.in_form = False
+        if tag == "div" and self.success_depth:
+            self.success_depth -= 1
+
+
+def contact_form_errors(root: Path) -> List[str]:
+    errors = []  # type: List[str]
+    for rel in CONTACT_PAGES:
+        path = root / rel
+        if not path.exists():
+            continue
+        parser = ContactFormParser()
+        parser.feed(path.read_text(encoding="utf-8"))
+        hidden = [c.get("name") for c in parser.controls if c.get("type") == "hidden"]
+        for name in CONTACT_HIDDEN:
+            if hidden.count(name) != 1:
+                errors.append(f"{rel}: contact form needs exactly one hidden {name!r} field")
+        if not any(c.get("name") == "botcheck" and c.get("type") == "checkbox" for c in parser.controls):
+            errors.append(f"{rel}: contact form lost its botcheck honeypot")
+        visible = [c for c in parser.controls if c.get("type") != "hidden" and c.get("name") != "botcheck"]
+        names = {c.get("name") for c in visible}
+        if names != CONTACT_FIELDS or len(visible) != len(CONTACT_FIELDS):
+            errors.append(f"{rel}: contact form fields must be {sorted(CONTACT_FIELDS)}, found {sorted(n or '' for n in names)}")
+        required = {c.get("name") for c in visible if "required" in c}
+        if required != CONTACT_REQUIRED:
+            errors.append(f"{rel}: contact form required fields must be {sorted(CONTACT_REQUIRED)}, found {sorted(required)}")
+        by_name = {c.get("name"): c for c in visible}
+        phone = by_name.get("phone", {})
+        if (phone.get("type"), phone.get("autocomplete"), phone.get("inputmode")) != ("tel", "tel", "tel"):
+            errors.append(f"{rel}: phone field needs type=tel autocomplete=tel inputmode=tel")
+        if by_name.get("email", {}).get("type") != "email":
+            errors.append(f"{rel}: email field needs type=email")
+        for control in visible:
+            identifier = control.get("id") or ""
+            if not identifier or identifier not in parser.label_for:
+                errors.append(f"{rel}: contact field {control.get('name')!r} needs an id and a <label for>")
+            if ("required" in control or control.get("type") == "email") and "hidden" not in parser.errors.get(f"{identifier}-error", {}):
+                errors.append(f"{rel}: contact field {control.get('name')!r} needs a hidden p.field-error#{identifier}-error")
+        if not any(link.get("data-wa-slug") for link in parser.success_whatsapp):
+            errors.append(f"{rel}: the form success panel needs the page-aware WhatsApp button")
+    return errors
+
+
 # /services/agents/ presents two different agents (approved 2026-10-13). Inquiry replies are not
 # reviewed by the team before sending; only the content agent's work is approved before publishing.
 AGENT_PAGES = {"services/agents/index.html": "", "es/services/agents/index.html": "/es"}
@@ -469,6 +552,7 @@ def main() -> int:
 
     errors.extend(client_work_errors(root))
     errors.extend(agents_page_errors(root))
+    errors.extend(contact_form_errors(root))
     errors.extend(language_checks.site_errors(root, pages))
 
     scripts = sorted(root.glob(PUBLIC_SCRIPTS))

@@ -485,3 +485,12 @@ html{scroll-padding-top:0}section{scroll-margin-top:6.5rem}.brand img{width:180p
 /* Phones: compact side-by-side cards keep six projects to a short scroll. */
 @media(max-width:540px){.project-grid.work-featured{grid-template-columns:minmax(0,1fr);gap:2rem}.work-featured .project-card{display:grid;grid-template-columns:7.25rem minmax(0,1fr);gap:1.1rem;align-items:start}.work-featured .project-copy{padding-top:.1rem}.work-featured .project-copy h3{font-size:1.3rem}.work-featured .project-copy p{font-size:.92rem;line-height:1.55}.work-featured .project-visit{margin-top:.7rem}.quote-strip{margin-top:3rem}}
 @media(prefers-reduced-motion:reduce){.project-image.work-phone img{transition:none}.work-featured .project-card:hover .work-phone img{transform:none}}
+/* Contact form: short form (name, WhatsApp/phone, need, optional message and email) with accessible states. */
+.contact-panel .field{margin-bottom:1rem}.contact-panel .field label{display:block;margin-bottom:0}
+.contact-panel input,.contact-panel select,.contact-panel textarea{border-color:#5a6a7a;scroll-margin-top:7rem}
+.contact-panel input:focus,.contact-panel select:focus,.contact-panel textarea:focus{border-color:var(--cyan-dark);outline:none}
+.contact-panel input:focus-visible,.contact-panel select:focus-visible,.contact-panel textarea:focus-visible{outline:3px solid var(--cyan-dark);outline-offset:2px}
+.contact-panel input::placeholder,.contact-panel textarea::placeholder{color:var(--dark-muted);opacity:1}
+.contact-panel [aria-invalid="true"]{border-color:#9f352f;box-shadow:inset 0 0 0 1px #9f352f}
+.field-error{margin-top:.45rem;font:500 .85rem/1.4 'DM Sans',sans-serif;color:#9f352f}.field-error[hidden]{display:none}
+.success-whatsapp{margin-top:1.6rem;color:var(--white)}
