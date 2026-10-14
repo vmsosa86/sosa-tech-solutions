@@ -137,12 +137,17 @@ def blog_schema(name: str, copy: Dict[str, str], lang: str, path: str) -> dict:
     if name == "index":
         return {"@context": "https://schema.org", "@type": "Blog", "name": BLOG_NAME[lang], "url": url, "inLanguage": lang,
                 "description": copy["metaDesc"], "publisher": publisher}
-    return {
+    posting = {
         "@context": "https://schema.org", "@type": "BlogPosting", "headline": i18n.text_of(copy["title"]), "description": copy["metaDesc"],
         "image": f"{SITE}/og-image-2026-10b.png", "author": {"@type": "Organization", "name": "Sosa Tech Solutions"},
         "publisher": {**publisher, "logo": {"@type": "ImageObject", "url": f"{SITE}/assets/logo-light.png"}},
         "mainEntityOfPage": {"@type": "WebPage", "@id": url}, "inLanguage": lang, "about": BLOG_ABOUT[lang],
     }
+    if "faq.1.q" not in copy:
+        return posting
+    # A post with a visible FAQ (faq.N.q / faq.N.a) also gets its FAQPage, in the page language.
+    del posting["@context"]
+    return {"@context": "https://schema.org", "@graph": [posting, home_faq(copy, lang)]}
 
 
 def blog_pages() -> List[tuple]:

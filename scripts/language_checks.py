@@ -15,7 +15,7 @@
 - JSON-LD inLanguage matches the page, the business @id is unchanged, FAQ questions and
   answers match the visible <details>;
 - the legacy ?lang=es redirect is on every English page; the contact form says its language;
-- starting prices appear only on the two approved pages per language.
+- starting prices appear only on the approved pages (PRICE_PAGES) in each language.
 """
 
 from __future__ import annotations
@@ -66,9 +66,12 @@ ES_WORDS = set("""el la los las de del que y en para con por tu tus un una es su
 cada también te nuestro nuestra sí o antes después puedes tienes necesitas tú ya cuando quién""".split())
 SITE_ORIGINS = ("https://sosatechsolutions.com", "https://www.sosatechsolutions.com",
                 "http://sosatechsolutions.com", "http://www.sosatechsolutions.com")
-# Approved starting prices (2026-10-13): only these pages show them.
-PRICE = re.compile(r"\$500/m|\$1,500")
-PRICE_PAGES = {"index.html", "services/websites/index.html", "es/index.html", "es/services/websites/index.html"}
+# Approved starting prices (2026-10-13): only these pages show them. The two blog posts quote the
+# approved "monthly plans from $500/mo" anchor in their cost sections (2026-10-14).
+PRICE = re.compile(r"\$500(?:/m| al mes)|\$1,500")
+PRICE_PAGES = {"index.html", "services/websites/index.html", "es/index.html", "es/services/websites/index.html",
+               "blog/agente-de-ia-para-whatsapp-en-miami/index.html", "es/blog/agente-de-ia-para-whatsapp-en-miami/index.html",
+               "blog/vocero-con-ia-para-negocios/index.html", "es/blog/vocero-con-ia-para-negocios/index.html"}
 EXPECTED_TYPES = {"home": {"FAQPage"}, "services": {"Service", "FAQPage", "BreadcrumbList"}, "work": {"CollectionPage"},
                   "blog-index": {"Blog"}, "blog-post": {"BlogPosting"}}
 

@@ -18,6 +18,8 @@ Added a blog section to the static Sosa Tech Solutions site:
   - `/blog/por-que-tu-negocio-en-miami-necesita-un-sitio-web-rapido-y-movil/index.html`
   - `/blog/facebook-ads-vs-google-ads-para-negocios-locales/index.html`
   - `/blog/que-es-n8n-y-como-puede-automatizar-tu-negocio/index.html`
+  - `/blog/agente-de-ia-para-whatsapp-en-miami/index.html` (added 2026-10-14)
+  - `/blog/vocero-con-ia-para-negocios/index.html` (added 2026-10-14)
 
 - Updated homepage navigation/footer plus homepage blog preview section:
   - `index.html` links to `/blog/`

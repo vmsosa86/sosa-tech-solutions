@@ -39,6 +39,8 @@ TOPICS = {
     "work": ("a project like the ones I saw on your website", "un proyecto como los que vi en su página web"),
     "infrastructure": ("infrastructure and reliability", "infraestructura y confiabilidad"),
     "blog": ("my business", "mi negocio"),
+    "blog-agente-de-ia-para-whatsapp-en-miami": ("an AI agent for my WhatsApp", "un agente de IA para mi WhatsApp"),
+    "blog-vocero-con-ia-para-negocios": ("AI spokesperson videos for my business", "videos con vocero de IA para mi negocio"),
     "blog-como-la-inteligencia-artificial-puede-automatizar-tu-negocio-en-miami": ("using AI in my business", "usar IA en mi negocio"),
     "blog-automatizacion-de-whatsapp-para-negocios-en-miami": ("WhatsApp automation for my business", "automatizar el WhatsApp de mi negocio"),
     "blog-por-que-tu-negocio-en-miami-necesita-un-sitio-web-rapido-y-movil": ("a faster website for my business", "una página web más rápida para mi negocio"),
