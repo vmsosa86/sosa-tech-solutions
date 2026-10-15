@@ -62,7 +62,14 @@ One URL, one language. Every public page exists twice: English at its current UR
 ### New Spanish strings (2026-10-15, homepage hero, for Victor's approval)
 
 - Hero: "Tu web, anuncios, WhatsApp y contenido. Todo con un solo socio."; "Construyo y manejo la tecnología que le trae clientes a tu negocio, en inglés y español."; trust "Planes desde $500/mes" · "English + Español" · "Trabajas directo con Victor"; "Lo que puedo hacer por tu negocio"; "Desliza".
-- Cards: "Una web que te trae llamadas" ("Páginas web desde $1,500"), "WhatsApp que responde, hasta a las 9:47 p. m." ("Agente de IA 24/7"), "Anuncios que traen consultas reales" ("Facebook e Instagram"), "Posts y Reels cada semana, aprobados por ti" ("Creación de contenido"), "Tu vocero en video, sin equipo de filmación" ("Video con IA", "100% IA"), "Tu emisora en vivo en la web y en apps" ("Radio y streaming", "EN VIVO"); labels "Web de cliente", "Post de cliente", "Ejemplo"; chat example "¡Hola! ¿Abren el sábado?" / "¡Sí, de 9 a 2! ¿Cómo te llamas?"; ad example "Tu negocio", "Publicidad", "Reserva hoy", "Enviar mensaje".
+- Cards (title, line, tag):
+  - "Una web que te trae llamadas" / "Hecha para el celular, en inglés y español, con botones de WhatsApp y de llamada." / "Páginas web desde $1,500".
+  - "WhatsApp que responde, hasta a las 9:47 p. m." / "Responde con lo que tú apruebas y te pasa los datos del cliente." / "Agente de IA 24/7".
+  - "Anuncios que traen consultas reales" / "Conectados a tu web o WhatsApp, para que veas de dónde vienen las consultas." / "Facebook e Instagram".
+  - "Posts y Reels constantes, aprobados por ti" / "Con el estilo de tu marca, en español o inglés. Nada sale sin tu visto bueno." / "Creación de contenido".
+  - "Tu vocero en video, sin equipo de filmación" / "Presentadores realistas con IA y guiones que tú apruebas, en español o inglés." / "Video con IA" ("100% IA"; button "Pausar el video con IA" / "Reproducir el video con IA").
+  - "Tu emisora en vivo en tu web" / "Un reproductor en vivo para tus oyentes, con el streaming y el monitoreo que lo sostienen." / "Radio y streaming" ("EN VIVO").
+- Labels "Web de cliente", "Post de cliente", "Ejemplo"; chat example "¡Hola! ¿Abren el sábado?" / "¡Sí, de 9 a 2! ¿Cómo te llamas?" (9:47 p. m.); ad example "Tu negocio", "Publicidad", "Enviar mensaje".
 
 ### New Spanish strings (2026-10-13, for Victor's approval)
 
