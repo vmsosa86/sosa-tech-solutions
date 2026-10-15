@@ -494,3 +494,189 @@ html{scroll-padding-top:0}section{scroll-margin-top:6.5rem}.brand img{width:180p
 .contact-panel [aria-invalid="true"]{border-color:#9f352f;box-shadow:inset 0 0 0 1px #9f352f}
 .field-error{margin-top:.45rem;font:500 .85rem/1.4 'DM Sans',sans-serif;color:#9f352f}.field-error[hidden]{display:none}
 .success-whatsapp{margin-top:1.6rem;color:var(--white)}
+/* 2026-10-15 service-card hero: copy + six service cards (real work or labeled examples).
+   Desktop (>=1100px) two columns; 600-1099px copy then a card grid; <600px a swipe row.
+   Content is complete without JS; motion is CSS entrance + one chat sequence + a muted AI loop. */
+.hero.hero-has-cards{display:grid;grid-template-columns:minmax(0,1fr);align-items:start;row-gap:0;column-gap:clamp(2.5rem,4.2vw,4.5rem);max-width:1440px;padding:8.6rem var(--pad) 4.5rem}
+.hero-has-cards .hero-copy{max-width:44rem}
+.hero.hero-has-cards h1{font:400 clamp(2.15rem,6.4vw,3.6rem)/1.07 'DM Sans',sans-serif;letter-spacing:-.045em;max-width:21ch;margin:1.15rem 0 1.15rem;text-wrap:balance;overflow-wrap:normal}
+.hero.hero-has-cards h1 em{color:#93a3b1}
+.hero.hero-has-cards .hero-lead{font-size:clamp(1.02rem,1.25vw,1.18rem);line-height:1.6;max-width:34rem}
+.hero.hero-has-cards .hero-actions{margin-top:1.6rem;gap:.75rem 1.2rem}
+.hero.hero-has-cards .trust-list{margin-top:1.35rem;gap:.45rem 1.4rem}
+.hero.hero-has-cards .trust-list li{display:inline-block;font-size:.84rem;color:#a9b6c2}
+.hero.hero-has-cards .trust-list li::before{display:inline-block;content:"";width:.32rem;height:.32rem;margin:0 .45rem 0 0;border-radius:50%;background:var(--cyan);vertical-align:.18em}
+.hero-has-cards .business-journey{grid-column:1/-1;margin-top:4.5rem}
+
+.hero-services{min-width:0;margin-top:2.6rem}
+.hero-services-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:.85rem}
+.hero-services-title{font:400 .9rem/1.4 'DM Sans',sans-serif;letter-spacing:0;color:#a9b6c2}
+.hero-swipe-hint{display:none;align-items:center;gap:.35rem;font:400 .8rem/1.4 'DM Sans',sans-serif;color:#a9b6c2;white-space:nowrap}
+.hero-swipe-arrow{color:var(--cyan)}
+.hero-cards-scroller{min-width:0}
+.hero-cards-scroller:focus-visible{outline:2px solid var(--cyan);outline-offset:-2px;border-radius:1rem}
+.hero-cards{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+
+.hero-card{position:relative;display:flex;flex-direction:column;min-width:0;background:linear-gradient(180deg,#111921,#0c1117 70%);border:1px solid #ffffff17;border-radius:1rem;overflow:hidden;box-shadow:0 1px 0 #ffffff0d inset;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.hero-card:focus-within{border-color:#00e5c880}
+.hero-card-visual{position:relative;flex:none;aspect-ratio:16/10.4;overflow:hidden;background:radial-gradient(120% 95% at 50% 0%,#1a2a32 0%,#0f161d 62%,#0c1117 100%);border-bottom:1px solid #ffffff10}
+.hero-card-body{display:flex;flex-direction:column;flex:1;gap:.3rem;padding:.8rem .9rem .95rem}
+.hero-card-tag{font:500 .66rem/1.35 'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--cyan)}
+.hero-card-title{font:500 1rem/1.28 'DM Sans',sans-serif;letter-spacing:-.012em;color:var(--white);text-wrap:pretty}
+.hero-card-title a{color:inherit;text-decoration:none}
+/* The whole card opens the service page; the headline link stays the only tab stop. */
+.hero-card-title a::after{content:"";position:absolute;inset:0;z-index:2;border-radius:1rem}
+.hero-card-title a:focus-visible{outline:none}
+.hero-card-title a:focus-visible::after{outline:3px solid var(--cyan);outline-offset:-3px}
+.hero-card-text{font-size:.82rem;line-height:1.45;color:#a3b1bd}
+
+/* Labels on the visuals: real client work vs. examples vs. AI (11.2px minimum, readable at every width). */
+.hero-chip{position:absolute;z-index:1;left:.6rem;top:.6rem;display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .55rem;border-radius:2rem;background:#0a0f14d9;border:1px solid #ffffff26;font:500 .7rem/1 'DM Mono',monospace;letter-spacing:.04em;text-transform:uppercase;color:#dbe4ea;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.hero-chip-example{border-style:dashed;border-color:#ffffff4d}
+.hero-chip-ai{background:var(--cyan);border-color:var(--cyan);color:#05110f;font-weight:500}
+.hero-chip-live{background:#0a0f14e6}
+.live-pulse{width:.45rem;height:.45rem;border-radius:50%;background:#ff4d5e;box-shadow:0 0 0 0 #ff4d5e80}
+
+/* Client sites on a phone that rises from the bottom of the visual. Every visual starts its
+   content below the label row (2.35rem), so labels never sit on the real work. */
+.hero-device{position:absolute;left:50%;top:2.35rem;bottom:0;width:52%;transform:translateX(-50%);padding:4px 4px 0;border:1px solid #ffffff26;border-bottom:0;border-radius:.85rem .85rem 0 0;background:#1c262f;box-shadow:0 18px 40px #00000080}
+.hero-device img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:.6rem .6rem 0 0}
+.hero-device-side{left:auto;right:4%;transform:none;width:45%}
+
+/* Chat example: WhatsApp-style colours, no logo. */
+.hero-visual-chat{background:#0b141a radial-gradient(#ffffff0a 1px,transparent 1px) 0 0/14px 14px}
+.chat-thread{position:absolute;left:.65rem;right:.65rem;top:2.35rem;bottom:.65rem;display:flex;flex-direction:column;justify-content:flex-end;gap:.4rem}
+.chat-bubble{position:relative;max-width:88%;padding:.36rem .5rem .32rem;border-radius:.6rem;font:400 .74rem/1.35 'DM Sans',sans-serif;color:#e9edef;box-shadow:0 1px 1px #0000004d}
+.chat-in{align-self:flex-start;background:#202c33;border-top-left-radius:.15rem}
+.chat-out{align-self:flex-end;background:#005c4b;border-top-right-radius:.15rem}
+.chat-time{float:right;margin:.32rem 0 -.08rem .5rem;font-size:.6rem;line-height:1;color:#ffffffa6;white-space:nowrap}
+.chat-out .chat-time{color:#ffffffcc}
+.chat-typing{position:absolute;right:0;bottom:0;display:flex;gap:.22rem;padding:.5rem .6rem;border-radius:.6rem .15rem .6rem .6rem;background:#005c4b;opacity:0}
+.chat-typing i{width:.32rem;height:.32rem;border-radius:50%;background:#e9edefcc}
+
+/* Ad example: a sponsored post that rises from the bottom of the visual; the photo takes all the
+   height under a slim header and carries the message button (no platform logos). */
+.ad-post{position:absolute;left:50%;top:2.35rem;bottom:0;width:min(80%,16rem);transform:translateX(-50%);display:flex;flex-direction:column;overflow:hidden;border-radius:.55rem .55rem 0 0;background:#f4f6f8;color:#111a22;box-shadow:0 14px 30px #0000008c}
+.ad-head{flex:none;display:flex;align-items:center;gap:.35rem;padding:.28rem .45rem}
+.ad-avatar{flex:none;width:.95rem;height:.95rem;border-radius:50%;background:linear-gradient(135deg,var(--cyan),#007e70)}
+.ad-name{display:flex;flex-direction:column;min-width:0;line-height:1.1}
+.ad-name b{font:600 .6rem/1.15 'DM Sans',sans-serif;white-space:nowrap}
+.ad-name small{font:400 .54rem/1.15 'DM Sans',sans-serif;color:#5b6772;white-space:nowrap}
+.ad-media{position:relative;flex:1;min-height:0;background:#cfd6dc}
+.ad-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 32%}
+.ad-button{position:absolute;right:.4rem;bottom:.45rem;padding:.3rem .55rem;border-radius:1rem;background:#fff;color:#111a22;font:600 .62rem/1.2 'DM Sans',sans-serif;white-space:nowrap;box-shadow:0 2px 10px #00000066}
+
+/* Real content: one HEH post on a soft stack. */
+.post-ghost,.post-tile{position:absolute;left:50%;top:2.6rem;width:41%;aspect-ratio:4/5;border-radius:.4rem}
+.post-ghost{transform:translateX(-36%) rotate(7deg);border:1px solid #ffffff2b;background:#ffffff0a}
+.post-tile{height:auto;object-fit:cover;transform:translateX(-62%) rotate(-4deg);box-shadow:0 16px 34px #000000a6;outline:1px solid #ffffff1f}
+
+/* AI spokesperson loop. The still is a lazy <img> on top of the video (a poster attribute would load
+   with high priority, even off-screen); home.js fades it out once the loop is playing. Without JS the
+   still also covers the controls Chrome forces onto videos. */
+.hero-ai-video,.hero-ai-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 24%}
+.hero-ai-video{background:#0c1117}
+.hero-ai-video::-webkit-media-controls{display:none!important}
+.hero-ai-video::-webkit-media-controls-enclosure{display:none!important}
+.hero-ai-poster{transition:opacity .3s ease}
+.hero-visual-ai.is-started .hero-ai-poster{opacity:0}
+/* The Spanish loop frames its presenters lower in the shot. */
+html[lang="es"] .hero-ai-video,html[lang="es"] .hero-ai-poster{object-position:50% 38%}
+.hero-visual-ai::after{content:"";position:absolute;inset:auto 0 0;height:40%;background:linear-gradient(transparent,#0c111799);pointer-events:none}
+.hero-video-toggle{position:absolute;z-index:3;top:.5rem;right:.5rem;display:grid;place-items:center;width:2.4rem;height:2.4rem;padding:0;border:1px solid #ffffff4d;border-radius:50%;background:#0a0f14cc;color:var(--white);cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.hero-video-toggle[hidden]{display:none}
+.hero-video-toggle:hover{background:#0a0f14f2;border-color:var(--cyan)}
+.hero-video-toggle:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.hero-video-toggle::before{content:"";width:.8rem;height:.8rem;background:currentColor;clip-path:polygon(15% 0,100% 50%,15% 100%)}
+.hero-video-toggle[data-state="playing"]::before{clip-path:polygon(8% 0,38% 0,38% 100%,8% 100%,8% 0,62% 0,92% 0,92% 100%,62% 100%,62% 0)}
+@media(forced-colors:active){
+  .hero-video-toggle{border-color:ButtonText}
+  .hero-video-toggle::before{forced-color-adjust:none;background:ButtonText}
+}
+
+/* Radio: client site + a live player motif (short equalizer burst over a LIVE pill). */
+.radio-live{position:absolute;left:.6rem;bottom:.75rem;display:flex;flex-direction:column;align-items:flex-start;gap:.6rem}
+.radio-live .hero-chip{position:static}
+.radio-eq{display:flex;align-items:flex-end;gap:.22rem;height:2.2rem;margin-left:.4rem}
+.radio-eq i{width:.36rem;height:40%;border-radius:.2rem;background:linear-gradient(var(--cyan),#00796b)}
+.radio-eq i:nth-child(2){height:75%}.radio-eq i:nth-child(3){height:55%}.radio-eq i:nth-child(4){height:95%}.radio-eq i:nth-child(5){height:35%}
+
+/* Motion (never with reduced motion): staggered entrance, hover lift, one chat sequence, short live pulses. */
+@media(prefers-reduced-motion:no-preference){
+  .hero-card{animation:hero-card-in .42s cubic-bezier(.2,.7,.2,1) backwards}
+  .hero-card:nth-child(2){animation-delay:.05s}.hero-card:nth-child(3){animation-delay:.1s}.hero-card:nth-child(4){animation-delay:.15s}.hero-card:nth-child(5){animation-delay:.2s}.hero-card:nth-child(6){animation-delay:.25s}
+  @keyframes hero-card-in{from{opacity:0;transform:translateY(14px)}}
+  .hero-visual-chat.is-armed .chat-in,.hero-visual-chat.is-armed .chat-out{opacity:0}
+  .hero-visual-chat.is-playing .chat-in{animation:chat-pop .35s ease-out .15s both}
+  .hero-visual-chat.is-playing .chat-typing{animation:chat-typing 1.5s linear .65s both}
+  .hero-visual-chat.is-playing .chat-typing i{animation:chat-dot .5s ease-in-out .65s 3 alternate both}
+  .hero-visual-chat.is-playing .chat-typing i:nth-child(2){animation-delay:.8s}
+  .hero-visual-chat.is-playing .chat-typing i:nth-child(3){animation-delay:.95s}
+  .hero-visual-chat.is-playing .chat-out{animation:chat-pop .35s ease-out 2.15s both}
+  @keyframes chat-pop{from{opacity:0;transform:translateY(6px) scale(.97)}to{opacity:1;transform:none}}
+  @keyframes chat-typing{0%{opacity:0}8%,90%{opacity:1}100%{opacity:0}}
+  @keyframes chat-dot{from{transform:translateY(0);opacity:.55}to{transform:translateY(-3px);opacity:1}}
+  .live-pulse{animation:live-pulse 1.2s ease-out .6s 3}
+  @keyframes live-pulse{to{box-shadow:0 0 0 .45rem #ff4d5e00}}
+  .radio-eq i{transform-origin:bottom;animation:radio-eq .55s ease-in-out .7s 4 alternate}
+  .radio-eq i:nth-child(2){animation-delay:.8s}.radio-eq i:nth-child(3){animation-delay:.9s}.radio-eq i:nth-child(4){animation-delay:.75s}.radio-eq i:nth-child(5){animation-delay:.85s}
+  @keyframes radio-eq{to{transform:scaleY(.45)}}
+}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  .hero-card:hover{transform:translateY(-4px);border-color:#00e5c866;box-shadow:0 1px 0 #ffffff0d inset,0 20px 44px #00000080}
+}
+
+/* Wide screens: copy left, 3x2 cards right (equal rows). The two buttons stack at one width so the
+   action block looks the same at every desktop width; the text link sits under them. */
+@media(min-width:1100px){
+  .hero.hero-has-cards{grid-template-columns:minmax(0,clamp(24rem,35vw,32.5rem)) minmax(0,1fr);align-items:center;padding-top:8.4rem}
+  .hero.hero-has-cards h1{font-size:clamp(2.55rem,3.45vw,3.45rem);max-width:none}
+  .hero.hero-has-cards .hero-actions{display:grid;grid-template-columns:minmax(0,21rem);gap:.7rem}
+  .hero.hero-has-cards .hero-actions .button{width:100%}
+  .hero.hero-has-cards .hero-actions .text-link{justify-self:start;padding-top:.35rem}
+  .hero-services{margin-top:.15rem}
+  .hero-card-visual{aspect-ratio:16/11.2}
+}
+/* Narrow desktops: a little more height for the visuals so the chat and the ad photo fit. */
+@media(min-width:1100px) and (max-width:1365px){.hero-card-visual{aspect-ratio:16/12}}
+@media(min-width:1100px) and (max-width:1279px){
+  .hero.hero-has-cards{grid-template-columns:minmax(0,21.5rem) minmax(0,1fr);column-gap:2.5rem}
+  .hero.hero-has-cards h1{font-size:2.55rem}
+}
+/* Narrow desktops: slightly tighter card type so the six cards keep even line counts. */
+@media(min-width:1100px) and (max-width:1365px){
+  .hero-card-body{padding:.7rem .75rem .85rem}
+  .chat-bubble{font-size:.68rem}
+  .hero-card-title{font-size:.94rem}
+  .hero-card-text{font-size:.78rem}
+}
+/* Tablets: copy, then a 3-column (or 2-column) grid. */
+@media(min-width:600px) and (max-width:1099px){
+  .hero.hero-has-cards{padding-top:8.2rem}
+  .hero.hero-has-cards h1{max-width:20ch}
+}
+@media(min-width:600px){.hero-cards{grid-auto-rows:1fr}}
+@media(min-width:600px) and (max-width:759px){.hero-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Phones: copy and actions first, then a swipe row (next card peeks, 16px gutters, never auto-advances). */
+@media(max-width:599px){
+  .hero.hero-has-cards{padding:6.75rem 1rem 3.2rem}
+  .hero.hero-has-cards h1{font-size:clamp(2rem,8.8vw,2.45rem);line-height:1.1;margin:.9rem 0 .9rem}
+  .hero.hero-has-cards .hero-lead{font-size:1rem;line-height:1.55}
+  .hero.hero-has-cards .hero-actions{margin-top:1.3rem;gap:.6rem}
+  .hero.hero-has-cards .hero-actions .text-link{padding-top:.5rem}
+  .hero.hero-has-cards .trust-list{margin-top:1rem;gap:.35rem 1rem}
+  .hero.hero-has-cards .trust-list li{font-size:.8rem}
+  .hero-services{margin-top:1.8rem}
+  .hero-services-head{margin-bottom:.7rem}
+  .hero-services-title{font-size:.86rem}
+  .hero-swipe-hint{display:inline-flex}
+  .hero-cards-scroller{margin:0 -1rem;padding:0 0 .35rem 1rem;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding:0 1rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .hero-cards-scroller::-webkit-scrollbar{display:none}
+  /* The list is as wide as its cards and carries the 16px end gutter itself (a scroller's own end
+     padding is not added after overflowing grid items in every browser). */
+  .hero-cards{width:max-content;padding-inline-end:1rem;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(calc((100vw - 2rem) * .84),20rem);gap:.75rem}
+  .hero-card{scroll-snap-align:start}
+  .hero-card-title{font-size:1.04rem}
+  .hero-has-cards .business-journey{margin-top:3.5rem}
+}
+@media(prefers-reduced-motion:reduce){.hero-card,.hero-ai-poster{transition:none}.hero-cards-scroller{scroll-behavior:auto}}
