@@ -85,6 +85,9 @@
       let visible = !canObserve;
       let loaded = document.readyState === 'complete';
       video.muted = true;
+      // The still (a lazy <img> above the video) fades out once the loop shows real frames.
+      const aiVisual = video.closest('.hero-visual-ai');
+      video.addEventListener('playing', () => { if (aiVisual) aiVisual.classList.add('is-started'); }, { once: true });
 
       const render = () => {
         toggle.dataset.state = wanted ? 'playing' : 'paused';
@@ -122,15 +125,25 @@
     }
 
     // Phones: the cards are a swipe row. While it scrolls sideways it is also a tab stop,
-    // so arrow keys can move it (the card links scroll into view on focus as well).
+    // so arrow keys can move it, and a card whose link (or video button) gets keyboard focus
+    // scrolls fully into view (the browser alone stops once a sliver of the link shows).
     const scroller = document.querySelector('.hero-cards-scroller');
     if (scroller) {
+      const scrolls = () => scroller.scrollWidth > scroller.clientWidth + 1;
       const updateScroller = () => {
-        if (scroller.scrollWidth > scroller.clientWidth + 1) scroller.setAttribute('tabindex', '0');
+        if (scrolls()) scroller.setAttribute('tabindex', '0');
         else scroller.removeAttribute('tabindex');
       };
       updateScroller();
       window.addEventListener('resize', updateScroller, { passive: true });
+      heroCards.addEventListener('focusin', (event) => {
+        const card = event.target.closest('.hero-card');
+        if (!card || !scrolls()) return;
+        const box = card.getBoundingClientRect();
+        const view = scroller.getBoundingClientRect();
+        if (box.left >= view.left - 1 && box.right <= view.right + 1) return;
+        card.scrollIntoView({ block: 'nearest', inline: 'start', behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      });
     }
   }
 
