@@ -52,6 +52,88 @@
     document.querySelectorAll('.reveal').forEach((element) => element.classList.add('is-visible'));
   }
 
+  // Hero service cards (2026-10-15). Everything is readable without this script: it only
+  // replays the chat example once in view, runs the muted AI loop and lets the phone row
+  // scroll by keyboard.
+  const heroCards = document.querySelector('.hero-cards');
+  if (heroCards) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const canObserve = 'IntersectionObserver' in window;
+
+    // Chat example: hide the bubbles only when the sequence can play, then play it once
+    // when the card is in view; it rests on the final state (CSS does the timing, < 3 s).
+    const chat = heroCards.querySelector('.hero-visual-chat');
+    if (chat && canObserve && !reduceMotion.matches) {
+      chat.classList.add('is-armed');
+      const chatObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          chat.classList.add('is-playing');
+          chatObserver.disconnect();
+        }
+      }, { threshold: 0.6 });
+      chatObserver.observe(chat);
+    }
+
+    // AI spokesperson loop: preload="none", so nothing downloads until play(). It plays only
+    // after the page has loaded, while the card is on screen, and never with reduced motion or
+    // Save-Data (the visitor can still press play). The button pauses/plays it (WCAG 2.2.2).
+    const video = heroCards.querySelector('.hero-ai-video');
+    const toggle = heroCards.querySelector('.hero-video-toggle');
+    if (video && toggle) {
+      const saveData = Boolean(navigator.connection && navigator.connection.saveData);
+      let wanted = !reduceMotion.matches && !saveData;
+      let visible = !canObserve;
+      let loaded = document.readyState === 'complete';
+      video.muted = true;
+
+      const render = () => {
+        toggle.dataset.state = wanted ? 'playing' : 'paused';
+        toggle.setAttribute('aria-label', wanted ? toggle.dataset.labelPause : toggle.dataset.labelPlay);
+      };
+      const sync = () => {
+        if (wanted && visible && loaded) {
+          if (video.paused) {
+            const attempt = video.play();
+            if (attempt && typeof attempt.catch === 'function') {
+              attempt.catch(() => { wanted = false; render(); });
+            }
+          }
+        } else if (!video.paused) {
+          video.pause();
+        }
+        render();
+      };
+
+      toggle.hidden = false;
+      toggle.addEventListener('click', () => { wanted = !wanted; sync(); });
+      if (typeof reduceMotion.addEventListener === 'function') {
+        reduceMotion.addEventListener('change', () => { if (reduceMotion.matches) { wanted = false; sync(); } });
+      }
+      if (canObserve) {
+        new IntersectionObserver((entries) => {
+          visible = entries[entries.length - 1].isIntersecting;
+          sync();
+        }, { threshold: 0.35 }).observe(video);
+      }
+      if (!loaded) {
+        window.addEventListener('load', () => { loaded = true; sync(); }, { once: true });
+      }
+      render();
+    }
+
+    // Phones: the cards are a swipe row. While it scrolls sideways it is also a tab stop,
+    // so arrow keys can move it (the card links scroll into view on focus as well).
+    const scroller = document.querySelector('.hero-cards-scroller');
+    if (scroller) {
+      const updateScroller = () => {
+        if (scroller.scrollWidth > scroller.clientWidth + 1) scroller.setAttribute('tabindex', '0');
+        else scroller.removeAttribute('tabindex');
+      };
+      updateScroller();
+      window.addEventListener('resize', updateScroller, { passive: true });
+    }
+  }
+
   const form = document.getElementById('contact-form');
   const formStartedAt = Date.now();
   if (form) {
